@@ -7,7 +7,7 @@ permalink: /about/
 <div class="prose">
   <h1>About</h1>
   <p>
-    Write 6–10 lines: what you care about, what you’ve done, and what you want next.
+    I'm Tianyue Yang, a current Master's student in Physics at Cambridge University.
   </p>
 
   <h2>Experience</h2>
