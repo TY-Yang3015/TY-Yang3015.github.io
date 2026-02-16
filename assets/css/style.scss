@@ -1,12 +1,12 @@
 ---
 ---
 /* =========================================================
-   FUTURISTIC PROFESSIONAL: BLACK + NEON RED (NO ANIMATION)
-   Save as: assets/css/style.scss
-   Requires: <body class="cyber"> in _layouts/default.html
+   PROFESSIONAL FUTURISTIC: BLACK + NEON RED (NO ANIMATION)
+   Drop-in file: assets/css/style.scss
+   Works best with: <body class="cyber"> in _layouts/default.html
    ========================================================= */
 
-/* Hard fallback (even if theme fights you) */
+/* Hard fallback (protect against theme overrides) */
 html, body {
   margin: 0;
   padding: 0;
@@ -16,31 +16,30 @@ html, body {
 
 * { box-sizing: border-box; }
 
-/* -------------------------
-   Body + theme variables
--------------------------- */
 body.cyber {
-  /* Background / text */
+  /* Core palette */
   --bg: #05030a;
   --bg2: #0b0614;
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.72);
+  --muted: rgba(255,255,255,0.70);
 
-  /* Professional neon red accents */
-  --red:  #ff1a1a;
-  --red2: #ff4d4d;
+  /* Accent: RED (replace pink) */
+  --accent: #ff1a1a;         /* neon red */
+  --accent2: #ff4d4d;        /* softer red */
+  --accentSoft: rgba(255, 26, 26, 0.14);
 
   /* Geometry / feel */
-  --radius: 6px;  /* sharp */
-  --cut: 10px;    /* cut-corner size */
+  --radius: 6px;             /* sharp */
+  --cut: 10px;               /* cut-corner size (lower = sharper) */
   --border: rgba(255,255,255,0.12);
   --panel: rgba(255,255,255,0.04);
   --shadow: 0 22px 80px rgba(0,0,0,0.65);
   --max: 1040px;
 
-  /* Home hero sizing (smaller box) */
-  --hero-max: 820px; /* ↓ makes the home box smaller */
-  --hero-pad: 20px;  /* ↓ smaller padding inside */
+  /* Make the HOME hero box smaller */
+  --heroMax: 840px;          /* max width of hero on home */
+  --heroPad: 18px;           /* less padding */
+  --heroPadMobile: 16px;
 
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -49,27 +48,28 @@ body.cyber {
   background: var(--bg) !important;
   color: var(--text) !important;
 
+  /* Clean futuristic glow (red) */
   background:
-    radial-gradient(900px 600px at 12% 0%, rgba(255, 26, 26, 0.20), transparent 62%),
-    radial-gradient(900px 700px at 88% 10%, rgba(255, 26, 26, 0.10), transparent 60%),
+    radial-gradient(900px 600px at 12% 0%, rgba(255,26,26,0.20), transparent 62%),
+    radial-gradient(900px 700px at 88% 10%, rgba(255,26,26,0.12), transparent 60%),
     linear-gradient(180deg, #04020a 0%, #070312 65%, #04020a 100%) !important;
 }
 
-/* Subtle grid overlay (static + professional) */
+/* Subtle grid overlay (professional = keep it subtle) */
 body.cyber::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.14;
+  opacity: 0.16;
   background-image:
-    linear-gradient(to right, rgba(255, 26, 26, 0.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 26, 26, 0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(60% 50% at 50% 20%, black 40%, transparent 75%);
+    linear-gradient(to right, rgba(255,26,26,0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,26,26,0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(60% 50% at 50% 20%, black 38%, transparent 78%);
 }
 
-/* Very subtle scanlines (static) */
+/* Very light scanlines (optional but subtle) */
 body.cyber::after {
   content: "";
   position: fixed;
@@ -85,31 +85,22 @@ body.cyber::after {
   );
 }
 
-/* -------------------------
-   Basics
--------------------------- */
+/* Links */
 body.cyber a { color: inherit; text-decoration: none; }
 body.cyber a:hover { text-decoration: none; }
 
-body.cyber .container {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 18px;
-}
+/* Layout */
+body.cyber .container { max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+body.cyber main { padding: 42px 0 68px; }
 
-/* Main spacing (slightly tighter = more “professional”) */
-body.cyber main { padding: 36px 0 64px; }
-
-/* -------------------------
-   Header
--------------------------- */
+/* Header */
 body.cyber .header {
   position: sticky;
   top: 0;
   z-index: 50;
   backdrop-filter: blur(14px);
   background: rgba(5,3,10,0.74);
-  border-bottom: 1px solid rgba(255, 26, 26, 0.18);
+  border-bottom: 1px solid rgba(255,26,26,0.22);
 }
 body.cyber .header-inner {
   display: flex;
@@ -122,8 +113,8 @@ body.cyber .brand {
   letter-spacing: -0.02em;
 }
 body.cyber .brand:hover {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 0 18px rgba(255, 26, 26, 0.28);
+  color: var(--accent2);
+  text-shadow: 0 0 16px rgba(255,26,26,0.35);
 }
 
 body.cyber .nav { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -135,16 +126,224 @@ body.cyber .nav-link {
 }
 body.cyber .nav-link:hover {
   color: var(--text);
-  border-color: rgba(255, 26, 26, 0.35);
-  background: rgba(255, 26, 26, 0.06);
-  box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.08);
+  border-color: rgba(255,26,26,0.40);
+  background: rgba(255,26,26,0.07);
+  box-shadow: 0 0 0 3px rgba(255,26,26,0.08);
 }
 
-/* -------------------------
-   Typography
--------------------------- */
+/* Typography */
 body.cyber .kicker {
   font-family: var(--mono);
   font-size: 12px;
   color: rgba(255,255,255,0.72);
-  letter-spacing
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body.cyber h1 {
+  margin: 10px 0 10px;
+  font-size: clamp(30px, 4.0vw, 48px);
+  letter-spacing: -0.03em;
+  line-height: 1.07;
+}
+body.cyber .lead {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+/* Buttons */
+body.cyber .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+
+body.cyber .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-weight: 700;
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+body.cyber .btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,26,26,0.55);
+  box-shadow:
+    0 0 0 3px rgba(255,26,26,0.09),
+    0 14px 46px rgba(255,26,26,0.10);
+  background: rgba(255,26,26,0.06);
+}
+body.cyber .btn.primary {
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #05030a;
+  box-shadow: 0 14px 44px rgba(255,26,26,0.16);
+}
+body.cyber .btn.ghost {
+  background: transparent;
+  border-color: rgba(255,26,26,0.35);
+}
+
+/* Cut-corner polygon helper */
+@function cutpoly($c) {
+  @return polygon(
+    #{$c} 0, calc(100% - #{$c}) 0,
+    100% #{$c}, 100% calc(100% - #{$c}),
+    calc(100% - #{$c}) 100%, #{$c} 100%,
+    0 calc(100% - #{$c}), 0 #{$c}
+  );
+}
+
+/* Hero: smaller box + professional look */
+body.cyber .hero {
+  position: relative;
+  overflow: hidden;
+
+  /* Smaller home box: centered and capped */
+  max-width: var(--heroMax);
+  margin: 0 auto;
+
+  padding: var(--heroPad);
+
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,26,26,0.35);
+
+  background:
+    radial-gradient(760px 220px at 30% 0%, rgba(255,26,26,0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,26,26,0.08), rgba(255,255,255,0.02)),
+    rgba(255,255,255,0.02);
+
+  box-shadow: var(--shadow);
+
+  clip-path: cutpoly(var(--cut));
+}
+
+/* Static neon bloom (no animation) */
+body.cyber .hero::before {
+  content: "";
+  position: absolute;
+  inset: -140px;
+  background: conic-gradient(
+    from 180deg,
+    transparent,
+    rgba(255,26,26,0.70),
+    transparent,
+    rgba(255,77,77,0.55),
+    transparent
+  );
+  filter: blur(30px);
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+/* Inner crisp border (professional, no frills) */
+body.cyber .hero::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: calc(var(--radius) - 2px);
+  opacity: 0.95;
+}
+
+/* Cards */
+body.cyber .grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(12, 1fr);
+  margin-top: 18px;
+}
+
+body.cyber .card {
+  grid-column: span 6;
+  position: relative;
+  overflow: hidden;
+
+  padding: 18px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,26,26,0.20);
+
+  background:
+    radial-gradient(700px 220px at 20% 0%, rgba(255,26,26,0.08), transparent 60%),
+    rgba(255,255,255,0.03);
+
+  box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+
+  clip-path: cutpoly(var(--cut));
+}
+
+body.cyber .card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,26,26,0.45);
+  background: rgba(255,26,26,0.04);
+  box-shadow: 0 18px 60px rgba(255,26,26,0.07);
+}
+
+body.cyber .card h3 { margin: 0 0 6px; letter-spacing: -0.01em; }
+body.cyber .card p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+/* Card inner border */
+body.cyber .card::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: calc(var(--radius) - 2px);
+  opacity: 0.9;
+}
+
+/* Badges */
+body.cyber .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+body.cyber .badge {
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,26,26,0.28);
+  color: rgba(255,255,255,0.78);
+  background: rgba(255,26,26,0.06);
+}
+
+/* Prose */
+body.cyber .prose { max-width: 75ch; }
+body.cyber .prose p,
+body.cyber .prose li {
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 16px;
+}
+body.cyber .prose a {
+  color: rgba(255,77,77,0.96);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+body.cyber .prose a:hover { color: var(--accent2); }
+
+body.cyber hr {
+  border: 0;
+  border-top: 1px solid rgba(255,26,26,0.18);
+  margin: 26px 0;
+}
+
+/* Footer */
+body.cyber .footer {
+  border-top: 1px solid rgba(255,26,26,0.18);
+  padding: 26px 0 40px;
+  color: rgba(255,255,255,0.70);
+}
+body.cyber .footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  body.cyber .card { grid-column: span 12; }
+  body.cyber .hero { padding: var(--heroPadMobile); }
+}
