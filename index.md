@@ -23,7 +23,7 @@ title: Home
 <div class="grid">
   <div class="card">
     <h3>Specialise in Artificial Intelligence</h3>
-    <p>Focus on generative modelling, and AI4Science (AI4CFD, AI4Chem). I'm always inspired by
+    <p>Focus on generative modelling and AI4Science (AI4CFD, AI4Chem). I'm always inspired by
     physics!'</p>
   </div>
 

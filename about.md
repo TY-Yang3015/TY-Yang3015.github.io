@@ -12,7 +12,7 @@ permalink: /about/
 
   <h2>Experience</h2>
   <ul>
-    <li><strong>Summer Research Internship</strong> — Singapore Agency for Science, Technology and Research (ASATR), IHPC. (Jun - Aug 2024)</li>
+    <li><strong>Summer Research Internship</strong> — Singapore Agency for Science, Technology and Research (ASTAR), IHPC. (Jun - Aug 2024)</li>
     <li><strong>Research Internship</strong> — Imperial College London, Department of Physics. (Aug - Oct 2024)</li>
     <li><strong>Research Internship</strong> — University College London, Centre for Computational Science. (Jun 2025 - present)</li>
     <li><strong>Research Internship</strong> — The Chinese University of Hong Kong, Department of Computer Science and Engineering. (Jul 2025 - present)</li>

@@ -1,9 +1,9 @@
-- name: "Project One"
-  description: "One sentence: what it does and why it matters."
-  link: "https://github.com/YOURUSERNAME/project-one"
-  tags: ["React", "API", "UI"]
+- name: "Fleiadex"
+  description: "Latent Diffusion models in JAX for Weather Forecasting"
+  link: "https://github.com/TY-Yang3015/fleiadex"
+  tags: ["Diffusion", "AI4CFD", "Generative Modelling"]
 
-- name: "Project Two"
-  description: "One sentence: impact, results, or tech highlight."
-  link: "https://yourproject.com"
-  tags: ["Python", "Automation", "Data"]
+- name: "PsiFlax"
+  description: "Flax implementation of Deep Quantum VMC"
+  link: "https://github.com/TY-Yang3015/PsiFlax"
+  tags: ["Transformers", "AI4Chem"]
