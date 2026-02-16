@@ -1,0 +1,9 @@
+- name: "Project One"
+  description: "One sentence: what it does and why it matters."
+  link: "https://github.com/YOURUSERNAME/project-one"
+  tags: ["React", "API", "UI"]
+
+- name: "Project Two"
+  description: "One sentence: impact, results, or tech highlight."
+  link: "https://yourproject.com"
+  tags: ["Python", "Automation", "Data"]

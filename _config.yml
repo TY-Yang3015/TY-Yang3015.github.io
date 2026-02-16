@@ -1,3 +1,25 @@
-theme: minima
-title: Your Name
-description: Portfolio and blog
+title: "Your Name"
+description: "Portfolio • Writing • Contact"
+url: "https://YOURUSERNAME.github.io"   # user site
+baseurl: ""                             # project site: "/repo-name"
+timezone: Europe/London
+
+# Use these layouts/styles (no theme)
+markdown: kramdown
+
+# Nice permalinks for posts
+permalink: /blog/:year/:month/:day/:title/
+
+# Optional: show excerpts on blog listing
+excerpt_separator: "<!--more-->"
+
+# Simple nav config (used by header)
+nav:
+  - name: "Projects"
+    link: "/projects/"
+  - name: "About"
+    link: "/about/"
+  - name: "Blog"
+    link: "/blog/"
+  - name: "Contact"
+    link: "mailto:you@example.com"
