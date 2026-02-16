@@ -5,7 +5,9 @@ title: Home
 
 <div class="hero">
   <div class="kicker">AVAILABLE FOR • Freelance • Full-time • Collaborations</div>
-  <h1>Hi, I’m Your Name — I build useful things on the web.</h1>
+  <h1 class="glitch" data-text="Hi, I’m Your Name — I build useful things on the web.">
+  Hi, I’m Your Name — I build useful things on the web.
+</h1>
   <p class="lead">
     Short bio: what you do, what you’re great at, and what you’re looking for.
     Add 1–2 proof points (e.g., “I’ve shipped X, worked on Y, care about Z.”).
