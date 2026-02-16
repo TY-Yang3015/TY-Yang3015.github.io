@@ -1,6 +1,6 @@
-title: "Your Name"
-description: "Portfolio • Writing • Contact"
-url: "https://YOURUSERNAME.github.io"   # user site
+title: "Tianyue Yang"
+description: "Tianyue's Personal Site"
+url: "https://ty-yang3015.github.io/"   # user site
 baseurl: ""                             # project site: "/repo-name"
 timezone: Europe/London
 
@@ -22,4 +22,4 @@ nav:
   - name: "Blog"
     link: "/blog/"
   - name: "Contact"
-    link: "mailto:you@example.com"
+    link: "mailto:15210283759a@gmail.com"
