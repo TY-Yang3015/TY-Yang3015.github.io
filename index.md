@@ -46,7 +46,7 @@ title: Home
   </p>
   <ul>
     <li><a href="https://github.com/TY-Yang3015/PsiFlax">PsiFlax - Deep QMC Framework in JAX + Flax</a></li>
-    <li><a href="https://github.com/TY-Yang3015/fleiadex">Fleiadex: Latent Diffusion Models in JAX</a></li>
+    <li><a href="https://github.com/TY-Yang3015/fleiadex">Fleiadex - Latent Diffusion Models in JAX</a></li>
     <li><a href="{{ '/projects/' | relative_url }}">See the project page for more ✦</a></li>
   </ul>
 </div>
