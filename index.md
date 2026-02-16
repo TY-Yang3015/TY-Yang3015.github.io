@@ -40,6 +40,15 @@ title: Home
 <hr />
 
 <div class="prose">
+  <h2>Selected Publications ★</h2>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2509.01293">Equivariant U-shaped Neural Op
+      erators for the Cahn-hilliard Phase-field Model; Xue, X., ten Eikelder, M. F., <strong>Yang, T.<\strong>, Li, Y., He, K., Wang,
+      S., and Coveney, P. V. </a></li>
+  </ul>
+</div>
+
+<div class="prose">
   <h2>Project Links ♪</h2>
   <p>
     Past projects I've been working on!
