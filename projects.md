@@ -6,7 +6,7 @@ permalink: /projects/
 
 <div class="prose">
   <h1>Projects</h1>
-  <p>A curated list — keep it small and strong (3–8 items).</p>
+  <p>Projects I worked on...</p>
 </div>
 
 <div class="grid">
