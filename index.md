@@ -4,13 +4,13 @@ title: Home
 ---
 
 <div class="hero">
-  <div class="kicker">AVAILABLE FOR • Freelance • Full-time • Collaborations</div>
+  <div class="kicker">AI • Physics • Chemistry</div>
   <h1 class="glitch" data-text="Hi, I’m Your Name — I build useful things on the web.">
-  Hi, I’m Your Name — I build useful things on the web.
+  Tianyue Yang.
 </h1>
   <p class="lead">
-    Short bio: what you do, what you’re great at, and what you’re looking for.
-    Add 1–2 proof points (e.g., “I’ve shipped X, worked on Y, care about Z.”).
+    I have done my undergraduate and Master in Physics, and focus on applying and developing generative modelling techiniques
+    in the field of science and artificial intelligence.
   </p>
 
   <div class="cta">
@@ -26,11 +26,6 @@ title: Home
     <h3>Specialise in Artificial Intelligence</h3>
     <p>Focus on generative modelling, and AI4Science (AI4CFD, AI4Chem). I'm always inspired by
     physics!'</p>
-    <div class="badges">
-      <span class="badge">JavaScript</span>
-      <span class="badge">React</span>
-      <span class="badge">Design Systems</span>
-    </div>
   </div>
 
   <div class="card">
@@ -38,11 +33,6 @@ title: Home
     <p>Under the supervision of Prof. Peter Coveney, Dr. Xiao Xue and Dr. Shengchao Liu, I focus on
     applying generative modelling in Computational Fluid Dynamics (CFD) and develop
     new generative methodologies inpired by physics.</p>
-    <div class="badges">
-      <span class="badge">Open Source</span>
-      <span class="badge">Writing</span>
-      <span class="badge">Speaking</span>
-    </div>
   </div>
 </div>
 
