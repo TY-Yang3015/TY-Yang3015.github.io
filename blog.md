@@ -6,8 +6,6 @@ permalink: /blog/
 
 <div class="prose">
   <h1>Blog</h1>
-  <p>Short posts about what you’re building and learning.</p>
-
   <ul>
     {% for post in site.posts %}
       <li>
