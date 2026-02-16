@@ -15,16 +15,17 @@ title: Home
 
   <div class="cta">
     <a class="btn primary" href="{{ '/projects/' | relative_url }}">View Projects</a>
-    <a class="btn good" href="mailto:you@example.com">Email Me</a>
-    <a class="btn" href="https://github.com/YOURUSERNAME">GitHub</a>
-    <a class="btn" href="/assets/YourName-CV.pdf">Download CV</a>
+    <a class="btn good" href="mailto:15210283759a@gmail.com">Email Me</a>
+    <a class="btn" href="https://github.com/TY-Yang3015">GitHub</a>
+    <a class="btn" href="/assets/cv.pdf">Download CV</a>
   </div>
 </div>
 
 <div class="grid">
   <div class="card">
-    <h3>What I do</h3>
-    <p>Pick 2–3 specialties: e.g. front-end engineering, data visualization, UX.</p>
+    <h3>Specialise in Artificial Intelligence</h3>
+    <p>Focus on generative modelling, and AI4Science (AI4CFD, AI4Chem). I'm always inspired by
+    physics!'</p>
     <div class="badges">
       <span class="badge">JavaScript</span>
       <span class="badge">React</span>
@@ -33,8 +34,10 @@ title: Home
   </div>
 
   <div class="card">
-    <h3>Currently</h3>
-    <p>What you’re working on right now, your focus, or what you’re learning.</p>
+    <h3>Currently Doing Research Assistant at CCS@UCL and DCE@CUHK</h3>
+    <p>Under the supervision of Prof. Peter Coveney, Dr. Xiao Xue and Dr. Shengchao Liu, I focus on
+    applying generative modelling in Computational Fluid Dynamics (CFD) and develop
+    new generative methodologies inpired by physics.</p>
     <div class="badges">
       <span class="badge">Open Source</span>
       <span class="badge">Writing</span>
@@ -46,13 +49,13 @@ title: Home
 <hr />
 
 <div class="prose">
-  <h2>Featured</h2>
+  <h2>Project Links ♪</h2>
   <p>
-    Add 2–3 highlights with links (best project, best article, best talk).
+    Past Projects I've been working on!
   </p>
   <ul>
-    <li><a href="{{ '/projects/' | relative_url }}">Project: Something impressive</a></li>
-    <li><a href="{{ '/blog/' | relative_url }}">Article: A helpful post</a></li>
-    <li><a href="https://www.linkedin.com/in/YOURNAME/">LinkedIn</a></li>
+    <li><a href="https://github.com/TY-Yang3015/PsiFlax">PsiFlax - Deep QMC Framework in JAX + Flax</a></li>
+    <li><a href="https://github.com/TY-Yang3015/fleiadex">Fleiadex: Latent Diffusion Models in JAX</a></li>
+    <li><a href="{{ '/projects/' | relative_url }}">See the project Block for more ✦</a></li>
   </ul>
 </div>
