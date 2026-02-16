@@ -1,63 +1,57 @@
 ---
 ---
+/* =========================================================
+   FUTURISTIC LOLITA: INTENSE PINK + BLACK (NO ANIMATION)
+   Save as: assets/css/style.scss
+   Requires: <body class="cyber"> in _layouts/default.html
+   ========================================================= */
 
+/* Hard fallback (even if theme fights you) */
 html, body {
+  margin: 0;
+  padding: 0;
   background: #05030a !important;
   color: rgba(255,255,255,0.92) !important;
 }
+
+* { box-sizing: border-box; }
+
 body.cyber {
-  background: #05030a !important;
-  color: rgba(255,255,255,0.92) !important;
-}
-
-
-/* =========================
-   CYBERPUNK / FUTURISTIC THEME
-   ========================= */
-
-.cyber {
+  /* Theme */
   --bg: #05030a;
   --bg2: #0b0614;
   --text: rgba(255,255,255,0.92);
   --muted: rgba(255,255,255,0.70);
 
-  /* intense neon pink */
+  /* Accents */
   --pink: #ff00b8;
   --pink2: #ff4dd2;
+  --lace: rgba(255, 160, 220, 0.55);
 
-  /* optional secondary neon (tiny amount) */
-  --violet: #7c3cff;
-
+  /* Geometry / feel */
+  --radius: 6px; /* sharper */
+  --cut: 10px;   /* cut-corner size */
   --border: rgba(255,255,255,0.12);
   --panel: rgba(255,255,255,0.05);
-
-  --radius: 10px;     /* sharp modern */
   --shadow: 0 22px 80px rgba(0,0,0,0.65);
-
   --max: 1040px;
+
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-}
 
-/* Base */
-* { box-sizing: border-box; }
-html, body { padding: 0; margin: 0; }
-.cyber body { font-family: var(--sans); color: var(--text); background: var(--bg); }
+  font-family: var(--sans);
+  background: var(--bg) !important;
+  color: var(--text) !important;
 
-.cyber a { color: inherit; text-decoration: none; }
-.cyber .container { max-width: var(--max); margin: 0 auto; padding: 0 18px; }
-
-/* Futuristic background: glow + grid + vignette */
-.cyber body {
+  /* Futuristic glow */
   background:
     radial-gradient(900px 600px at 12% 0%, rgba(255,0,184,0.25), transparent 62%),
     radial-gradient(900px 700px at 88% 10%, rgba(255,0,184,0.14), transparent 60%),
-    radial-gradient(1100px 800px at 50% 120%, rgba(124,60,255,0.10), transparent 55%),
-    linear-gradient(180deg, #04020a 0%, #070312 65%, #04020a 100%);
+    linear-gradient(180deg, #04020a 0%, #070312 65%, #04020a 100%) !important;
 }
 
-/* Grid overlay (subtle, but “futuristic”) */
-.cyber body::before {
+/* Grid overlay (static) */
+body.cyber::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -70,8 +64,8 @@ html, body { padding: 0; margin: 0; }
   mask-image: radial-gradient(60% 50% at 50% 20%, black 40%, transparent 75%);
 }
 
-/* Scanlines overlay (very subtle) */
-.cyber body::after {
+/* Scanlines overlay (static) */
+body.cyber::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -86,8 +80,16 @@ html, body { padding: 0; margin: 0; }
   );
 }
 
+/* Links */
+body.cyber a { color: inherit; text-decoration: none; }
+body.cyber a:hover { text-decoration: none; }
+
+/* Layout */
+body.cyber .container { max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+body.cyber main { padding: 46px 0 72px; }
+
 /* Header */
-.cyber .header {
+body.cyber .header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -95,154 +97,90 @@ html, body { padding: 0; margin: 0; }
   background: rgba(5,3,10,0.72);
   border-bottom: 1px solid rgba(255,0,184,0.22);
 }
-.cyber .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-.cyber .brand { font-weight: 780; letter-spacing: -0.02em; }
-.cyber .brand:hover { color: var(--pink2); text-shadow: 0 0 18px rgba(255,0,184,0.45); }
+body.cyber .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+body.cyber .brand {
+  font-weight: 780;
+  letter-spacing: -0.02em;
+}
+body.cyber .brand:hover {
+  color: var(--pink2);
+  text-shadow: 0 0 18px rgba(255,0,184,0.45);
+}
 
-.cyber .nav { display: flex; gap: 10px; flex-wrap: wrap; }
-.cyber .nav-link {
+body.cyber .nav { display: flex; gap: 10px; flex-wrap: wrap; }
+body.cyber .nav-link {
   padding: 8px 10px;
   border-radius: 999px;
   border: 1px solid transparent;
   color: var(--muted);
 }
-.cyber .nav-link:hover {
+body.cyber .nav-link:hover {
   color: var(--text);
   border-color: rgba(255,0,184,0.40);
   background: rgba(255,0,184,0.08);
   box-shadow: 0 0 0 3px rgba(255,0,184,0.08);
 }
 
-.cyber main { padding: 46px 0 72px; }
-
-/* HERO: neon border + glow ring */
-.cyber .hero {
-  position: relative;
-  overflow: hidden;
-  padding: 26px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,0,184,0.35);
-  background:
-    linear-gradient(180deg, rgba(255,0,184,0.10), rgba(255,255,255,0.03)),
-    rgba(255,255,255,0.02);
-  box-shadow: var(--shadow);
-}
-
-/* animated neon “ring” */
-.cyber .hero::before {
-  content: "";
-  position: absolute;
-  inset: -120px;
-  background: conic-gradient(
-    from 180deg,
-    transparent,
-    rgba(255,0,184,0.80),
-    transparent,
-    rgba(255,77,210,0.65),
-    transparent
-  );
-  filter: blur(28px);
-  opacity: 0.60;
-  animation: neonspin 7s linear infinite;
-  pointer-events: none;
-}
-
-.cyber .hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(800px 240px at 30% 0%, rgba(255,0,184,0.25), transparent 60%);
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cyber .hero::before { animation: none; }
-}
-
-@keyframes neonspin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* Typography */
-.cyber .kicker {
+body.cyber .kicker {
   font-family: var(--mono);
   font-size: 12px;
   color: rgba(255,255,255,0.72);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-
-.cyber h1 {
+body.cyber h1 {
   margin: 10px 0 10px;
   font-size: clamp(32px, 4.4vw, 52px);
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
-
-/* “Glitch” headline (optional): apply class="glitch" to your h1 */
-.cyber .glitch {
-  position: relative;
-  text-shadow:
-    0 0 16px rgba(255,0,184,0.35),
-    0 0 40px rgba(255,0,184,0.18);
-}
-
-.cyber .glitch::before,
-.cyber .glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.cyber .glitch::before {
-  transform: translateX(1px);
-  color: rgba(255,0,184,0.80);
-  clip-path: inset(0 0 55% 0);
-}
-.cyber .glitch::after {
-  transform: translateX(-1px);
-  color: rgba(124,60,255,0.65);
-  clip-path: inset(55% 0 0 0);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .cyber .glitch::before { animation: glitchTop 2.8s infinite steps(20, end); }
-  .cyber .glitch::after  { animation: glitchBot 3.3s infinite steps(20, end); }
-}
-
-@keyframes glitchTop {
-  0%, 100% { clip-path: inset(0 0 55% 0); transform: translateX(1px); }
-  10% { clip-path: inset(0 0 35% 0); transform: translateX(3px); }
-  20% { clip-path: inset(0 0 70% 0); transform: translateX(-2px); }
-  45% { clip-path: inset(0 0 50% 0); transform: translateX(2px); }
-  70% { clip-path: inset(0 0 62% 0); transform: translateX(-1px); }
-}
-
-@keyframes glitchBot {
-  0%, 100% { clip-path: inset(55% 0 0 0); transform: translateX(-1px); }
-  15% { clip-path: inset(62% 0 0 0); transform: translateX(-3px); }
-  30% { clip-path: inset(45% 0 0 0); transform: translateX(2px); }
-  55% { clip-path: inset(68% 0 0 0); transform: translateX(-2px); }
-  80% { clip-path: inset(58% 0 0 0); transform: translateX(1px); }
-}
-
-.cyber .lead {
+body.cyber .lead {
   font-size: 18px;
   color: var(--muted);
   line-height: 1.65;
   max-width: 65ch;
 }
 
-/* Buttons: neon edges + glow */
-.cyber .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+/* Optional static “glitch” look (NO animation) */
+body.cyber .glitch {
+  position: relative;
+  text-shadow:
+    0 0 16px rgba(255,0,184,0.35),
+    0 0 40px rgba(255,0,184,0.18);
+}
+body.cyber .glitch::before,
+body.cyber .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0.40;
+  pointer-events: none;
+  animation: none !important;
+}
+body.cyber .glitch::before {
+  transform: translateX(1px);
+  color: rgba(255,0,184,0.70);
+  clip-path: inset(0 0 55% 0);
+}
+body.cyber .glitch::after {
+  transform: translateX(-1px);
+  color: rgba(255,77,210,0.55);
+  clip-path: inset(55% 0 0 0);
+}
 
-.cyber .btn {
+/* Buttons */
+body.cyber .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+
+body.cyber .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -254,8 +192,7 @@ html, body { padding: 0; margin: 0; }
   font-weight: 700;
   transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease, background 150ms ease;
 }
-
-.cyber .btn:hover {
+body.cyber .btn:hover {
   transform: translateY(-1px);
   border-color: rgba(255,0,184,0.55);
   box-shadow:
@@ -263,38 +200,153 @@ html, body { padding: 0; margin: 0; }
     0 14px 46px rgba(255,0,184,0.12);
   background: rgba(255,0,184,0.06);
 }
-
-.cyber .btn.primary {
+body.cyber .btn.primary {
   border-color: transparent;
   background: linear-gradient(90deg, var(--pink), var(--pink2));
   color: #05030a;
   box-shadow: 0 14px 50px rgba(255,0,184,0.18);
 }
+body.cyber .btn.ghost {
+  background: transparent;
+  border-color: rgba(255,0,184,0.35);
+}
 
-.cyber .grid { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); margin-top: 18px; }
+/* Cut-corner shape helper */
+body.cyber .cut {
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0,
+    100% var(--cut), 100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%, var(--cut) 100%,
+    0 calc(100% - var(--cut)), 0 var(--cut)
+  );
+}
 
-.cyber .card {
+/* Hero (no animation; sharper; lolita lace) */
+body.cyber .hero {
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,0,184,0.40);
+
+  background:
+    radial-gradient(800px 240px at 30% 0%, rgba(255,0,184,0.22), transparent 60%),
+    linear-gradient(180deg, rgba(255,0,184,0.10), rgba(255,255,255,0.03)),
+    rgba(255,255,255,0.02);
+
+  box-shadow: var(--shadow);
+
+  /* cut corners */
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0,
+    100% var(--cut), 100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%, var(--cut) 100%,
+    0 calc(100% - var(--cut)), 0 var(--cut)
+  );
+}
+
+/* Static neon bloom (no spin) */
+body.cyber .hero::before {
+  content: "";
+  position: absolute;
+  inset: -120px;
+  background: conic-gradient(
+    from 180deg,
+    transparent,
+    rgba(255,0,184,0.75),
+    transparent,
+    rgba(255,77,210,0.62),
+    transparent
+  );
+  filter: blur(28px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: none !important;
+}
+
+/* Lolita lace + frill overlay (uses ::after) */
+body.cyber .hero::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+
+  border: 1px dashed rgba(255, 160, 220, 0.55);
+  border-radius: calc(var(--radius) - 2px);
+
+  /* tiny frill strip top + bottom */
+  background:
+    repeating-radial-gradient(circle at 10px -2px,
+      rgba(255,160,220,0.28) 0 2px,
+      transparent 3px 14px
+    ) top / 100% 12px no-repeat,
+    repeating-radial-gradient(circle at 10px calc(100% + 2px),
+      rgba(255,160,220,0.22) 0 2px,
+      transparent 3px 14px
+    ) bottom / 100% 12px no-repeat;
+
+  opacity: 0.95;
+}
+
+/* Grid + cards */
+body.cyber .grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(12, 1fr);
+  margin-top: 18px;
+}
+
+body.cyber .card {
   grid-column: span 6;
+  position: relative;
+  overflow: hidden;
+
   padding: 18px;
   border-radius: var(--radius);
   border: 1px solid rgba(255,0,184,0.22);
-  background: rgba(255,255,255,0.03);
+
+  background:
+    radial-gradient(700px 220px at 20% 0%, rgba(255,0,184,0.10), transparent 60%),
+    rgba(255,255,255,0.03);
+
   box-shadow: 0 12px 34px rgba(0,0,0,0.35);
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+
+  /* cut corners */
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0,
+    100% var(--cut), 100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%, var(--cut) 100%,
+    0 calc(100% - var(--cut)), 0 var(--cut)
+  );
 }
 
-.cyber .card:hover {
+body.cyber .card:hover {
   transform: translateY(-2px);
   border-color: rgba(255,0,184,0.55);
   background: rgba(255,0,184,0.05);
   box-shadow: 0 18px 60px rgba(255,0,184,0.08);
 }
 
-.cyber .card h3 { margin: 0 0 6px; letter-spacing: -0.01em; }
-.cyber .card p { margin: 0; color: var(--muted); line-height: 1.6; }
+body.cyber .card h3 { margin: 0 0 6px; letter-spacing: -0.01em; }
+body.cyber .card p { margin: 0; color: var(--muted); line-height: 1.6; }
 
-.cyber .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-.cyber .badge {
+/* Card lace inner border */
+body.cyber .card::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+
+  border: 1px dashed rgba(255, 160, 220, 0.40);
+  border-radius: calc(var(--radius) - 2px);
+  opacity: 0.75;
+}
+
+/* Badges */
+body.cyber .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+body.cyber .badge {
   font-size: 12px;
   padding: 5px 9px;
   border-radius: 999px;
@@ -303,20 +355,53 @@ html, body { padding: 0; margin: 0; }
   background: rgba(255,0,184,0.07);
 }
 
-.cyber .prose { max-width: 75ch; }
-.cyber .prose p, .cyber .prose li { color: var(--muted); line-height: 1.85; font-size: 16px; }
-.cyber .prose a { color: rgba(255,0,184,0.95); text-decoration: underline; text-underline-offset: 4px; }
-.cyber .prose a:hover { color: var(--pink2); }
+/* Prose */
+body.cyber .prose { max-width: 75ch; }
+body.cyber .prose p,
+body.cyber .prose li {
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 16px;
+}
+body.cyber .prose a {
+  color: rgba(255,0,184,0.95);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+body.cyber .prose a:hover { color: var(--pink2); }
 
-.cyber hr { border: 0; border-top: 1px solid rgba(255,0,184,0.22); margin: 26px 0; }
+/* Lolita hearts bullets */
+body.cyber .prose ul { list-style: none; padding-left: 0; }
+body.cyber .prose ul li { position: relative; padding-left: 18px; }
+body.cyber .prose ul li::before {
+  content: "♥";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  color: rgba(255,0,184,0.95);
+  text-shadow: 0 0 14px rgba(255,0,184,0.35);
+}
 
-.cyber .footer {
+/* Divider + footer */
+body.cyber hr {
+  border: 0;
+  border-top: 1px solid rgba(255,0,184,0.22);
+  margin: 26px 0;
+}
+
+body.cyber .footer {
   border-top: 1px solid rgba(255,0,184,0.22);
   padding: 26px 0 40px;
   color: rgba(255,255,255,0.70);
 }
-.cyber .footer-inner { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+body.cyber .footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
+/* Responsive */
 @media (max-width: 860px) {
-  .cyber .card { grid-column: span 12; }
+  body.cyber .card { grid-column: span 12; }
 }
