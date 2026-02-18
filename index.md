@@ -28,7 +28,7 @@ title: Home
   </div>
 
   <div class="card">
-    <h3>Research Assistant at CCS@UCL and DCE@CUHK</h3>
+    <h3>Research Assistant at CCS@UCL and CSE@CUHK</h3>
      <p>
         Under the supervision of Prof. Peter Coveney, Dr. Xiao Xue, and Dr. Shengchao Liu, I focus on
         applying generative modelling to Computational Fluid Dynamics (CFD) and developing new
