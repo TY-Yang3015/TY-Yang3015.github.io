@@ -42,6 +42,8 @@ title: Home
 <div class="prose">
   <h2>Selected Publications ★</h2>
   <ul>
+    <li><a href="https://arxiv.org/abs/2602.15592">Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows; Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang, Kewei Zhu, Shuo Wang,
+Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney.  </a></li>
     <li><a href="https://arxiv.org/abs/2509.01293">Equivariant U-shaped Neural Operators for the Cahn-hilliard Phase-field Model; Xue, X., ten Eikelder, M. F., <strong>Yang, T.</strong>, Li, Y., He, K., Wang, S., and Coveney, P. V. </a></li>
   </ul>
 </div>
