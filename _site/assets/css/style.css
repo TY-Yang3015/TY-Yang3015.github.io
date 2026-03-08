@@ -1,0 +1,322 @@
+@charset "UTF-8";
+/* ========================================================= PROFESSIONAL FUTURISTIC: BLACK + NEON RED (NO ANIMATION) + CAPE X-CHECK (diagonal cross pattern on lighter/top side) Drop-in file: assets/css/style.scss Works best with: <body class="cyber"> in _layouts/default.html ========================================================= */
+/* Hard fallback (protect against theme overrides) */
+html, body { margin: 0; padding: 0; background: #05030a !important; color: rgba(255, 255, 255, 0.92) !important; }
+
+* { box-sizing: border-box; }
+
+body.cyber { /* Core palette */ --bg: #05030a; --bg2: #0b0614; --text: rgba(255,255,255,0.92); --muted: rgba(255,255,255,0.70); /* Accent: RED */ --accent: #ff1a1a; /* neon red */ --accent2: #ff4d4d; /* softer red */ --accentSoft: rgba(255, 26, 26, 0.14); /* Background gradient stops (vertical gradient) */ --bgTop: #2a0008; /* lighter/top tint */ --bgMid: #0b0614; /* mid */ --bgBottom: #05030a; /* bottom */ /* Geometry / feel */ --radius: 6px; /* sharp */ --cut: 10px; /* cut-corner size */ --border: rgba(255,255,255,0.12); --panel: rgba(255,255,255,0.04); --shadow: 0 22px 80px rgba(0,0,0,0.65); --max: 1040px; /* Make the HOME hero box smaller */ --heroMax: 840px; --heroPad: 18px; --heroPadMobile: 16px; /* Pattern tuning */ --xcheckCell: 48px; /* 32px tighter, 56px bigger */ --xcheckBand: 10px; /* thicker red bands: 12–16px */ --xcheckPin: 2px; /* black pinstripe thickness */ --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; font-family: var(--sans); color: var(--text) !important; /* Vertical gradient + subtle glow (keeps your look, but more “vertical”) */ background: radial-gradient(900px 600px at 12% 0%, rgba(255, 26, 26, 0.14), transparent 62%), radial-gradient(900px 700px at 88% 10%, rgba(255, 26, 26, 0.08), transparent 60%), linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBottom) 100%) !important; }
+
+/* Ensure content layers above overlays */
+body.cyber .header, body.cyber main, body.cyber .footer { position: relative; z-index: 1; }
+
+/* ========================================================= CAPE X-CHECK + SUBTLE GRID OVERLAY (merged into ::before) - Diagonal “X” bands (red + black pinstripes) - Light grid on top - Masked to the lighter/top side of the background ========================================================= */
+body.cyber::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; /* Layers: 1–4: X-check diagonals (red bands + black pinstripes) 5–6: subtle grid
+*/ background-image: repeating-linear-gradient(45deg, rgba(255, 26, 26, 0.22) 0 var(--xcheckBand), transparent var(--xcheckBand) var(--xcheckCell)), repeating-linear-gradient(-45deg, rgba(255, 26, 26, 0.14) 0 var(--xcheckBand), transparent var(--xcheckBand) var(--xcheckCell)), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.5) 0 var(--xcheckPin), transparent var(--xcheckPin) var(--xcheckCell)), repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.5) 0 var(--xcheckPin), transparent var(--xcheckPin) var(--xcheckCell)), linear-gradient(to right, rgba(255, 26, 26, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 26, 26, 0.08) 1px, transparent 1px); /* Per-layer sizing (first 4 = pattern, last 2 = grid) */ background-size: var(--xcheckCell) var(--xcheckCell), var(--xcheckCell) var(--xcheckCell), var(--xcheckCell) var(--xcheckCell), var(--xcheckCell) var(--xcheckCell), 60px 60px, 60px 60px; /* Overall strength */ opacity: 0.55; /* Show mainly on the lighter/top side; fade out toward the darker end */ mask-image: linear-gradient(to bottom, black 0%, black 32%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0) 82%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 32%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0) 82%); }
+
+/* Very light scanlines (optional but subtle) */
+body.cyber::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.05; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06) 1px, transparent 1px, transparent 7px); }
+
+/* Links */
+body.cyber a { color: inherit; text-decoration: none; }
+
+body.cyber a:hover { text-decoration: none; }
+
+/* Layout */
+body.cyber .container { max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+
+body.cyber main { padding: 42px 0 68px; }
+
+/* Header */
+body.cyber .header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(5, 3, 10, 0.74); border-bottom: 1px solid rgba(255, 26, 26, 0.22); }
+
+body.cyber .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+
+body.cyber .brand { font-weight: 780; letter-spacing: -0.02em; }
+
+body.cyber .brand:hover { color: var(--accent2); text-shadow: 0 0 16px rgba(255, 26, 26, 0.35); }
+
+body.cyber .nav { display: flex; gap: 10px; flex-wrap: wrap; }
+
+body.cyber .nav-link { padding: 8px 10px; border-radius: 999px; border: 1px solid transparent; color: var(--muted); }
+
+body.cyber .nav-link:hover { color: var(--text); border-color: rgba(255, 26, 26, 0.4); background: rgba(255, 26, 26, 0.07); box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.08); }
+
+/* Typography */
+body.cyber .kicker { font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, 0.72); letter-spacing: 0.14em; text-transform: uppercase; }
+
+body.cyber h1 { margin: 10px 0 10px; font-size: clamp(30px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1.07; }
+
+body.cyber .lead { font-size: 17px; color: var(--muted); line-height: 1.65; max-width: 65ch; }
+
+/* Buttons */
+body.cyber .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+
+body.cyber .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.04); color: var(--text); font-weight: 700; transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease, background 150ms ease; }
+
+body.cyber .btn:hover { transform: translateY(-1px); border-color: rgba(255, 26, 26, 0.55); box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.09), 0 14px 46px rgba(255, 26, 26, 0.1); background: rgba(255, 26, 26, 0.06); }
+
+body.cyber .btn.primary { border-color: transparent; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #05030a; box-shadow: 0 14px 44px rgba(255, 26, 26, 0.16); }
+
+body.cyber .btn.ghost { background: transparent; border-color: rgba(255, 26, 26, 0.35); }
+
+/* Cut-corner polygon helper */
+/* Hero: smaller box + professional look */
+body.cyber .hero { position: relative; overflow: hidden; max-width: var(--heroMax); margin: 0 auto; padding: var(--heroPad); border-radius: var(--radius); border: 1px solid rgba(255, 26, 26, 0.35); background: radial-gradient(760px 220px at 30% 0%, rgba(255, 26, 26, 0.18), transparent 60%), linear-gradient(180deg, rgba(255, 26, 26, 0.08), rgba(255, 255, 255, 0.02)), rgba(255, 255, 255, 0.02); box-shadow: var(--shadow); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); }
+
+/* Static neon bloom (no animation) */
+body.cyber .hero::before { content: ""; position: absolute; inset: -140px; background: conic-gradient(from 180deg, transparent, rgba(255, 26, 26, 0.7), transparent, rgba(255, 77, 77, 0.55), transparent); filter: blur(30px); opacity: 0.38; pointer-events: none; }
+
+/* Inner crisp border */
+body.cyber .hero::after { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: calc(var(--radius) - 2px); opacity: 0.95; }
+
+/* Cards */
+body.cyber .grid { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); margin-top: 18px; }
+
+body.cyber .card { grid-column: span 6; position: relative; overflow: hidden; padding: 18px; border-radius: var(--radius); border: 1px solid rgba(255, 26, 26, 0.2); background: radial-gradient(700px 220px at 20% 0%, rgba(255, 26, 26, 0.08), transparent 60%), rgba(255, 255, 255, 0.03); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35); transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease; clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); }
+
+body.cyber .card:hover { transform: translateY(-2px); border-color: rgba(255, 26, 26, 0.45); background: rgba(255, 26, 26, 0.04); box-shadow: 0 18px 60px rgba(255, 26, 26, 0.07); }
+
+body.cyber .card h3 { margin: 0 0 6px; letter-spacing: -0.01em; }
+
+body.cyber .card p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+/* Card inner border */
+body.cyber .card::after { content: ""; position: absolute; inset: 12px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(var(--radius) - 2px); opacity: 0.9; }
+
+/* Badges */
+body.cyber .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+body.cyber .badge { font-size: 12px; padding: 5px 9px; border-radius: 999px; border: 1px solid rgba(255, 26, 26, 0.28); color: rgba(255, 255, 255, 0.78); background: rgba(255, 26, 26, 0.06); }
+
+/* Prose */
+body.cyber .prose { max-width: 90ch; }
+
+body.cyber .prose p, body.cyber .prose li { color: var(--muted); line-height: 1.85; font-size: 16px; }
+
+body.cyber .prose a { color: rgba(255, 77, 77, 0.96); text-decoration: underline; text-underline-offset: 4px; }
+
+body.cyber .prose a:hover { color: var(--accent2); }
+
+body.cyber hr { border: 0; border-top: 1px solid rgba(255, 26, 26, 0.18); margin: 26px 0; }
+
+/* Footer */
+body.cyber .footer { border-top: 1px solid rgba(255, 26, 26, 0.18); padding: 26px 0 40px; color: rgba(255, 255, 255, 0.7); }
+
+body.cyber .footer-inner { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+
+/* Responsive */
+@media (max-width: 860px) { body.cyber .card { grid-column: span 12; }
+  body.cyber .hero { padding: var(--heroPadMobile); } }
+/* ========================= PUBLICATIONS ★ centered + red/black fill ========================= */
+body.cyber .pub-section { max-width: 880px; margin: 2.75rem auto 0; text-align: center; }
+
+body.cyber .pub-section h2 { margin-bottom: 1.2rem; }
+
+body.cyber .pub-list { display: grid; gap: 1.2rem; margin-top: 1rem; justify-content: center; }
+
+body.cyber .pub-item { position: relative; overflow: hidden; width: min(100%, 820px); margin: 0 auto; padding: 1.2rem 1.3rem; border: 1px solid rgba(255, 26, 26, 0.34); border-radius: var(--radius); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); background: linear-gradient(135deg, rgba(255, 26, 26, 0.22) 0%, rgba(255, 26, 26, 0.1) 18%, rgba(10, 5, 16, 0.94) 48%, rgba(5, 3, 10, 0.98) 100%), radial-gradient(520px 180px at 12% 0%, rgba(255, 26, 26, 0.22), transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)); box-shadow: 0 16px 42px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 26, 26, 0.06) inset; text-align: left; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; }
+
+/* subtle inner frame */
+body.cyber .pub-item::before { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(var(--radius) - 2px); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); }
+
+/* faint red glow wash */
+body.cyber .pub-item::after { content: ""; position: absolute; inset: -20% auto auto -10%; width: 70%; height: 70%; pointer-events: none; background: radial-gradient(circle, rgba(255, 26, 26, 0.18), transparent 70%); filter: blur(18px); opacity: 0.75; }
+
+body.cyber .pub-item:hover { transform: translateY(-3px); border-color: rgba(255, 26, 26, 0.56); box-shadow: 0 24px 62px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 26, 26, 0.1); }
+
+body.cyber .pub-top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 0.8rem; }
+
+body.cyber .pub-tag, body.cyber .pub-year { font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--mono); }
+
+body.cyber .pub-tag { padding: 0.28rem 0.62rem; border-radius: 999px; border: 1px solid rgba(255, 26, 26, 0.38); background: rgba(255, 26, 26, 0.12); color: rgba(255, 255, 255, 0.92); box-shadow: 0 0 14px rgba(255, 26, 26, 0.1) inset; }
+
+body.cyber .pub-year { color: rgba(255, 255, 255, 0.72); }
+
+body.cyber .pub-item h3 { position: relative; z-index: 1; margin: 0 0 0.55rem; font-size: 1.08rem; line-height: 1.45; letter-spacing: -0.01em; }
+
+body.cyber .pub-item h3 a { color: rgba(255, 255, 255, 0.96); text-decoration: none; }
+
+body.cyber .pub-item h3 a:hover { color: var(--accent2); text-decoration: underline; text-underline-offset: 4px; }
+
+body.cyber .pub-authors { position: relative; z-index: 1; margin: 0.2rem 0 0.5rem; color: rgba(255, 255, 255, 0.8); line-height: 1.7; font-size: 0.96rem; }
+
+body.cyber .pub-note { position: relative; z-index: 1; margin: 0; color: rgba(255, 255, 255, 0.64); font-size: 0.92rem; line-height: 1.65; }
+
+/* optional: narrow screens */
+@media (max-width: 860px) { body.cyber .pub-section { margin-top: 2.2rem; }
+  body.cyber .pub-item { padding: 1rem 1rem; }
+  body.cyber .pub-top { align-items: flex-start; flex-direction: row; flex-wrap: wrap; } }
+body.cyber .pub-item { text-align: center; }
+
+body.cyber .pub-top { justify-content: center; }
+
+body.cyber .pub-authors, body.cyber .pub-note { text-align: center; }
+
+body.cyber .project-section { max-width: 1040px; margin: 2.75rem auto 0; text-align: center; }
+
+body.cyber .project-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 1rem; align-items: stretch; }
+
+body.cyber .project-item { position: relative; overflow: hidden; width: 100%; margin: 0; padding: 1.15rem 1.2rem; min-height: 220px; border: 1px solid rgba(255, 26, 26, 0.34); border-radius: var(--radius); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); background: linear-gradient(135deg, rgba(255, 26, 26, 0.22) 0%, rgba(255, 26, 26, 0.1) 18%, rgba(10, 5, 16, 0.94) 48%, rgba(5, 3, 10, 0.98) 100%), radial-gradient(520px 180px at 12% 0%, rgba(255, 26, 26, 0.22), transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)); box-shadow: 0 16px 42px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 26, 26, 0.06) inset; text-align: left; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; display: flex; flex-direction: column; justify-content: flex-start; }
+
+body.cyber .project-item::before { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(var(--radius) - 2px); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); }
+
+body.cyber .project-item::after { content: ""; position: absolute; inset: -20% auto auto -10%; width: 70%; height: 70%; pointer-events: none; background: radial-gradient(circle, rgba(255, 26, 26, 0.18), transparent 70%); filter: blur(18px); opacity: 0.75; }
+
+body.cyber .project-item:hover { transform: translateY(-3px); border-color: rgba(255, 26, 26, 0.56); box-shadow: 0 24px 62px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 26, 26, 0.1); }
+
+body.cyber .project-top, body.cyber .project-item h3, body.cyber .project-desc { position: relative; z-index: 1; }
+
+body.cyber .project-top { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 0.8rem; }
+
+body.cyber .project-item h3 { margin: 0 0 0.55rem; font-size: 1.02rem; line-height: 1.4; }
+
+body.cyber .project-desc { margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.94rem; line-height: 1.65; }
+
+/* tablet */
+@media (max-width: 980px) { body.cyber .project-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* mobile */
+@media (max-width: 640px) { body.cyber .project-list { grid-template-columns: 1fr; }
+  body.cyber .project-item { min-height: unset; }
+  body.cyber .project-top { flex-wrap: wrap; align-items: flex-start; } }
+/* ========================= ABOUT PAGE ========================= */
+body.cyber .about-shell { max-width: 980px; margin: 0 auto; }
+
+body.cyber .about-hero, body.cyber .about-panel { position: relative; overflow: hidden; margin: 0 auto 1.4rem; padding: 1.35rem 1.4rem; border: 1px solid rgba(255, 26, 26, 0.28); border-radius: var(--radius); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); background: linear-gradient(135deg, rgba(255, 26, 26, 0.18) 0%, rgba(255, 26, 26, 0.08) 16%, rgba(10, 5, 16, 0.94) 48%, rgba(5, 3, 10, 0.98) 100%), radial-gradient(700px 220px at 15% 0%, rgba(255, 26, 26, 0.18), transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)); box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 26, 26, 0.05) inset; }
+
+body.cyber .about-hero::before, body.cyber .about-panel::before { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(var(--radius) - 2px); }
+
+body.cyber .about-hero { padding: 1.7rem 1.5rem; }
+
+body.cyber .about-lead { max-width: 72ch; color: var(--muted); line-height: 1.8; font-size: 1.02rem; margin-bottom: 1rem; }
+
+body.cyber .about-badges { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; }
+
+body.cyber .about-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+
+body.cyber .profile-panel { width: 100%; }
+
+body.cyber .about-panel h2 { margin-top: 0; margin-bottom: 0.9rem; font-size: 1.15rem; letter-spacing: -0.01em; }
+
+body.cyber .about-panel h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+
+body.cyber .about-panel p { margin: 0 0 0.75rem; color: var(--muted); line-height: 1.75; }
+
+body.cyber .contact-line { display: flex; flex-direction: column; gap: 0.4rem; }
+
+body.cyber .contact-label { display: inline-block; width: fit-content; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); padding: 0.28rem 0.62rem; border-radius: 999px; border: 1px solid rgba(255, 26, 26, 0.36); background: rgba(255, 26, 26, 0.1); }
+
+body.cyber .timeline-panel { padding-top: 1.25rem; }
+
+body.cyber .timeline { position: relative; display: grid; gap: 1rem; }
+
+body.cyber .timeline::before { content: ""; position: absolute; left: 126px; top: 0.2rem; bottom: 0.2rem; width: 1px; background: linear-gradient(to bottom, rgba(255, 26, 26, 0.45), rgba(255, 26, 26, 0.1)); }
+
+body.cyber .timeline-item { position: relative; display: grid; grid-template-columns: 110px 1fr; gap: 1.2rem; align-items: start; }
+
+body.cyber .timeline-item::before { content: ""; position: absolute; left: 121px; top: 0.42rem; width: 10px; height: 10px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 14px rgba(255, 26, 26, 0.45); }
+
+body.cyber .timeline-date { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.66); padding-top: 0.1rem; }
+
+body.cyber .timeline-content { padding-left: 1rem; }
+
+body.cyber .timeline-content p { margin: 0; }
+
+@media (max-width: 760px) { body.cyber .about-grid { grid-template-columns: 1fr; }
+  body.cyber .timeline::before { display: none; }
+  body.cyber .timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
+  body.cyber .timeline-item::before { display: none; }
+  body.cyber .timeline-content { padding-left: 0; } }
+/* ========================= HIDDEN INTERESTS ✦ mystic / cyber archive ========================= */
+body.cyber .mystic-interest { position: relative; overflow: hidden; max-width: 880px; margin: 2.5rem auto 0; padding: 0; border: 1px solid rgba(255, 26, 26, 0.26); border-radius: var(--radius); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); background: linear-gradient(135deg, rgba(255, 26, 26, 0.16) 0%, rgba(255, 26, 26, 0.06) 14%, rgba(18, 8, 24, 0.96) 48%, rgba(5, 3, 10, 0.99) 100%), radial-gradient(700px 220px at 10% 0%, rgba(255, 26, 26, 0.16), transparent 58%), radial-gradient(500px 180px at 85% 20%, rgba(255, 77, 77, 0.08), transparent 60%), linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)); box-shadow: 0 18px 46px rgba(0, 0, 0, 0.44), 0 0 0 1px rgba(255, 26, 26, 0.05) inset; }
+
+body.cyber .mystic-interest::before { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: calc(var(--radius) - 2px); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); }
+
+body.cyber .mystic-interest::after { content: ""; position: absolute; inset: auto -10% -35% auto; width: 340px; height: 340px; pointer-events: none; background: radial-gradient(circle, rgba(255, 26, 26, 0.14), transparent 70%); filter: blur(26px); opacity: 0.7; }
+
+body.cyber .mystic-interest summary { position: relative; z-index: 1; cursor: pointer; list-style: none; user-select: none; padding: 1rem 1.15rem; }
+
+body.cyber .mystic-interest summary::-webkit-details-marker { display: none; }
+
+body.cyber .interest-summary-inner { display: flex; align-items: center; gap: 0.85rem; min-height: 40px; }
+
+body.cyber .interest-sigil { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; border: 1px solid rgba(255, 26, 26, 0.34); background: rgba(255, 26, 26, 0.1); color: rgba(255, 255, 255, 0.94); font-size: 0.95rem; box-shadow: 0 0 18px rgba(255, 26, 26, 0.16), 0 0 10px rgba(255, 26, 26, 0.08) inset; }
+
+body.cyber .interest-title { font-weight: 700; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.95); }
+
+body.cyber .interest-whisper { margin-left: auto; font-family: var(--mono); font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.52); }
+
+body.cyber .mystic-interest summary::after { content: "⌄"; position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.7); font-size: 1rem; transition: transform 180ms ease, color 180ms ease; }
+
+body.cyber .mystic-interest[open] summary::after { transform: translateY(-50%) rotate(180deg); color: var(--accent2); }
+
+body.cyber .mystic-interest[open] summary { border-bottom: 1px solid rgba(255, 26, 26, 0.14); background: linear-gradient(180deg, rgba(255, 26, 26, 0.05), rgba(255, 255, 255, 0.01)); }
+
+body.cyber .interest-content { position: relative; z-index: 1; padding: 1rem 1.15rem 1.15rem; }
+
+body.cyber .interest-intro { margin: 0 0 0.75rem; color: rgba(255, 255, 255, 0.78); line-height: 1.75; }
+
+body.cyber .interest-content ul { margin: 0.2rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
+
+body.cyber .interest-content li { position: relative; padding-left: 1.2rem; color: var(--muted); line-height: 1.75; }
+
+body.cyber .interest-content li::before { content: "✦"; position: absolute; left: 0; top: 0.05rem; color: var(--accent2); font-size: 0.78rem; opacity: 0.9; }
+
+body.cyber .interest-note { margin-top: 0.95rem; padding-top: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.07); font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.52); }
+
+/* subtle hover when closed */
+body.cyber .mystic-interest:not([open]):hover { border-color: rgba(255, 26, 26, 0.4); box-shadow: 0 22px 54px rgba(0, 0, 0, 0.48), 0 0 22px rgba(255, 26, 26, 0.08); }
+
+body.cyber .mystic-interest:not([open]):hover .interest-sigil { box-shadow: 0 0 22px rgba(255, 26, 26, 0.22), 0 0 10px rgba(255, 26, 26, 0.1) inset; }
+
+@media (max-width: 640px) { body.cyber .interest-summary-inner { gap: 0.65rem; padding-right: 1.5rem; }
+  body.cyber .interest-whisper { display: none; } }
+/* ========================= BLOG PAGE ========================= */
+body.cyber .blog-shell { max-width: 980px; margin: 0 auto; }
+
+body.cyber .blog-hero, body.cyber .post-card, body.cyber .empty-blog { position: relative; overflow: hidden; border: 1px solid rgba(255, 26, 26, 0.28); border-radius: var(--radius); clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); background: linear-gradient(135deg, rgba(255, 26, 26, 0.18) 0%, rgba(255, 26, 26, 0.08) 16%, rgba(10, 5, 16, 0.94) 48%, rgba(5, 3, 10, 0.98) 100%), radial-gradient(700px 220px at 15% 0%, rgba(255, 26, 26, 0.18), transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)); box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 26, 26, 0.05) inset; }
+
+body.cyber .blog-hero::before, body.cyber .post-card::before, body.cyber .empty-blog::before { content: ""; position: absolute; inset: 10px; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(var(--radius) - 2px); clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px); }
+
+body.cyber .blog-hero { margin-bottom: 1.4rem; padding: 1.6rem 1.5rem; }
+
+body.cyber .blog-lead { max-width: 70ch; margin: 0.6rem 0 0; color: var(--muted); line-height: 1.8; font-size: 1rem; }
+
+body.cyber .post-list { display: grid; gap: 1.2rem; }
+
+body.cyber .post-card { padding: 1.2rem 1.25rem; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+
+body.cyber .post-card:hover { transform: translateY(-3px); border-color: rgba(255, 26, 26, 0.52); box-shadow: 0 24px 62px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 26, 26, 0.1); }
+
+body.cyber .post-meta, body.cyber .post-card h2, body.cyber .post-excerpt, body.cyber .post-link { position: relative; z-index: 1; }
+
+body.cyber .post-meta { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 0.8rem; }
+
+body.cyber .post-tag { padding: 0.28rem 0.62rem; border-radius: 999px; border: 1px solid rgba(255, 26, 26, 0.38); background: rgba(255, 26, 26, 0.12); color: rgba(255, 255, 255, 0.92); font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+body.cyber .post-date { color: rgba(255, 255, 255, 0.68); font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+body.cyber .post-card h2 { margin: 0 0 0.55rem; font-size: 1.15rem; line-height: 1.4; }
+
+body.cyber .post-card h2 a { color: rgba(255, 255, 255, 0.96); text-decoration: none; }
+
+body.cyber .post-card h2 a:hover { color: var(--accent2); text-decoration: underline; text-underline-offset: 4px; }
+
+body.cyber .post-excerpt { margin: 0 0 0.9rem; color: var(--muted); line-height: 1.75; }
+
+body.cyber .post-link { display: inline-block; color: rgba(255, 77, 77, 0.96); font-weight: 700; text-decoration: none; }
+
+body.cyber .post-link:hover { color: var(--accent2); }
+
+body.cyber .empty-blog { padding: 1.2rem 1.25rem; text-align: center; }
+
+body.cyber .empty-blog p { margin: 0; color: var(--muted); }
+
+/* better prose content for posts */
+body.cyber .prose img { display: block; max-width: 100%; height: auto; margin: 1.4rem auto; border: 1px solid rgba(255, 26, 26, 0.22); border-radius: var(--radius); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3); }
+
+body.cyber .prose mjx-container, body.cyber .prose .MathJax { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+
+body.cyber .prose pre, body.cyber .prose code { overflow-x: auto; }
+
+body.cyber .post-prose { max-width: 108ch; margin: 0 auto; }

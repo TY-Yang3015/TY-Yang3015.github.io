@@ -7,6 +7,10 @@ timezone: Europe/London
 # Use these layouts/styles (no theme)
 markdown: kramdown
 
+kramdown:
+  input: GFM
+  math_engine: mathjax
+
 # Nice permalinks for posts
 permalink: /blog/:year/:month/:day/:title/
 
