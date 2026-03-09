@@ -24,7 +24,7 @@ permalink: /blog/
             </div>
 
             <h2>
-              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <a>{{ post.title }}</a>
             </h2>
 
             {% if post.excerpt %}

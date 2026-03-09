@@ -5,7 +5,7 @@ date: 2026-03-08 23:00:00 +0000
 categories: [blog]
 ---
 
-(★ _This Blog is an invited work by Dr. Shengchao Liu, see the home page of [Wave Intelligence Lab](http://waveintell.ai/blog/)_★)
+(★ _This Blog is an invited work by Dr. Shengchao Liu, see the home page of [Wave Intelligence Lab](http://waveintell.ai/blog/)_ ★)
 
 ## Flow Matching: A Physicist’s Perspective
 
