@@ -14,10 +14,10 @@ permalink: /blog/
 
 <div class="blog-shell">
   <section class="blog-hero">
-    <div class="kicker">Notes ♪</div>
+    <div class="kicker">Notes</div>
     <h1 class="glitch" data-text="Blog">Blog</h1>
     <p class="blog-lead">
-      Research notes, technical thoughts, and small explorations across AI, physics, and chemistry ✦
+      Research notes, technical thoughts, and small explorations across AI, physics, and chemistry ♪
     </p>
   </section>
 
@@ -34,7 +34,9 @@ permalink: /blog/
 
         <ul class="collection-list">
           <li>
-            <a href="#all-posts">
+            <a class="collection-filter"
+               href="#all-posts"
+               data-filter="all-posts">
               <span class="collection-link-main">
                 <span class="collection-item-sigil">◎</span>
                 <span>All Posts</span>
@@ -47,7 +49,9 @@ permalink: /blog/
             {% if group.name and group.name != "" %}
               {% assign first_post = group.items | first %}
               <li>
-                <a href="#series-{{ group.name | slugify }}">
+                <a class="collection-filter"
+                   href="#series-{{ group.name | slugify }}"
+                   data-filter="series-{{ group.name | slugify }}">
                   <span class="collection-link-main">
                     <span class="collection-item-sigil">{{ first_post.series_icon | default: "✦" }}</span>
                     <span>{{ group.name }}</span>
@@ -60,7 +64,9 @@ permalink: /blog/
 
           {% if standalone_count > 0 %}
             <li>
-              <a href="#series-standalone">
+              <a class="collection-filter"
+                 href="#series-standalone"
+                 data-filter="series-standalone">
                 <span class="collection-link-main">
                   <span class="collection-item-sigil">◇</span>
                   <span>Standalone</span>
@@ -71,7 +77,7 @@ permalink: /blog/
           {% endif %}
         </ul>
 
-        <p class="collection-note">Series, notes, and hidden branches ♪</p>
+        <p class="collection-note">Sort Blogs by Collections ♪</p>
       </div>
     </aside>
 
@@ -81,7 +87,9 @@ permalink: /blog/
         {% for group in grouped_posts %}
           {% if group.name and group.name != "" %}
             {% assign first_post = group.items | first %}
-            <div class="series-block" id="series-{{ group.name | slugify }}">
+            <div class="series-block"
+                 id="series-{{ group.name | slugify }}"
+                 data-group="series-{{ group.name | slugify }}">
               <div class="series-heading">
                 <div class="series-heading-main">
                   <span class="series-sigil">{{ first_post.series_icon | default: "✦" }}</span>
@@ -129,7 +137,9 @@ permalink: /blog/
         {% endfor %}
 
         {% if standalone_count > 0 %}
-          <div class="series-block" id="series-standalone">
+          <div class="series-block"
+               id="series-standalone"
+               data-group="series-standalone">
             <div class="series-heading">
               <div class="series-heading-main">
                 <span class="series-sigil">◇</span>
@@ -185,3 +195,5 @@ permalink: /blog/
     </section>
   </div>
 </div>
+
+<script src="{{ '/assets/js/blog-filter.js' | relative_url }}"></script>

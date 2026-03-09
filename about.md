@@ -6,7 +6,7 @@ permalink: /about/
 
 <div class="about-shell">
   <section class="about-hero">
-    <div class="kicker">About ♪</div>
+    <div class="kicker">About</div>
     <h1 class="glitch" data-text="Tianyue Yang">Tianyue Yang</h1>
     <p class="about-lead">
       I’m currently a Master’s student, working on generative modelling for AI4Science, especially in computational fluid dynamics, quantum chemistry, and physics-inspired generative methods.
@@ -23,7 +23,7 @@ permalink: /about/
 
 <section class="about-grid">
   <article class="about-panel profile-panel">
-    <h2>Profile ✦</h2>
+    <h2>✦ Profile ✦</h2>
     <p>
       I’m interested in building generative algorithms for scientific problems and in understanding why these models work. My recent work focuses on AI for computational physics and chemistry, with an emphasis on elegant, physics-informed design.
     </p>

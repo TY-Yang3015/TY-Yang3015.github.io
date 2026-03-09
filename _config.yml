@@ -25,6 +25,8 @@ nav:
     link: "/about/"
   - name: "Blog"
     link: "/blog/"
+  - name: "Publications"
+    link: "/pub/"
   - name: "Contact"
     link: "mailto:15210283759a@gmail.com"
 
@@ -32,6 +34,9 @@ collections:
   zh:
     output: true
     permalink: /zh/:name/
+  publications:
+    output: true
+    permalink: /publications/:name/
 
 defaults:
   - scope:

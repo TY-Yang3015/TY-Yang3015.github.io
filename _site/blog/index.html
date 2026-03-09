@@ -25,6 +25,8 @@
       
         <a class="nav-link" href="/blog/">Blog</a>
       
+        <a class="nav-link" href="/pub/">Publications</a>
+      
         <a class="nav-link" href="mailto:15210283759a@gmail.com">Contact</a>
       
     </nav>
@@ -35,10 +37,10 @@
       
 <div class="blog-shell">
   <section class="blog-hero">
-    <div class="kicker">Notes ♪</div>
+    <div class="kicker">Notes</div>
     <h1 class="glitch" data-text="Blog">Blog</h1>
     <p class="blog-lead">
-      Research notes, technical thoughts, and small explorations across AI, physics, and chemistry ✦
+      Research notes, technical thoughts, and small explorations across AI, physics, and chemistry ♪
     </p>
   </section>
 
@@ -55,7 +57,7 @@
 
         <ul class="collection-list">
           <li>
-            <a href="#all-posts">
+            <a class="collection-filter" href="#all-posts" data-filter="all-posts">
               <span class="collection-link-main">
                 <span class="collection-item-sigil">◎</span>
                 <span>All Posts</span>
@@ -68,7 +70,7 @@
             
               
               <li>
-                <a href="#series-research-promotion">
+                <a class="collection-filter" href="#series-research-promotion" data-filter="series-research-promotion">
                   <span class="collection-link-main">
                     <span class="collection-item-sigil">✶</span>
                     <span>Research Promotion</span>
@@ -82,7 +84,7 @@
           
         </ul>
 
-        <p class="collection-note">Series, notes, and hidden branches ♪</p>
+        <p class="collection-note">Sort Blogs by Collections ♪</p>
       </div>
     </aside>
 
@@ -92,7 +94,7 @@
         
           
             
-            <div class="series-block" id="series-research-promotion">
+            <div class="series-block" id="series-research-promotion" data-group="series-research-promotion">
               <div class="series-heading">
                 <div class="series-heading-main">
                   <span class="series-sigil">✶</span>
@@ -147,6 +149,9 @@ One of the earliest and most influ...
     </section>
   </div>
 </div>
+
+<script src="/assets/js/blog-filter.js"></script>
+
 
     </main>
     <footer class="footer">

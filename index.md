@@ -20,14 +20,14 @@ title: Home
 
 <div class="grid">
   <div class="card">
-    <h3>Research Interests ✦</h3>
+    <h3>✦ Research Interests ✦</h3>
     <p>
       I work on generative modelling and AI for science, especially applications in computational fluid dynamics, chemistry, and physics-informed learning.
     </p>
   </div>
 
   <div class="card">
-    <h3>Current Role ♪</h3>
+    <h3>♪ Current Role ♪</h3>
     <p>
       I am a Research Assistant at CCS@UCL and CSE@CUHK, working with Prof. Peter Coveney, Dr. Xiao Xue, and Dr. Shengchao Liu on generative methods for CFD and related scientific problems.
     </p>
@@ -37,7 +37,7 @@ title: Home
 <hr />
 
 <div class="prose pub-section">
-  <h2>Selected Publications ★</h2>
+  <h2>★ Selected Publications ★</h2>
 
   <div class="pub-list">
     <article class="pub-item">
@@ -70,7 +70,7 @@ title: Home
         </a>
       </h3>
       <p class="pub-authors">
-        Xue, X., ten Eikelder, M. F., <strong>Yang, T.</strong>, Li, Y., He, K., Wang, S., and Coveney, P. V.
+        Xiao Xue, Marco F.P. ten Eikelder, <strong>Tianyue Yang</strong>, Yiqing Li, Kan He, Shuo Wang, Peter V. Coveney
       </p>
       <p class="pub-note">
         Equivariant operator learning for phase-field modelling.
@@ -80,14 +80,14 @@ title: Home
 </div>
 
 <div class="prose project-section">
-  <h2>Project Links ♪</h2>
-  <p class="project-intro">Past projects I've been working on ✦</p>
+  <h2>♪ Project Links ♪</h2>
+  <p class="project-intro">Past projects I've been working on!</p>
 
   <div class="project-list">
     <article class="project-item">
       <div class="project-top">
         <span class="project-tag">JAX</span>
-        <span class="project-kind">Research Code</span>
+        <span class="project-kind">AI4Chem</span>
       </div>
       <h3>
         <a href="https://github.com/TY-Yang3015/PsiFlax">
@@ -102,7 +102,7 @@ title: Home
     <article class="project-item">
       <div class="project-top">
         <span class="project-tag">Diffusion</span>
-        <span class="project-kind">Generative Models</span>
+        <span class="project-kind">AI4CFD</span>
       </div>
       <h3>
         <a href="https://github.com/TY-Yang3015/fleiadex">
@@ -121,7 +121,7 @@ title: Home
       </div>
       <h3>
         <a href="{{ '/projects/' | relative_url }}">
-          See the project page for more ✦
+          See the project page for more!
         </a>
       </h3>
       <p class="project-desc">
@@ -145,13 +145,16 @@ title: Home
     </p>
 
     <ul>
-      <li>Physics-inspired visual ideas and scientific aesthetics</li>
-      <li>Reading across AI, chemistry, and mathematical modelling</li>
-      <li>Building side projects in JAX and exploring elegant model design</li>
+      <li>Sichuan Cuisine is my favourite!</li>
+      <li>As a former ChOer, my passion for theoretical chemistry persists...</li>
+      <li>Interested in modern political philosophy, my favourite modern philospher is
+      <a href="https://en.wikipedia.org/wiki/Giorgio_Agamben">
+          Giorgio Agamben
+        </a></li>
     </ul>
 
     <p class="interest-note">
-      Open only if curious ♪
+      ✦ Per aspera ad astra ✦
     </p>
   </div>
 </details>
