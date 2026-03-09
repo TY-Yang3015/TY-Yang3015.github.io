@@ -27,3 +27,15 @@ nav:
     link: "/blog/"
   - name: "Contact"
     link: "mailto:15210283759a@gmail.com"
+
+collections:
+  zh:
+    output: true
+    permalink: /zh/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: zh
+    values:
+      layout: post

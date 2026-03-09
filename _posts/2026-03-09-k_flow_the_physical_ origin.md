@@ -2,6 +2,9 @@
 layout: post
 title: "K-Flow - The Physical Origin"
 date: 2026-03-08 23:00:00 +0000
+zh_url: /zh/k_flow/
+series: Research Promotion
+series_icon: ✶
 categories: [blog]
 ---
 
@@ -9,7 +12,7 @@ categories: [blog]
 
 ## Flow Matching: A Physicist’s Perspective
 
-One of the earliest and most influential scientific observations of randomness in nature came from **Brownian motion**: the irregular movement of pollen particles suspended in water. This phenomenon offered a visible manifestation of microscopic fluctuations and later helped inspire the kinetic theory of gases, in which the macroscopic behaviour of matter is explained through the random motion of an enormous number of particles. Diffusion, a fundamental transport process that appears throughout the physical world, was subsequently studied and formalised by physicists and mathematicians. Their work established the mathematical foundations for describing how particles, energy, or probability distributions spread over time. These ideas later became central to modern transport theory and now provide an important theoretical basis for diffusion-based methods in machine learning, including **diffusion models** for generative modelling.
+One of the earliest and most influential scientific observations of randomness in nature came from **Brownian motion**: the irregular movement of pollen particles suspended in water. This phenomenon offered a visible manifestation of microscopic fluctuations and later helped inspire the microscopic theory of gases, in which the macroscopic behaviour of matter is explained through the random motion of an enormous number of particles. Diffusion, a fundamental transport process that appears throughout the physical world, was subsequently studied and formalised by physicists and mathematicians. Their work established the mathematical foundations for describing how particles, energy, or probability distributions spread over time. These ideas later became central to modern transport theory and now provide an important theoretical basis for diffusion-based methods in machine learning, including **diffusion models** for generative modelling.
 
 Flow matching, one of the state-of-the-art frameworks in generative modelling, also admits a natural interpretation from physics. Its mathematical structure is closely related to transport dynamics in classical mechanics, especially the way probability densities evolve under a prescribed velocity field. This connection makes flow matching not only a powerful machine learning method, but also a conceptually appealing one, since it can be illustrated through well-established physical principles. The dynamics of flow matching are typically defined by the ordinary differential equation
 
@@ -19,7 +22,7 @@ $$
 
 where $v_t(x)$ is a time-dependent velocity field that transports samples through the data space. Rather than modelling randomness explicitly, this formulation describes deterministic motion along trajectories induced by $v_t$.
 
-By **Liouville’s theorem**, the probability density transported by this flow evolves according to the continuity equation
+The probability density transported by this flow evolves according to the **continuity equation**
 
 $$
 \partial_t p_t(x) + \nabla \cdot \bigl(p_t(x)\, v_t(x)\bigr) = 0,
