@@ -46,6 +46,23 @@ title: Home
         <span class="pub-year">2026</span>
       </div>
       <h3>
+        <a href="https://arxiv.org/abs/2604.06881">
+          MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems
+        </a>
+      </h3>
+      <p class="pub-authors">
+        <strong>Tianyue Yang</strong>, Xiao Xue
+      </p>
+      <p class="pub-note">
+        One-step generative modelling for multiscale fluid dynamics with neural operators. .
+      </p>
+    </article>
+    <article class="pub-item">
+      <div class="pub-top">
+        <span class="pub-tag">arXiv</span>
+        <span class="pub-year">2026</span>
+      </div>
+      <h3>
         <a href="https://arxiv.org/abs/2602.15592">
           Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows
         </a>
@@ -56,24 +73,6 @@ title: Home
       </p>
       <p class="pub-note">
         Generative modelling for complex multiscale fluid dynamics.
-      </p>
-    </article>
-
-    <article class="pub-item">
-      <div class="pub-top">
-        <span class="pub-tag">arXiv</span>
-        <span class="pub-year">2025</span>
-      </div>
-      <h3>
-        <a href="https://arxiv.org/abs/2509.01293">
-          Equivariant U-shaped Neural Operators for the Cahn-Hilliard Phase-field Model
-        </a>
-      </h3>
-      <p class="pub-authors">
-        Xiao Xue, Marco F.P. ten Eikelder, <strong>Tianyue Yang</strong>, Yiqing Li, Kan He, Shuo Wang, Peter V. Coveney
-      </p>
-      <p class="pub-note">
-        Equivariant operator learning for phase-field modelling.
       </p>
     </article>
   </div>
