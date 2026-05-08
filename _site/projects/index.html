@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8" />
+  <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Projects · Tianyue Yang</title>
 <meta name="description" content="Tianyue's Personal Site" />
@@ -11,9 +11,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
-</head>
   <body class="cyber">
-    <header class="header">
+    <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/">Tianyue Yang</a>
 
@@ -33,43 +32,51 @@
   </div>
 </header>
 
-    <main class="container">
-      <div class="prose">
+    <main class="container page-content" id="main-content">
+      <section class="page-hero prose">
+  <p class="kicker">Projects</p>
   <h1>Projects</h1>
-  <p>Projects I worked on...</p>
-</div>
+  <p>Research code, experiments, and side projects.</p>
+</section>
 
-<div class="grid">
-  
-  <div class="card">
-    <h3>Fleiadex</h3>
-    <p>Latent Diffusion models in JAX for Weather Forecasting</p>
-    <div class="badges">
-      
-        <span class="badge">Diffusion</span>
-      
-        <span class="badge">AI4CFD</span>
-      
-        <span class="badge">Generative Modelling</span>
-      
-    </div>
-    <p style="margin-top:12px;"><a href="https://github.com/TY-Yang3015/fleiadex">Open ↗</a></p>
-  </div>
-  
-  <div class="card">
-    <h3>PsiFlax</h3>
-    <p>Flax implementation of Deep Quantum VMC</p>
-    <div class="badges">
-      
-        <span class="badge">Transformers</span>
-      
-        <span class="badge">AI4Chem</span>
-      
-    </div>
-    <p style="margin-top:12px;"><a href="https://github.com/TY-Yang3015/PsiFlax">Open ↗</a></p>
-  </div>
-  
-</div>
+<section class="grid project-grid" aria-label="Projects">
+    
+      <article class="card project-data-card">
+        <h2>Fleiadex</h2>
+        <p>Latent Diffusion models in JAX for Weather Forecasting</p>
+
+        
+          <div class="badges" aria-label="Tags">
+            <span class="badge">Diffusion</span><span class="badge">AI4CFD</span><span class="badge">Generative Modelling</span>
+          </div>
+        
+
+        
+          
+            <p class="card-action"><a href="https://github.com/TY-Yang3015/fleiadex" rel="noopener">Open ↗</a></p>
+          
+        
+      </article>
+    
+      <article class="card project-data-card">
+        <h2>PsiFlax</h2>
+        <p>Flax implementation of Deep Quantum VMC</p>
+
+        
+          <div class="badges" aria-label="Tags">
+            <span class="badge">Transformers</span><span class="badge">AI4Chem</span>
+          </div>
+        
+
+        
+          
+            <p class="card-action"><a href="https://github.com/TY-Yang3015/PsiFlax" rel="noopener">Open ↗</a></p>
+          
+        
+      </article>
+    
+  </section>
+
 
     </main>
     <footer class="footer">

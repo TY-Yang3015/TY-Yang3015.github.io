@@ -1,63 +1,51 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const filterLinks = Array.from(document.querySelectorAll(".collection-filter"));
-  const blocks = Array.from(document.querySelectorAll(".series-block"));
+(function () {
+  function initCollectionFilter() {
+    var shell = document.querySelector(".collection-shell");
+    var links = Array.prototype.slice.call(document.querySelectorAll(".collection-filter[data-filter]"));
+    var blocks = Array.prototype.slice.call(document.querySelectorAll(".series-block[data-group]"));
 
-  if (!filterLinks.length || !blocks.length) return;
+    if (!links.length || !blocks.length) return;
 
-  function showAllBlocks() {
-    blocks.forEach((block) => {
-      block.style.display = "";
-    });
-  }
+    var defaultFilter = shell ? shell.getAttribute("data-collection-default") : links[0].dataset.filter;
+    var validFilters = links.map(function (link) { return link.dataset.filter; });
 
-  function showOnlyGroup(groupName) {
-    blocks.forEach((block) => {
-      block.style.display = block.dataset.group === groupName ? "" : "none";
-    });
-  }
-
-  function setActiveLink(activeName) {
-    filterLinks.forEach((link) => {
-      if (link.dataset.filter === activeName) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  }
-
-  function applyFilter(filterName) {
-    if (filterName === "all-publications") {
-      showAllBlocks();
-    } else {
-      showOnlyGroup(filterName);
+    function setActive(filterName) {
+      links.forEach(function (link) {
+        var isActive = link.dataset.filter === filterName;
+        link.classList.toggle("is-active", isActive);
+        if (isActive) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
     }
 
-    setActiveLink(filterName);
+    function applyFilter(filterName, updateHash) {
+      var showAll = filterName === defaultFilter;
+
+      blocks.forEach(function (block) {
+        block.hidden = !showAll && block.dataset.group !== filterName;
+      });
+
+      setActive(filterName);
+
+      if (updateHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "#" + filterName);
+      }
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        applyFilter(link.dataset.filter, true);
+      });
+    });
+
+    var initial = window.location.hash ? window.location.hash.slice(1) : defaultFilter;
+    applyFilter(validFilters.indexOf(initial) >= 0 ? initial : defaultFilter, false);
   }
 
-  filterLinks.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      const filterName = this.dataset.filter;
-      const href = this.getAttribute("href");
-
-      applyFilter(filterName);
-
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, "", href);
-      } else {
-        window.location.hash = href;
-      }
-    });
-  });
-
-  const initialHash = window.location.hash.replace("#", "");
-  const validFilters = filterLinks.map((link) => link.dataset.filter);
-  const initialFilter = validFilters.includes(initialHash)
-    ? initialHash
-    : "all-publications";
-
-  applyFilter(initialFilter);
-});
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCollectionFilter);
+  } else {
+    initCollectionFilter();
+  }
+})();

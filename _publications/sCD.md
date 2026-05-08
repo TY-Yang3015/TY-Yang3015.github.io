@@ -12,6 +12,6 @@ arxiv_url: "https://arxiv.org/abs/2605.05975"
 # code_url: "https://github.com/..."
 # project_url: "https://..."
 # bibtex_url: "/assets/bib/interesting-paper.bib"
-selected: true
+selected: false
 abstract: "Distilled one-step generative fidelity reconstruction for physical systems."
 ---

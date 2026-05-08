@@ -1,23 +1,21 @@
 title: "Tianyue Yang"
-description: "Tianyue's Personal Site"
-url: "https://ty-yang3015.github.io/"   # user site
-baseurl: ""                             # project site: "/repo-name"
+description: "Tianyue Yang — AI, physics, chemistry, and scientific machine learning."
+url: "https://ty-yang3015.github.io"
+baseurl: ""
 timezone: Europe/London
 
-# Use these layouts/styles (no theme)
 markdown: kramdown
-
 kramdown:
   input: GFM
   math_engine: mathjax
 
-# Nice permalinks for posts
 permalink: /blog/:year/:month/:day/:title/
-
-# Optional: show excerpts on blog listing
 excerpt_separator: "<!--more-->"
 
-# Simple nav config (used by header)
+sass:
+  sass_dir: assets/css
+  style: compressed
+
 nav:
   - name: "Projects"
     link: "/projects/"
@@ -41,6 +39,23 @@ collections:
 defaults:
   - scope:
       path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
       type: zh
     values:
       layout: post
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: default
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
