@@ -573,6 +573,23 @@ body.cyber .pub-note {
   line-height: 1.65;
 }
 
+body.cyber .pub-item .index-publication-media {
+  max-width: 640px;
+  margin: 0 auto 0.8rem;
+  text-align: left;
+}
+
+body.cyber .pub-item .index-publication-media img {
+  aspect-ratio: 20 / 9;
+}
+
+body.cyber .post-links.pub-links {
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+  margin-top: 0.9rem;
+}
+
 /* optional: narrow screens */
 @media (max-width: 860px) {
   body.cyber .pub-section {
@@ -1170,6 +1187,45 @@ body.cyber .post-list {
   gap: 1.2rem;
 }
 
+
+/* Publication image / GIF preview */
+body.cyber .publication-media {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 0.95rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 26, 26, 0.24);
+  border-radius: calc(var(--radius) + 4px);
+  background:
+    linear-gradient(135deg, rgba(255, 26, 26, 0.12), rgba(255,255,255,0.02)),
+    rgba(255,255,255,0.03);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+body.cyber .publication-media a {
+  display: block;
+}
+
+body.cyber .publication-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+}
+
+body.cyber .publication-media figcaption {
+  margin: 0;
+  padding: 0.55rem 0.7rem 0.65rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.62);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
 body.cyber .post-card {
   padding: 1.2rem 1.25rem;
   transition:
@@ -1188,6 +1244,7 @@ body.cyber .post-card:hover {
 
 body.cyber .post-meta,
 body.cyber .post-card h2,
+body.cyber .post-card h3,
 body.cyber .post-excerpt,
 body.cyber .post-link {
   position: relative;
@@ -1222,18 +1279,21 @@ body.cyber .post-date {
   text-transform: uppercase;
 }
 
-body.cyber .post-card h2 {
+body.cyber .post-card h2,
+body.cyber .post-card h3 {
   margin: 0 0 0.55rem;
   font-size: 1.15rem;
   line-height: 1.4;
 }
 
-body.cyber .post-card h2 a {
+body.cyber .post-card h2 a,
+body.cyber .post-card h3 a {
   color: rgba(255,255,255,0.96);
   text-decoration: none;
 }
 
-body.cyber .post-card h2 a:hover {
+body.cyber .post-card h2 a:hover,
+body.cyber .post-card h3 a:hover {
   color: var(--accent2);
   text-decoration: underline;
   text-underline-offset: 4px;

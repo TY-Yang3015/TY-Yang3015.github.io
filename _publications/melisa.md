@@ -9,6 +9,8 @@ type: "Conference Paper"
 # pdf_url: "/assets/papers/interesting-paper.pdf"
 # doi_url: "https://doi.org/..."
 arxiv_url: "https://arxiv.org/abs/2605.05540"
+image: "/assets/images/pubs/melisa.png"
+indexed: true
 # code_url: "https://github.com/..."
 # project_url: "https://..."
 # bibtex_url: "/assets/bib/interesting-paper.bib"

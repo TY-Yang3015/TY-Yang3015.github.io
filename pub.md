@@ -86,6 +86,29 @@ permalink: /pub/
                     {% if pub.year %}<time class="post-date">{{ pub.year }}</time>{% endif %}
                   </div>
 
+                  {% assign pub_media = pub.image | default: pub.image_url | default: pub.gif | default: pub.gif_url %}
+                  {% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
+                  {% if pub_media %}
+                    <figure class="publication-media">
+                      {% if primary_url %}
+                        {% if primary_url contains '://' %}
+                          <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
+                        {% else %}
+                          <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
+                        {% endif %}
+                      {% endif %}
+
+                      {% if pub_media contains '://' %}
+                        <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+                      {% else %}
+                        <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+                      {% endif %}
+
+                      {% if primary_url %}</a>{% endif %}
+                      {% if pub.image_caption %}<figcaption>{{ pub.image_caption }}</figcaption>{% endif %}
+                    </figure>
+                  {% endif %}
+
                   <h3>
                     {% if primary_url %}
                       {% if primary_url contains '://' %}
@@ -143,6 +166,29 @@ permalink: /pub/
                       <span class="post-tag">{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
                       {% if pub.year %}<time class="post-date">{{ pub.year }}</time>{% endif %}
                     </div>
+
+                    {% assign pub_media = pub.image | default: pub.image_url | default: pub.gif | default: pub.gif_url %}
+                    {% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
+                    {% if pub_media %}
+                      <figure class="publication-media">
+                        {% if primary_url %}
+                          {% if primary_url contains '://' %}
+                            <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
+                          {% else %}
+                            <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
+                          {% endif %}
+                        {% endif %}
+
+                        {% if pub_media contains '://' %}
+                          <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+                        {% else %}
+                          <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+                        {% endif %}
+
+                        {% if primary_url %}</a>{% endif %}
+                        {% if pub.image_caption %}<figcaption>{{ pub.image_caption }}</figcaption>{% endif %}
+                      </figure>
+                    {% endif %}
 
                     <h3>
                       {% if primary_url %}

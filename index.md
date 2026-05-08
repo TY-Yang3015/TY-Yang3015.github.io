@@ -36,46 +36,82 @@ title: Home
 
 <hr />
 
+{% assign homepage_publications = "" | split: "" %}
+{% if site.publications %}
+  {% assign homepage_publications = site.publications | where: "indexed", true | sort: "year" | reverse %}
+{% endif %}
+
 <div class="prose pub-section">
   <h2>★ Selected Publications ★</h2>
 
-  <div class="pub-list">
-    <article class="pub-item">
-      <div class="pub-top">
-        <span class="pub-tag">arXiv</span>
-        <span class="pub-year">2026</span>
-      </div>
-      <h3>
-        <a href="https://arxiv.org/abs/2605.05540">
-          Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting
-        </a>
-      </h3>
-      <p class="pub-authors">
-        <strong>Tianyue Yang</strong>, Xiao Xue
-      </p>
-      <p class="pub-note">
-        First autoregressive one-step generative model for dynamical systems.
-      </p>
-    </article>
-    <article class="pub-item">
-      <div class="pub-top">
-        <span class="pub-tag">arXiv</span>
-        <span class="pub-year">2026</span>
-      </div>
-      <h3>
-        <a href="https://arxiv.org/abs/2602.15592">
-          Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows
-        </a>
-      </h3>
-      <p class="pub-authors">
-        Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang,
-        Kewei Zhu, Shuo Wang, Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney
-      </p>
-      <p class="pub-note">
-        Generative modelling for complex multiscale fluid dynamics.
-      </p>
-    </article>
-  </div>
+  {% if homepage_publications.size > 0 %}
+    <div class="pub-list">
+      {% for pub in homepage_publications %}
+        {% assign primary_url = pub.paper_url | default: pub.url | default: pub.doi_url | default: pub.arxiv_url | default: pub.pdf_url %}
+        {% assign pub_type = pub.type | default: pub.entry_type | default: "publication" %}
+        {% assign pub_media = pub.image | default: pub.image_url | default: pub.gif | default: pub.gif_url %}
+        {% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
+
+        <article class="pub-item publication-card">
+          <div class="pub-top">
+            <span class="pub-tag">{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
+            {% if pub.year %}<span class="pub-year">{{ pub.year }}</span>{% endif %}
+          </div>
+
+          {% if pub_media %}
+            <figure class="publication-media index-publication-media">
+              {% if primary_url %}
+                {% if primary_url contains '://' %}
+                  <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
+                {% else %}
+                  <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
+                {% endif %}
+              {% endif %}
+
+              {% if pub_media contains '://' %}
+                <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+              {% else %}
+                <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+              {% endif %}
+
+              {% if primary_url %}</a>{% endif %}
+              {% if pub.image_caption %}<figcaption>{{ pub.image_caption }}</figcaption>{% endif %}
+            </figure>
+          {% endif %}
+
+          <h3>
+            {% if primary_url %}
+              {% if primary_url contains '://' %}
+                <a href="{{ primary_url }}" rel="noopener">{{ pub.title }}</a>
+              {% else %}
+                <a href="{{ primary_url | relative_url }}">{{ pub.title }}</a>
+              {% endif %}
+            {% else %}
+              {{ pub.title }}
+            {% endif %}
+          </h3>
+
+          {% if pub.authors %}<p class="pub-authors">{{ pub.authors }}</p>{% endif %}
+          {% if pub.note or pub.abstract %}
+            <p class="pub-note">
+              {% if pub.note %}{{ pub.note }}{% endif %}
+              {% if pub.abstract %}{% if pub.note %}<br>{% endif %}{{ pub.abstract | strip_html | truncate: 180 }}{% endif %}
+            </p>
+          {% endif %}
+
+          <div class="post-links pub-links">
+            {% if pub.pdf_url %}{% if pub.pdf_url contains '://' %}<a class="post-link" href="{{ pub.pdf_url }}" rel="noopener">PDF ↗</a>{% else %}<a class="post-link" href="{{ pub.pdf_url | relative_url }}">PDF ↗</a>{% endif %}{% endif %}
+            {% if pub.doi_url %}<a class="post-link" href="{{ pub.doi_url }}" rel="noopener">DOI ↗</a>{% endif %}
+            {% if pub.arxiv_url %}<a class="post-link" href="{{ pub.arxiv_url }}" rel="noopener">arXiv ↗</a>{% endif %}
+            {% if pub.code_url %}<a class="post-link" href="{{ pub.code_url }}" rel="noopener">Code ↗</a>{% endif %}
+            {% if pub.project_url %}<a class="post-link" href="{{ pub.project_url }}" rel="noopener">Project ↗</a>{% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="pub-note">No indexed publications yet — the archive is still forming</p>
+  {% endif %}
 </div>
 
 <div class="prose project-section">
