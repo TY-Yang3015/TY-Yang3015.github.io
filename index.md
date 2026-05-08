@@ -20,14 +20,14 @@ title: Home
 
 <div class="grid">
   <div class="card">
-    <h3>✦ Research Interests ✦</h3>
+    <h3>Research Interests</h3>
     <p>
       I work on generative modelling and AI for science, especially applications in computational fluid dynamics, chemistry, and physics-informed learning.
     </p>
   </div>
 
   <div class="card">
-    <h3>♪ Current Role ♪</h3>
+    <h3>Current Role</h3>
     <p>
       I am a Research Assistant at CCS@UCL and CSE@CUHK, working with Prof. Peter Coveney, Dr. Xiao Xue, and Dr. Shengchao Liu on generative methods for CFD and related scientific problems.
     </p>
@@ -46,15 +46,15 @@ title: Home
         <span class="pub-year">2026</span>
       </div>
       <h3>
-        <a href="https://arxiv.org/abs/2604.06881">
-          MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems
+        <a href="https://arxiv.org/abs/2605.05540">
+          Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting
         </a>
       </h3>
       <p class="pub-authors">
         <strong>Tianyue Yang</strong>, Xiao Xue
       </p>
       <p class="pub-note">
-        One-step generative modelling for multiscale fluid dynamics with neural operators. .
+        First autoregressive one-step generative model for dynamical systems.
       </p>
     </article>
     <article class="pub-item">
@@ -79,7 +79,7 @@ title: Home
 </div>
 
 <div class="prose project-section">
-  <h2>♪ Project Links ♪</h2>
+  <h2>Project Links</h2>
   <p class="project-intro">Past projects I've been working on!</p>
 
   <div class="project-list">
