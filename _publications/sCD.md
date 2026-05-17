@@ -2,7 +2,7 @@
 title: "Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems"
 year: 2026
 date: 2026-05-08
-authors: "Sicheng Ma, <strong>Tianyue Yang</strong>, Xiuzhe Wu, Xiao Xue"
+authors: "Sicheng Ma*, <strong>Tianyue Yang</strong>*, Xiuzhe Wu, Xiao Xue"
 venue: "Under Review..."
 type: "Conference Paper"
 # paper_url: "/papers/interesting-paper/"

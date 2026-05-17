@@ -4,7 +4,7 @@ year: 2025
 date: 2025-10-02
 authors: "<strong>Tianyue Yang</strong>, Sahil Khandelwal"
 venue: "Imperial College London, Department of Physics"
-type: "Degree Dissertation"
+type: "Undergraduate Dissertation"
 # paper_url: "/papers/interesting-paper/"
 pdf_url: "/assets/ug_dis.pdf"
 # doi_url: "https://doi.org/..."
