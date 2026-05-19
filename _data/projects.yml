@@ -1,3 +1,8 @@
+- name: "AstroGen"
+  description: "Generative Modeling for Redshift-conditioned galaxy image synthesis."
+  link: "https://github.com/TY-Yang3015/fleiadex"
+  tags: ["MeanFlow", "AI4Astro", "Generative Modelling"]
+
 - name: "Fleiadex"
   description: "Latent Diffusion models in JAX for Weather Forecasting"
   link: "https://github.com/TY-Yang3015/fleiadex"
