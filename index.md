@@ -3,12 +3,13 @@ layout: default
 title: Home
 ---
 
+
 <div class="hero">
   <div class="kicker">AI • Physics • Chemistry</div>
   <h1 class="glitch" data-text="Tianyue Yang">Tianyue Yang</h1>
   <p class="lead">
-  I work at the intersection of AI, physics, and chemistry, with a focus on generative modelling for scientific machine learning and physics-inspired methods.
-</p>
+    I work at the intersection of AI, physics, and chemistry, with a focus on generative modelling for scientific machine learning and physics-inspired methods.
+  </p>
 
   <div class="cta">
     <a class="btn primary" href="{{ '/projects/' | relative_url }}">View Projects</a>
@@ -53,60 +54,84 @@ title: Home
         {% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
 
         <article class="pub-item publication-card">
-          <div class="pub-top">
-            <span class="pub-tag">{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
-            {% if pub.year %}<span class="pub-year">{{ pub.year }}</span>{% endif %}
-          </div>
+  <div class="pub-top">
+    <span class="pub-tag">{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
+    {% if pub.year %}<span class="pub-year">{{ pub.year }}</span>{% endif %}
+  </div>
 
-          {% if pub_media %}
-            <figure class="publication-media index-publication-media">
-              {% if primary_url %}
-                {% if primary_url contains '://' %}
-                  <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
-                {% else %}
-                  <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
-                {% endif %}
-              {% endif %}
+  <h3 class="pub-title">
+    {% if primary_url %}
+      {% if primary_url contains '://' %}
+        <a href="{{ primary_url }}" rel="noopener">{{ pub.title }}</a>
+      {% else %}
+        <a href="{{ primary_url | relative_url }}">{{ pub.title }}</a>
+      {% endif %}
+    {% else %}
+      {{ pub.title }}
+    {% endif %}
+  </h3>
 
-              {% if pub_media contains '://' %}
-                <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
-              {% else %}
-                <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
-              {% endif %}
+  {% if pub.authors %}
+    <p class="pub-authors pub-authors-above">{{ pub.authors }}</p>
+  {% endif %}
 
-              {% if primary_url %}</a>{% endif %}
-              {% if pub.image_caption %}<figcaption>{{ pub.image_caption }}</figcaption>{% endif %}
-            </figure>
+  <div class="pub-body">
+    {% if pub_media %}
+      <figure class="publication-media index-publication-media pub-thumbnail">
+        {% if primary_url %}
+          {% if primary_url contains '://' %}
+            <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
+          {% else %}
+            <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
           {% endif %}
+        {% endif %}
 
-          <h3>
-            {% if primary_url %}
-              {% if primary_url contains '://' %}
-                <a href="{{ primary_url }}" rel="noopener">{{ pub.title }}</a>
-              {% else %}
-                <a href="{{ primary_url | relative_url }}">{{ pub.title }}</a>
-              {% endif %}
-            {% else %}
-              {{ pub.title }}
-            {% endif %}
-          </h3>
+        {% if pub_media contains '://' %}
+          <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+        {% else %}
+          <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+        {% endif %}
 
-          {% if pub.authors %}<p class="pub-authors">{{ pub.authors }}</p>{% endif %}
-          {% if pub.note or pub.abstract %}
-            <p class="pub-note">
-              {% if pub.note %}{{ pub.note }}{% endif %}
-              {% if pub.abstract %}{% if pub.note %}<br>{% endif %}{{ pub.abstract | strip_html | truncate: 180 }}{% endif %}
-            </p>
+        {% if primary_url %}</a>{% endif %}
+      </figure>
+    {% endif %}
+
+    <div class="pub-content">
+      {% if pub.note or pub.abstract %}
+        <p class="pub-note">
+          {% if pub.note %}{{ pub.note }}{% endif %}
+          {% if pub.abstract %}{% if pub.note %}<br>{% endif %}{{ pub.abstract | strip_html | truncate: 180 }}{% endif %}
+        </p>
+      {% endif %}
+
+      <div class="post-links pub-links">
+        {% if pub.pdf_url %}
+          {% if pub.pdf_url contains '://' %}
+            <a class="post-link" href="{{ pub.pdf_url }}" rel="noopener">PDF ↗</a>
+          {% else %}
+            <a class="post-link" href="{{ pub.pdf_url | relative_url }}">PDF ↗</a>
           {% endif %}
+        {% endif %}
 
-          <div class="post-links pub-links">
-            {% if pub.pdf_url %}{% if pub.pdf_url contains '://' %}<a class="post-link" href="{{ pub.pdf_url }}" rel="noopener">PDF ↗</a>{% else %}<a class="post-link" href="{{ pub.pdf_url | relative_url }}">PDF ↗</a>{% endif %}{% endif %}
-            {% if pub.doi_url %}<a class="post-link" href="{{ pub.doi_url }}" rel="noopener">DOI ↗</a>{% endif %}
-            {% if pub.arxiv_url %}<a class="post-link" href="{{ pub.arxiv_url }}" rel="noopener">arXiv ↗</a>{% endif %}
-            {% if pub.code_url %}<a class="post-link" href="{{ pub.code_url }}" rel="noopener">Code ↗</a>{% endif %}
-            {% if pub.project_url %}<a class="post-link" href="{{ pub.project_url }}" rel="noopener">Project ↗</a>{% endif %}
-          </div>
-        </article>
+        {% if pub.doi_url %}
+          <a class="post-link" href="{{ pub.doi_url }}" rel="noopener">DOI ↗</a>
+        {% endif %}
+
+        {% if pub.arxiv_url %}
+          <a class="post-link" href="{{ pub.arxiv_url }}" rel="noopener">arXiv ↗</a>
+        {% endif %}
+
+        {% if pub.code_url %}
+          <a class="post-link" href="{{ pub.code_url }}" rel="noopener">Code ↗</a>
+        {% endif %}
+
+        {% if pub.project_url %}
+          <a class="post-link" href="{{ pub.project_url }}" rel="noopener">Project ↗</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</article>
       {% endfor %}
     </div>
   {% else %}
@@ -165,32 +190,34 @@ title: Home
     </article>
   </div>
 
-<details class="interest-box mystic-interest">
-  <summary>
-    <span class="interest-summary-inner">
-      <span class="interest-sigil">✦</span>
-      <span class="interest-title">Personal Interests</span>
-      <span class="interest-whisper">hidden archive</span>
-    </span>
-  </summary>
+  <details class="interest-box mystic-interest">
+    <summary>
+      <span class="interest-summary-inner">
+        <span class="interest-sigil">✦</span>
+        <span class="interest-title">Personal Interests</span>
+        <span class="interest-whisper">hidden archive</span>
+      </span>
+    </summary>
 
-  <div class="interest-content">
-    <p class="interest-intro">
-      A few things I enjoy outside research:
-    </p>
+    <div class="interest-content">
+      <p class="interest-intro">
+        A few things I enjoy outside research:
+      </p>
 
-    <ul>
-      <li>Sichuan Cuisine is my favourite!</li>
-      <li>As a former ChOer, my passion for theoretical chemistry persists...</li>
-      <li>Interested in modern political philosophy, my favourite modern philospher is
-      <a href="https://en.wikipedia.org/wiki/Giorgio_Agamben">
-          Giorgio Agamben
-        </a></li>
-    </ul>
+      <ul>
+        <li>Sichuan Cuisine is my favourite!</li>
+        <li>As a former ChOer, my passion for theoretical chemistry persists...</li>
+        <li>
+          Interested in modern political philosophy, my favourite modern philosopher is
+          <a href="https://en.wikipedia.org/wiki/Giorgio_Agamben">
+            Giorgio Agamben
+          </a>
+        </li>
+      </ul>
 
-    <p class="interest-note">
-      ✦ Per aspera ad astra ✦
-    </p>
-  </div>
-</details>
-
+      <p class="interest-note">
+        ✦ Per aspera ad astra ✦
+      </p>
+    </div>
+  </details>
+</div>

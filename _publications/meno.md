@@ -5,7 +5,7 @@ date: 2026-04-09
 authors: "<strong>Tianyue Yang</strong>, Xiao Xue"
 venue: "Under Review..."
 type: "Conference Paper"
-# paper_url: "/papers/interesting-paper/"
+paper_url: "https://arxiv.org/abs/2604.06881"
 # pdf_url: "/assets/papers/interesting-paper.pdf"
 # doi_url: "https://doi.org/..."
 arxiv_url: "https://arxiv.org/abs/2604.06881"

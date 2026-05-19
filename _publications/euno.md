@@ -5,7 +5,7 @@ date: 2026-09-09
 authors: "Xiao Xue, Marco F.P. ten Eikelder, <strong>Tianyue Yang</strong>, Yiqing Li, Kan He, Shuo Wang, Peter V. Coveney"
 venue: "Under Review..."
 type: "Journal Paper"
-# paper_url: "/papers/interesting-paper/"
+paper_url: "https://arxiv.org/abs/2509.01293"
 # pdf_url: "/assets/papers/interesting-paper.pdf"
 # doi_url: "https://doi.org/..."
 arxiv_url: "https://arxiv.org/abs/2509.01293"
