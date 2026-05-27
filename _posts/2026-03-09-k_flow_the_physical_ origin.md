@@ -4,7 +4,7 @@ title: "K-Flow - The Physical Origin"
 date: 2026-03-08 23:00:00 +0000
 zh_url: /zh/k_flow/
 series: Research Promotion
-series_icon: ✶
+series_icon: "✶"
 categories: [blog]
 ---
 
