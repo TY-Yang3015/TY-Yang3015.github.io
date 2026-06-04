@@ -120,7 +120,7 @@
 
 <p>where $\Psi_k$ denotes the observable evolving along the scale parameter $k$, and $v_k$ is the corresponding scale-dependent velocity field.</p>
 
-<p><img src="/assets/images/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;" /></p>
+<p><img src="/assets/images/blog/k-flow/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;" /></p>
 
 <p>More concretely, $\Psi_k$ is constructed by progressively revealing transform coefficients up to scale $k$, while the remaining components are padded or interpolated with noise:</p>
 
@@ -158,7 +158,7 @@ p_{\epsilon}(k_{\max}\mid k_{\max}-1,\ldots,k_0),\]
 
 <p>the marginal distribution at step $t$ is effectively <strong>localised</strong> around the current scale shell. In other words, only a restricted band of coefficients is actively being updated, while lower-scale components are already determined and higher-scale components remain noise-dominated.</p>
 
-<p><img src="/assets/images/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;" /></p>
+<p><img src="/assets/images/blog/k-flow/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;" /></p>
 
 <p>This resembles the notion of <strong>shell localisation</strong> in renormalisation group theory, where one studies how the effective description changes as degrees of freedom are integrated in or out shell by shell. Seen in this way, K-Flow replaces the abstract time variable of conventional flow matching with a more structured and physically interpretable evolution across scales.</p>
 
@@ -166,12 +166,12 @@ p_{\epsilon}(k_{\max}\mid k_{\max}-1,\ldots,k_0),\]
 
 <p>In the <a href="https://arxiv.org/abs/2504.19353">K-Flow paper</a>, we conducted extensive experiments across a variety of datasets, including both <strong>class-conditional</strong> settings, such as <strong>ImageNet-256 with a VAE</strong>, and <strong>unconditional</strong> settings, such as <strong>CelebA-HQ</strong>.</p>
 <div style="display: flex; justify-content: center; gap: 16px; align-items: center;">
-  <img src="/assets/images/res_1.png" alt="First image" width="300" />
-  <img src="/assets/images/res_2.png" alt="Second image" width="300" />
+  <img src="/assets/images/blog/k-flow/res_1.png" alt="First image" width="300" />
+  <img src="/assets/images/blog/k-flow/res_2.png" alt="Second image" width="300" />
 </div>
 
 <p>Across these benchmarks, K-Flow achieved competitive results, as summarised in <strong>Tables 1 and 2</strong>. More intriguingly, we observed a striking phenomenon: <strong>class-conditional labels can be removed at a very early stage of generation without noticeably degrading sample quality</strong>, as illustrated by the samples below. 
-<img src="/assets/images/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;" />
+<img src="/assets/images/blog/k-flow/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;" />
 This provides strong experimental evidence that our <strong>energy-driven approach</strong> is learning an internal representation that aligns closely with the <strong>natural image manifold</strong>, rather than relying solely on label information throughout the entire generation process.</p>
 
 <h2 id="conclusion-and-outlook">Conclusion and Outlook</h2>

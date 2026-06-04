@@ -15,7 +15,7 @@ title: Home
     <a class="btn primary" href="{{ '/projects/' | relative_url }}">View Projects</a>
     <a class="btn good" href="mailto:15210283759a@gmail.com">Email Me</a>
     <a class="btn" href="https://github.com/TY-Yang3015">GitHub</a>
-    <a class="btn" href="/assets/cv.pdf">Download CV</a>
+    <a class="btn" href="{{ '/assets/documents/cv.pdf' | relative_url }}">Download CV</a>
   </div>
 </div>
 

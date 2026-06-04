@@ -113,7 +113,7 @@ $$
 
 where $\Psi_k$ denotes the observable evolving along the scale parameter $k$, and $v_k$ is the corresponding scale-dependent velocity field.
 
-<img src="/assets/images/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
 
 More concretely, $\Psi_k$ is constructed by progressively revealing transform coefficients up to scale $k$, while the remaining components are padded or interpolated with noise:
 
@@ -157,7 +157,7 @@ $$
 
 the marginal distribution at step $t$ is effectively **localised** around the current scale shell. In other words, only a restricted band of coefficients is actively being updated, while lower-scale components are already determined and higher-scale components remain noise-dominated.
 
-<img src="/assets/images/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
 
 This resembles the notion of **shell localisation** in renormalisation group theory, where one studies how the effective description changes as degrees of freedom are integrated in or out shell by shell. Seen in this way, K-Flow replaces the abstract time variable of conventional flow matching with a more structured and physically interpretable evolution across scales.
 
@@ -165,12 +165,12 @@ This resembles the notion of **shell localisation** in renormalisation group the
 
 In the [K-Flow paper](https://arxiv.org/abs/2504.19353), we conducted extensive experiments across a variety of datasets, including both **class-conditional** settings, such as **ImageNet-256 with a VAE**, and **unconditional** settings, such as **CelebA-HQ**.
 <div style="display: flex; justify-content: center; gap: 16px; align-items: center;">
-  <img src="/assets/images/res_1.png" alt="First image" width="300">
-  <img src="/assets/images/res_2.png" alt="Second image" width="300">
+  <img src="/assets/images/blog/k-flow/res_1.png" alt="First image" width="300">
+  <img src="/assets/images/blog/k-flow/res_2.png" alt="Second image" width="300">
 </div>
 
 Across these benchmarks, K-Flow achieved competitive results, as summarised in **Tables 1 and 2**. More intriguingly, we observed a striking phenomenon: **class-conditional labels can be removed at a very early stage of generation without noticeably degrading sample quality**, as illustrated by the samples below. 
-<img src="/assets/images/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;">
 This provides strong experimental evidence that our **energy-driven approach** is learning an internal representation that aligns closely with the **natural image manifold**, rather than relying solely on label information throughout the entire generation process.
 
 ## Conclusion and Outlook

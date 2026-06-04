@@ -14,5 +14,5 @@ Then open the local URL printed by Jekyll.
 ## Notes
 
 - Do not edit `_site/`; it is generated output.
-- Keep PDFs/images in `assets/` as they are.
+- Keep assets organized according to `assets/README.md`.
 - Keep publication entries in `_publications/` and project data in `_data/projects.yml`.

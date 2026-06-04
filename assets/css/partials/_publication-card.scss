@@ -1,0 +1,48 @@
+.publication-card .pub-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.publication-card .pub-thumbnail {
+  flex: 0 0 200px;
+  width: 200px;
+  margin: 0;
+}
+
+.publication-card .pub-thumbnail img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  display: block;
+}
+
+.publication-card .pub-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.publication-card .pub-content h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .publication-card .pub-body {
+    flex-direction: column;
+  }
+
+  .publication-card .pub-thumbnail,
+  .publication-card .pub-thumbnail img {
+    width: 100%;
+  }
+
+  .publication-card .pub-thumbnail {
+    flex-basis: auto;
+  }
+
+  .publication-card .pub-thumbnail img {
+    height: auto;
+    max-height: 180px;
+  }
+}

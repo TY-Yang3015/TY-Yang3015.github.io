@@ -10,7 +10,7 @@ paper_url: "https://arxiv.org/abs/2605.05975"
 # doi_url: "https://doi.org/..."
 arxiv_url: "https://arxiv.org/abs/2605.05975"
 # code_url: "https://github.com/..."
-image: "/assets/images/pubs/sCD.png"
+image: "/assets/images/publications/sCD.png"
 # project_url: "https://..."
 # bibtex_url: "/assets/bib/interesting-paper.bib"
 selected: false

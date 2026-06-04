@@ -7,7 +7,7 @@ authors: "Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida
 venue: "Under Review..."
 type: "Journal Paper"
 # Optional: display one image or GIF on the publications page.
-image: "/assets/images/pubs/uni-flow.png"
+image: "/assets/images/publications/uni-flow.png"
 # image_alt: "Uni-Flow multiscale flow generation preview"
 # image_caption: "Optional short caption for the publication image."
 paper_url: "https://arxiv.org/abs/2602.15592"

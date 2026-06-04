@@ -110,7 +110,7 @@ $$
 
 其中，$\Psi_k$ 表示随尺度 $k$ 变化的可观测量，$v_k$ 则是由尺度所诱导的速度场。
 
-<img src="/assets/images/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/k_flow.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
 
 更准确地说，$\Psi_k$ 是通过如下方式构造的一个中间量，用于描述输运动力学：随着尺度 $k$ 的增大，逐步显露更大尺度上的变换系数，而其余尚未显露的系数则以噪声填充。其具体定义为
 
@@ -156,7 +156,7 @@ $$
 
 因此，第 $t$ 步对应的边际分布实际上在当前的尺度球壳附近是**局域化**的。换句话说，真正被主动更新的只有一个受限的系数带：较低尺度上的分量已经基本确定，而较高尺度上的分量仍然主要由噪声主导。
 
-<img src="/assets/images/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/scaling.png" alt="k_flow" width="900" style="display: block; margin: 0 auto;">
 
 这与重整化群理论中的**壳层局域化**概念十分相似：在那里，我们关心的是当系统的自由度按壳层逐步积掉或引入时，有效描述如何发生变化。从这个角度看，K-Flow 用一种更有结构、也更容易获得物理诠释的尺度演化，替代了传统流匹配中较为抽象的时间变量。
 
@@ -165,13 +165,13 @@ $$
 在 [K-Flow 论文](https://arxiv.org/abs/2504.19353)中，我们在多种数据集上进行了广泛实验，既包括 **条件生成** ，例如带有 VAE 的 **ImageNet-256**，也包括 **无条件生成**，例如 **CelebA-HQ**。
 
 <div style="display: flex; justify-content: center; gap: 16px; align-items: center;">
-  <img src="/assets/images/res_1.png" alt="First image" width="300">
-  <img src="/assets/images/res_2.png" alt="Second image" width="300">
+  <img src="/assets/images/blog/k-flow/res_1.png" alt="First image" width="300">
+  <img src="/assets/images/blog/k-flow/res_2.png" alt="Second image" width="300">
 </div>
 
 在这些基准任务上，K-Flow 取得了具有竞争力的结果，如 **Table 1** 和 **Table 2** 所总结的那样。更有趣的是，我们观察到一个十分显著的现象：**在生成过程的很早阶段去除 分类标签，并不会明显降低生成样本的质量**，如下图所示。
 
-<img src="/assets/images/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;">
+<img src="/assets/images/blog/k-flow/cond_drop.png" alt="k_flow" width="700" style="display: block; margin: 0 auto;">
 
 这一结果为我们的 **能量驱动方法** 提供了有力的实验支持：它所学习到的内部表征，与 **自然图像流形** 具有高度一致性，而并非仅仅在整个生成过程中持续依赖标签信息。
 
