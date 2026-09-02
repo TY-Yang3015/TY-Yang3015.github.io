@@ -1,0 +1,17 @@
+{% assign project = include.project %}
+<article class="project-card polygon-panel{% if include.class %} {{ include.class }}{% endif %}">
+  <div class="project-card-body">
+    <h2>{{ project.name }}</h2>
+    {% if project.description %}<p>{{ project.description }}</p>{% endif %}
+  </div>
+  {% if project.tags %}
+    <ul class="tag-list" aria-label="Project tags">
+      {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+  {% if project.link %}
+    <a class="text-link project-link" href="{% if project.link contains '://' %}{{ project.link }}{% else %}{{ project.link | relative_url }}{% endif %}" {% if project.link contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+      Open project <span aria-hidden="true">↗</span>
+    </a>
+  {% endif %}
+</article>

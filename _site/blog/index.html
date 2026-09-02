@@ -1,234 +1,209 @@
 <!doctype html>
-<html lang="en">
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en" data-theme="day">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog · Tianyue Yang</title>
-<meta name="description" content="Tianyue Yang — AI, physics, chemistry, and scientific machine learning." />
-<link rel="stylesheet" href="/assets/css/style.css" />
+<meta name="description" content="Research notes on AI, physics, chemistry, and scientific machine learning.">
+<meta name="theme-color" content="#fbfaff">
+<meta name="color-scheme" content="light dark">
+
+<script>
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem("site-theme"); } catch (error) {}
+    var theme = saved === "day" || saved === "night"
+      ? saved
+      : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day");
+    document.documentElement.dataset.theme = theme;
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script defer src="/assets/js/theme.js"></script>
+<script defer src="/assets/js/external-links.js"></script>
+
+
 
 <link rel="icon" href="/assets/icons/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
-  <body class="cyber">
-    <header class="header">
-  <div class="container header-inner">
-    <a class="brand" href="/">Tianyue Yang</a>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+  <div class="site-shell header-inner">
+    <a class="site-identity" href="/" aria-label="Tianyue Yang — home">
+      <strong>Tianyue Yang</strong>
+    </a>
 
-    <nav class="nav">
+    <nav class="site-nav" aria-label="Primary navigation">
       
-        <a class="nav-link" href="/projects/">Projects</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/projects/"
+           >Projects</a>
       
-        <a class="nav-link" href="/about/">About</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/about/"
+           >About</a>
       
-        <a class="nav-link" href="/blog/">Blog</a>
+        
+        
+        
+        
+        <a class="nav-link is-active"
+           href="/blog/"
+           aria-current="page">Blog</a>
       
-        <a class="nav-link" href="/pub/">Publications</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/pub/"
+           >Publications</a>
       
-        <a class="nav-link" href="mailto:15210283759a@gmail.com">Contact</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="mailto:15210283759a@gmail.com"
+           >Contact</a>
       
     </nav>
+
+    <button class="theme-switch" type="button" data-theme-toggle aria-label="Switch color mode">
+      <span class="theme-switch-track" aria-hidden="true">
+        <span class="theme-switch-knob"></span>
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 20 20">
+          <circle cx="10" cy="10" r="2.8"></circle>
+          <path d="M10 2.2v2M10 15.8v2M2.2 10h2M15.8 10h2M4.5 4.5l1.4 1.4M14.1 14.1l1.4 1.4M15.5 4.5l-1.4 1.4M5.9 14.1l-1.4 1.4"></path>
+        </svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 20 20">
+          <path d="M14.9 13.9A6.4 6.4 0 0 1 6.1 5.1 6.5 6.5 0 1 0 14.9 13.9Z"></path>
+        </svg>
+      </span>
+    </button>
   </div>
 </header>
 
-    <main class="container page-content" id="main-content">
-      
-<div class="blog-shell">
-  <section class="blog-hero">
-    <div class="kicker">Notes</div>
-    <h1 class="glitch" data-text="Blog">Blog</h1>
-    <p class="blog-lead">
-      Research notes, technical thoughts, and small explorations across AI, physics, and chemistry ♪
-    </p>
-  </section>
+    <main class="site-main" id="main-content">
+      <div class="site-shell">
+        
+<div class="archive-shell" data-collection-default="all-posts">
+  <header class="page-intro">
+  <h1>Blog</h1>
+  <p>Research notes and technical explorations across learning systems, physics, and chemistry.</p>
+  <div class="page-intro-rail" aria-hidden="true"><span></span><span></span><span></span></div>
+</header>
 
-  <div class="blog-layout">
-    <aside class="blog-sidebar">
-      <div class="collection-panel mystic-archive">
-        <div class="collection-head">
-          <span class="collection-sigil main-sigil">✦</span>
-          <div class="collection-head-copy">
-            <h2>Collections</h2>
-            <p class="collection-whisper">sealed archive</p>
-          </div>
-        </div>
 
-        <ul class="collection-list">
-          <li>
-            <a class="collection-filter" href="#all-posts" data-filter="all-posts">
-              <span class="collection-link-main">
-                <span class="collection-item-sigil">◎</span>
-                <span>All Posts</span>
-              </span>
-              <span class="collection-count">2</span>
-            </a>
-          </li>
-
+  <div class="archive-layout">
+    <aside class="archive-sidebar">
+      <nav class="archive-nav polygon-panel" aria-label="Blog collections">
+        <ul>
+          <li><a class="collection-filter" href="#all-posts" data-filter="all-posts"><span>All posts</span><b>2</b></a></li>
           
             
-              
-              <li>
-                <a class="collection-filter" href="#series-learning-theory-training-dynamics" data-filter="series-learning-theory-training-dynamics">
-                  <span class="collection-link-main">
-                    <span class="collection-item-sigil">★</span>
-                    <span>Learning Theory: Training Dynamics</span>
-                  </span>
-                  <span class="collection-count">1</span>
-                </a>
-              </li>
+              <li><a class="collection-filter" href="#series-learning-theory-training-dynamics" data-filter="series-learning-theory-training-dynamics"><span>Learning Theory: Training Dynamics</span><b>1</b></a></li>
             
           
             
-              
-              <li>
-                <a class="collection-filter" href="#series-research-promotion" data-filter="series-research-promotion">
-                  <span class="collection-link-main">
-                    <span class="collection-item-sigil">✶</span>
-                    <span>Research Promotion</span>
-                  </span>
-                  <span class="collection-count">1</span>
-                </a>
-              </li>
+              <li><a class="collection-filter" href="#series-research-promotion" data-filter="series-research-promotion"><span>Research Promotion</span><b>1</b></a></li>
             
           
-
           
         </ul>
-
-        <p class="collection-note">Sort Blogs by Collections ♪</p>
-      </div>
+      </nav>
     </aside>
 
-    <section class="blog-index" id="all-posts">
+    <section class="archive-index" id="all-posts" aria-live="polite">
       
-
         
           
-            
-            <div class="series-block" id="series-learning-theory-training-dynamics" data-group="series-learning-theory-training-dynamics">
-              <div class="series-heading">
-                <div class="series-heading-main">
-                  <span class="series-sigil">★</span>
-                  <h2>Learning Theory: Training Dynamics</h2>
-                </div>
-                <span class="series-count">1 entries</span>
-              </div>
-
+            <section class="series-block" id="series-learning-theory-training-dynamics" data-group="series-learning-theory-training-dynamics">
+              <header class="series-heading">
+                <span class="series-mark" aria-hidden="true">★</span>
+                <div><h2>Learning Theory: Training Dynamics</h2></div>
+                <small>1 entries</small>
+              </header>
               <div class="post-list">
                 
-                  <article class="post-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Post</span>
-                      <time class="post-date">27 May 2026</time>
-                    </div>
-
-                    <h3>
-                      <a href="/blog/2026/05/27/ntk/">A Brief Introduction to Neural Tangent Kernels</a>
-                    </h3>
-
-                    
-                      <p class="post-excerpt">
-                        (★ This Blog is part of a review series on Learning Theory: Training Dynamics collection. ★)
-
-This introduction gives a concise outline of the theoretical machinery behind  Neur...
-                      </p>
-                    
-
-                    <div class="post-links">
-                      <a class="post-link" href="/blog/2026/05/27/ntk/">
-                        Read entry ✦
-                      </a>
-
+                  <article class="post-record polygon-panel">
+                    <div class="post-record-meta"><time>27.05.2026</time></div>
+                    <h3><a href="/blog/2026/05/27/ntk/">A Brief Introduction to Neural Tangent Kernels</a></h3>
+                    <p>
+(★ This Blog is part of a review series on Learning Theory: Training Dynamics collection. ★)
+This introduction gives a concise outline of the theoretical machinery behind Neura...</p>
+                    <div class="record-links">
+                      <a href="/blog/2026/05/27/ntk/">Read note <span aria-hidden="true">↗</span></a>
                       
                     </div>
                   </article>
                 
               </div>
-            </div>
+            </section>
           
         
           
-            
-            <div class="series-block" id="series-research-promotion" data-group="series-research-promotion">
-              <div class="series-heading">
-                <div class="series-heading-main">
-                  <span class="series-sigil">✶</span>
-                  <h2>Research Promotion</h2>
-                </div>
-                <span class="series-count">1 entries</span>
-              </div>
-
+            <section class="series-block" id="series-research-promotion" data-group="series-research-promotion">
+              <header class="series-heading">
+                <span class="series-mark" aria-hidden="true">✶</span>
+                <div><h2>Research Promotion</h2></div>
+                <small>1 entries</small>
+              </header>
               <div class="post-list">
                 
-                  <article class="post-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Post</span>
-                      <time class="post-date">8 Mar 2026</time>
-                    </div>
+                  <article class="post-record polygon-panel">
+                    <div class="post-record-meta"><time>08.03.2026</time></div>
+                    <h3><a href="/blog/2026/03/08/k_flow_the_physical_-origin/">K-Flow - The Physical Origin</a></h3>
+                    <p>
 
-                    <h3>
-                      <a href="/blog/2026/03/08/k_flow_the_physical_-origin/">K-Flow - The Physical Origin</a>
-                    </h3>
-
-                    
-                      <p class="post-excerpt">
-                        (★ This Blog is an invited work by Dr. Shengchao Liu, see the home page of Wave Intelligence Lab ★)
+This blog is an invited contribution by Dr. Shengchao Liu; see the Wave Intelligence Lab.
 
 Flow Matching: A Physicist’s Perspective
-
-One of the earliest and most influ...
-                      </p>
-                    
-
-                    <div class="post-links">
-                      <a class="post-link" href="/blog/2026/03/08/k_flow_the_physical_-origin/">
-                        Read entry ✦
-                      </a>
-
-                      
-                        
-                          <a class="post-link" href="/zh/k_flow/">中文阅读 ♪</a>
-                        
-                      
+One of the earliest and most influential sc...</p>
+                    <div class="record-links">
+                      <a href="/blog/2026/03/08/k_flow_the_physical_-origin/">Read note <span aria-hidden="true">↗</span></a>
+                      <a href="/zh/k_flow/">中文</a>
                     </div>
                   </article>
                 
               </div>
-            </div>
+            </section>
           
         
 
         
-
       
     </section>
   </div>
 </div>
 
-<script src="/assets/js/blog-filter.js"></script>
+<script src="/assets/js/collection-filter.js" defer=""></script>
 
 
+      </div>
     </main>
-    <footer class="footer">
-  <div class="container footer-inner">
-    <p>© 2026 Tianyue Yang.</p>
-    <p class="muted">Built with Jekyll on GitHub Pages.</p>
+    <footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <p class="footer-copyright">© 2026 Tianyue Yang</p>
   </div>
 </footer>
 
   </body>
 </html>
-
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>

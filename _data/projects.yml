@@ -1,6 +1,6 @@
 - name: "AstroGen"
   description: "Generative Modeling for Redshift-conditioned galaxy image synthesis."
-  link: "https://github.com/TY-Yang3015/fleiadex"
+  link: "https://github.com/TY-Yang3015/AstroGen"
   tags: ["MeanFlow", "AI4Astro", "Generative Modelling"]
 
 - name: "Fleiadex"

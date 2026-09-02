@@ -1,223 +1,95 @@
 ---
 layout: default
 title: Home
+description: "Tianyue Yang builds generative models for physics, chemistry, and scientific computing."
 ---
 
-
-<div class="hero">
-  <div class="kicker">AI • Physics • Chemistry</div>
-  <h1 class="glitch" data-text="Tianyue Yang">Tianyue Yang</h1>
-  <p class="lead">
-    I work at the intersection of AI, physics, and chemistry, with a focus on generative modelling for scientific machine learning and physics-inspired methods.
-  </p>
-
-  <div class="cta">
-    <a class="btn primary" href="{{ '/projects/' | relative_url }}">View Projects</a>
-    <a class="btn good" href="mailto:15210283759a@gmail.com">Email Me</a>
-    <a class="btn" href="https://github.com/TY-Yang3015">GitHub</a>
-    <a class="btn" href="{{ '/assets/documents/cv.pdf' | relative_url }}">Download CV</a>
-  </div>
-</div>
-
-<div class="grid">
-  <div class="card">
-    <h3>Research Interests</h3>
-    <p>
-      I work on generative modelling and AI for science, especially applications in computational fluid dynamics, chemistry, and physics-informed learning.
+<section class="home-hero" aria-labelledby="home-title">
+  <div class="home-hero-copy">
+    <h1 id="home-title">Models for <span>matter, motion,</span> and scientific discovery.</h1>
+    <p class="hero-lead">
+      I work at the intersection of AI, physics, and chemistry, building generative methods for scientific machine learning and physics-informed computation.
     </p>
+    <div class="action-row">
+      <a class="button button--primary" href="{{ '/projects/' | relative_url }}">Explore projects <span aria-hidden="true">↗</span></a>
+      <a class="button" href="{{ '/assets/documents/cv.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">Download CV</a>
+      <a class="button" href="mailto:15210283759a@gmail.com">Email</a>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Current Role</h3>
-    <p>
-      I am a Research Assistant at CCS@UCL and CSE@CUHK, working with Prof. Peter Coveney, Dr. Xiao Xue, and Dr. Shengchao Liu on generative methods for CFD and related scientific problems.
-    </p>
+  <div class="signal-mark" aria-hidden="true">
+    <div class="signal-frame"><span>Y</span></div>
+    <span class="signal-line signal-line--a"></span>
+    <span class="signal-line signal-line--b"></span>
+    <span class="signal-line signal-line--c"></span>
   </div>
-</div>
+</section>
 
-<hr />
+<section class="home-facts" aria-label="Research profile">
+  <article>
+    <span class="fact-label">Focus</span>
+    <p>Generative modelling for dynamical systems, computational physics, and quantum chemistry.</p>
+  </article>
+  <article>
+    <span class="fact-label">Current</span>
+    <p>Research Assistant at CCS@UCL and CSE@CUHK; MPhil student at the University of Cambridge.</p>
+  </article>
+  <article>
+    <span class="fact-label">Approach</span>
+    <p>Physics-aware design, scalable learning systems, and theory that explains model behaviour.</p>
+  </article>
+</section>
 
 {% assign homepage_publications = "" | split: "" %}
 {% if site.publications %}
   {% assign homepage_publications = site.publications | where: "indexed", true | sort: "year" | reverse %}
 {% endif %}
 
-<div class="prose pub-section">
-  <h2>★ Selected Publications ★</h2>
+<section class="home-section" aria-labelledby="selected-publications-title">
+  <header class="section-heading">
+    <h2 id="selected-publications-title">Selected publications</h2>
+    <a class="text-link" href="{{ '/pub/' | relative_url }}">Full archive <span aria-hidden="true">↗</span></a>
+  </header>
 
   {% if homepage_publications.size > 0 %}
-    <div class="pub-list">
+    <div class="publication-list publication-list--home">
       {% for pub in homepage_publications %}
-        {% assign primary_url = pub.paper_url | default: pub.url | default: pub.doi_url | default: pub.arxiv_url | default: pub.pdf_url %}
-        {% assign pub_type = pub.type | default: pub.entry_type | default: "publication" %}
-        {% assign pub_media = pub.image | default: pub.image_url | default: pub.gif | default: pub.gif_url %}
-        {% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
-
-        <article class="pub-item publication-card">
-  <div class="pub-top">
-    <span class="pub-tag">{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
-    {% if pub.year %}<span class="pub-year">{{ pub.year }}</span>{% endif %}
-  </div>
-
-  <h3 class="pub-title">
-    {% if primary_url %}
-      {% if primary_url contains '://' %}
-        <a href="{{ primary_url }}" rel="noopener">{{ pub.title }}</a>
-      {% else %}
-        <a href="{{ primary_url | relative_url }}">{{ pub.title }}</a>
-      {% endif %}
-    {% else %}
-      {{ pub.title }}
-    {% endif %}
-  </h3>
-
-  {% if pub.authors %}
-    <p class="pub-authors pub-authors-above">{{ pub.authors }}</p>
-  {% endif %}
-
-  <div class="pub-body">
-    {% if pub_media %}
-      <figure class="publication-media index-publication-media pub-thumbnail">
-        {% if primary_url %}
-          {% if primary_url contains '://' %}
-            <a href="{{ primary_url }}" rel="noopener" aria-label="Open {{ pub.title | strip_html | escape }}">
-          {% else %}
-            <a href="{{ primary_url | relative_url }}" aria-label="Open {{ pub.title | strip_html | escape }}">
-          {% endif %}
-        {% endif %}
-
-        {% if pub_media contains '://' %}
-          <img src="{{ pub_media }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
-        {% else %}
-          <img src="{{ pub_media | relative_url }}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
-        {% endif %}
-
-        {% if primary_url %}</a>{% endif %}
-      </figure>
-    {% endif %}
-
-    <div class="pub-content">
-      {% if pub.note or pub.abstract %}
-        <p class="pub-note">
-          {% if pub.note %}{{ pub.note }}{% endif %}
-          {% if pub.abstract %}{% if pub.note %}<br>{% endif %}{{ pub.abstract | strip_html | truncate: 180 }}{% endif %}
-        </p>
-      {% endif %}
-
-      <div class="post-links pub-links">
-        {% if pub.pdf_url %}
-          {% if pub.pdf_url contains '://' %}
-            <a class="post-link" href="{{ pub.pdf_url }}" rel="noopener">PDF ↗</a>
-          {% else %}
-            <a class="post-link" href="{{ pub.pdf_url | relative_url }}">PDF ↗</a>
-          {% endif %}
-        {% endif %}
-
-        {% if pub.doi_url %}
-          <a class="post-link" href="{{ pub.doi_url }}" rel="noopener">DOI ↗</a>
-        {% endif %}
-
-        {% if pub.arxiv_url %}
-          <a class="post-link" href="{{ pub.arxiv_url }}" rel="noopener">arXiv ↗</a>
-        {% endif %}
-
-        {% if pub.code_url %}
-          <a class="post-link" href="{{ pub.code_url }}" rel="noopener">Code ↗</a>
-        {% endif %}
-
-        {% if pub.project_url %}
-          <a class="post-link" href="{{ pub.project_url }}" rel="noopener">Project ↗</a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</article>
+        {% include components/publication-card.html publication=pub variant="compact" %}
       {% endfor %}
     </div>
   {% else %}
-    <p class="pub-note">No indexed publications yet — the archive is still forming</p>
+    <p class="empty-state">No indexed publications yet.</p>
   {% endif %}
-</div>
+</section>
 
-<div class="prose project-section">
-  <h2>Project Links</h2>
-  <p class="project-intro">Past projects I've been working on!</p>
+<section class="home-section" aria-labelledby="project-links-title">
+  <header class="section-heading">
+    <h2 id="project-links-title">Project links</h2>
+    <a class="text-link" href="{{ '/projects/' | relative_url }}">All projects <span aria-hidden="true">↗</span></a>
+  </header>
 
-  <div class="project-list">
-    <article class="project-item">
-      <div class="project-top">
-        <span class="project-tag">JAX</span>
-        <span class="project-kind">AI4Chem</span>
+  <div class="project-list project-list--home">
+    {% for project in site.data.projects limit: 2 %}
+      {% include components/project-card.html project=project %}
+    {% endfor %}
+
+    <article class="project-card project-card--more polygon-panel">
+      <div class="project-card-body">
+        <h2>More experiments</h2>
+        <p>Browse research code, model implementations, and scientific side projects.</p>
       </div>
-      <h3>
-        <a href="https://github.com/TY-Yang3015/PsiFlax">
-          PsiFlax
-        </a>
-      </h3>
-      <p class="project-desc">
-        Deep QMC framework built with JAX and Flax.
-      </p>
-    </article>
-
-    <article class="project-item">
-      <div class="project-top">
-        <span class="project-tag">Diffusion</span>
-        <span class="project-kind">AI4Astro</span>
-      </div>
-      <h3>
-        <a href="https://github.com/TY-Yang3015/AstroGen">
-          AstroGen
-        </a>
-      </h3>
-      <p class="project-desc">
-        Generative Modeling for Redshift-conditioned galaxy image synthesis.
-      </p>
-    </article>
-
-    <article class="project-item more-projects">
-      <div class="project-top">
-        <span class="project-tag">More</span>
-        <span class="project-kind">Archive</span>
-      </div>
-      <h3>
-        <a href="{{ '/projects/' | relative_url }}">
-          See the project page for more!
-        </a>
-      </h3>
-      <p class="project-desc">
-        More experiments, research code, and side projects.
-      </p>
+      <a class="text-link project-link" href="{{ '/projects/' | relative_url }}">Open archive <span aria-hidden="true">↗</span></a>
     </article>
   </div>
 
-  <details class="interest-box mystic-interest">
+  <details class="interest-panel polygon-panel">
     <summary>
-      <span class="interest-summary-inner">
-        <span class="interest-sigil">✦</span>
-        <span class="interest-title">Personal Interests</span>
-        <span class="interest-whisper">hidden archive</span>
-      </span>
+      <span class="summary-mark" aria-hidden="true">+</span>
+      <span>Outside the lab</span>
     </summary>
-
     <div class="interest-content">
-      <p class="interest-intro">
-        A few things I enjoy outside research:
-      </p>
-
-      <ul>
-        <li>Sichuan Cuisine is my favourite!</li>
-        <li>As a former ChOer, my passion for theoretical chemistry persists...</li>
-        <li>
-          Interested in modern political philosophy, my favourite modern philosopher is
-          <a href="https://en.wikipedia.org/wiki/Giorgio_Agamben">
-            Giorgio Agamben
-          </a>
-        </li>
-      </ul>
-
-      <p class="interest-note">
-        ✦ Per aspera ad astra ✦
-      </p>
+      <p>Sichuan cuisine, theoretical chemistry, and modern political philosophy—especially the work of <a href="https://en.wikipedia.org/wiki/Giorgio_Agamben" target="_blank" rel="noopener noreferrer">Giorgio Agamben</a>.</p>
+      <span>Per aspera ad astra</span>
     </div>
   </details>
-</div>
+</section>

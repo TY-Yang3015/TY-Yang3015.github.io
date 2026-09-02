@@ -1,280 +1,295 @@
 <!doctype html>
-<html lang="en">
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en" data-theme="day">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publications · Tianyue Yang</title>
-<meta name="description" content="Tianyue Yang — AI, physics, chemistry, and scientific machine learning." />
-<link rel="stylesheet" href="/assets/css/style.css" />
+<meta name="description" content="Publications and dissertations by Tianyue Yang.">
+<meta name="theme-color" content="#fbfaff">
+<meta name="color-scheme" content="light dark">
+
+<script>
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem("site-theme"); } catch (error) {}
+    var theme = saved === "day" || saved === "night"
+      ? saved
+      : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day");
+    document.documentElement.dataset.theme = theme;
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script defer src="/assets/js/theme.js"></script>
+<script defer src="/assets/js/external-links.js"></script>
+
+
 
 <link rel="icon" href="/assets/icons/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
-  <body class="cyber">
-    <header class="header">
-  <div class="container header-inner">
-    <a class="brand" href="/">Tianyue Yang</a>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+  <div class="site-shell header-inner">
+    <a class="site-identity" href="/" aria-label="Tianyue Yang — home">
+      <strong>Tianyue Yang</strong>
+    </a>
 
-    <nav class="nav">
+    <nav class="site-nav" aria-label="Primary navigation">
       
-        <a class="nav-link" href="/projects/">Projects</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/projects/"
+           >Projects</a>
       
-        <a class="nav-link" href="/about/">About</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/about/"
+           >About</a>
       
-        <a class="nav-link" href="/blog/">Blog</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="/blog/"
+           >Blog</a>
       
-        <a class="nav-link" href="/pub/">Publications</a>
+        
+        
+        
+        
+        <a class="nav-link is-active"
+           href="/pub/"
+           aria-current="page">Publications</a>
       
-        <a class="nav-link" href="mailto:15210283759a@gmail.com">Contact</a>
+        
+        
+        
+        
+        <a class="nav-link"
+           href="mailto:15210283759a@gmail.com"
+           >Contact</a>
       
     </nav>
+
+    <button class="theme-switch" type="button" data-theme-toggle aria-label="Switch color mode">
+      <span class="theme-switch-track" aria-hidden="true">
+        <span class="theme-switch-knob"></span>
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 20 20">
+          <circle cx="10" cy="10" r="2.8"></circle>
+          <path d="M10 2.2v2M10 15.8v2M2.2 10h2M15.8 10h2M4.5 4.5l1.4 1.4M14.1 14.1l1.4 1.4M15.5 4.5l-1.4 1.4M5.9 14.1l-1.4 1.4"></path>
+        </svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 20 20">
+          <path d="M14.9 13.9A6.4 6.4 0 0 1 6.1 5.1 6.5 6.5 0 1 0 14.9 13.9Z"></path>
+        </svg>
+      </span>
+    </button>
   </div>
 </header>
 
-    <main class="container page-content" id="main-content">
-      
-<div class="blog-shell collection-shell" data-collection-default="all-publications">
-  <section class="blog-hero" aria-labelledby="publications-title">
-    <p class="kicker">Papers</p>
-    <h1 id="publications-title" class="glitch" data-text="Publications">Publications</h1>
-    <p class="blog-lead">
-      Papers, preprints, and research threads across AI, physics, chemistry, and adjacent curiosities ✦
-    </p>
-  </section>
+    <main class="site-main" id="main-content">
+      <div class="site-shell">
+        
+<div class="archive-shell" data-collection-default="all-publications">
+  <header class="page-intro">
+  <h1>Publications</h1>
+  <p>Papers, preprints, and dissertations across AI, physics, chemistry, and scientific computing.</p>
+  <div class="page-intro-rail" aria-hidden="true"><span></span><span></span><span></span></div>
+</header>
 
-  <div class="blog-layout">
-    <aside class="blog-sidebar" aria-label="Publication filters">
-      <nav class="collection-panel mystic-archive">
-        <div class="collection-head">
-          <span class="collection-sigil main-sigil">✦</span>
-          <div class="collection-head-copy">
-            <h2>Archive</h2>
-            <p class="collection-whisper">research index</p>
-          </div>
-        </div>
 
-        <ul class="collection-list">
-          <li>
-            <a class="collection-filter" href="#all-publications" data-filter="all-publications">
-              <span class="collection-link-main"><span class="collection-item-sigil">◎</span><span>All Publications</span></span>
-              <span class="collection-count">8</span>
-            </a>
-          </li>
-
+  <div class="archive-layout">
+    <aside class="archive-sidebar">
+      <nav class="archive-nav polygon-panel" aria-label="Publication filters">
+        <ul>
+          <li><a class="collection-filter" href="#all-publications" data-filter="all-publications"><span>All publications</span><b>8</b></a></li>
+          <li><a class="collection-filter" href="#selected-publications" data-filter="selected-publications"><span>Selected</span><b>3</b></a></li>
           
-            <li>
-              <a class="collection-filter" href="#selected-publications" data-filter="selected-publications">
-                <span class="collection-link-main"><span class="collection-item-sigil">★</span><span>Selected</span></span>
-                <span class="collection-count">3</span>
-              </a>
-            </li>
+            <li><a class="collection-filter" href="#year-2026" data-filter="year-2026"><span>2026</span><b>6</b></a></li>
           
-
-          
-            
-              <li>
-                <a class="collection-filter" href="#year-2026" data-filter="year-2026">
-                  <span class="collection-link-main"><span class="collection-item-sigil">◇</span><span>2026</span></span>
-                  <span class="collection-count">6</span>
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="collection-filter" href="#year-2025" data-filter="year-2025">
-                  <span class="collection-link-main"><span class="collection-item-sigil">◇</span><span>2025</span></span>
-                  <span class="collection-count">2</span>
-                </a>
-              </li>
-            
+            <li><a class="collection-filter" href="#year-2025" data-filter="year-2025"><span>2025</span><b>2</b></a></li>
           
         </ul>
-
-        <p class="collection-note">Sort papers by categories ♪</p>
       </nav>
     </aside>
 
-    <section class="blog-index" id="all-publications">
+    <section class="archive-index" id="all-publications" aria-live="polite">
       
         
-          <section class="series-block" id="selected-publications" data-group="selected-publications" aria-labelledby="heading-selected-publications">
-            <div class="series-heading">
-              <div class="series-heading-main">
-                <span class="series-sigil">★</span>
-                <h2 id="heading-selected-publications">Selected Publications</h2>
-              </div>
-              <span class="series-count">3 entries</span>
-            </div>
-
-            <div class="post-list">
+          <section class="series-block" id="selected-publications" data-group="selected-publications" data-show-in-all="false">
+            <header class="series-heading"><span class="series-mark" aria-hidden="true">S</span><div><h2>Selected publications</h2></div><small>3 records</small></header>
+            <div class="publication-list">
               
-                
-                
-                <article class="post-card publication-card">
-                  <div class="post-meta">
-                    <span class="post-tag">Conference Paper</span>
-                    <time class="post-date">2026</time>
-                  </div>
 
-                  
-                  
-                  
-                    <figure class="publication-media">
-                      
-                        
-                          <a href="https://arxiv.org/abs/2605.05540" rel="noopener" aria-label="Open Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting">
-                        
-                      
 
-                      
-                        <img src="/assets/images/publications/melisa.png" alt="Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting" loading="lazy" decoding="async" />
-                      
 
-                      </a>
-                      
-                    </figure>
-                  
 
-                  <h3>
-                    
-                      
-                        <a href="https://arxiv.org/abs/2605.05540" rel="noopener">Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting</a>
-                      
-                    
-                  </h3>
 
-                  <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
-                  
-                    <p class="post-excerpt">
-                      <strong>Under Review...</strong>
-                      
-                      <br />First autoregressive one-step generative model for dynamical systems.
-                    </p>
-                  
 
-                  <div class="post-links">
-                    
-                    
-                    <a class="post-link" href="https://arxiv.org/abs/2605.05540" rel="noopener">arXiv ↗</a>
-                    
-                    
-                    
-                    
-                  </div>
-                </article>
-              
-                
-                
-                <article class="post-card publication-card">
-                  <div class="post-meta">
-                    <span class="post-tag">Journal Paper</span>
-                    <time class="post-date">2026</time>
-                  </div>
 
-                  
-                  
-                  
-                    <figure class="publication-media">
-                      
-                        
-                          <a href="https://arxiv.org/abs/2604.06881" rel="noopener" aria-label="Open MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems">
-                        
-                      
 
-                      
-                        <img src="/assets/images/publications/meno.png" alt="MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems" loading="lazy" decoding="async" />
-                      
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Conference Paper</span>
+    <span>2026</span>
+  </div>
 
-                      </a>
-                      
-                    </figure>
-                  
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer" aria-label="Open Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting">
+          <img src="/assets/images/publications/melisa.png" alt="Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
 
-                  <h3>
-                    
-                      
-                        <a href="https://arxiv.org/abs/2604.06881" rel="noopener">MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems</a>
-                      
-                    
-                  </h3>
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer">Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting</a>
+      </h3>
 
-                  <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
-                  
-                    <p class="post-excerpt">
-                      <strong>Under Review...</strong>
-                      
-                      <br />One-step generative modelling for multiscale fluid dynamics with neural operators.
-                    </p>
-                  
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
 
-                  <div class="post-links">
-                    
-                    
-                    <a class="post-link" href="https://arxiv.org/abs/2604.06881" rel="noopener">arXiv ↗</a>
-                    
-                    
-                    
-                    
-                  </div>
-                </article>
-              
-                
-                
-                <article class="post-card publication-card">
-                  <div class="post-meta">
-                    <span class="post-tag">Journal Paper</span>
-                    <time class="post-date">2026</time>
-                  </div>
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
 
-                  
-                  
-                  
-                    <figure class="publication-media">
-                      
-                        
-                          <a href="https://arxiv.org/abs/2602.15592" rel="noopener" aria-label="Open Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows">
-                        
-                      
+      <p class="publication-abstract">First autoregressive one-step generative model for dynamical systems.</p>
 
-                      
-                        <img src="/assets/images/publications/uni-flow.png" alt="Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows" loading="lazy" decoding="async" />
-                      
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
 
-                      </a>
-                      
-                    </figure>
-                  
 
-                  <h3>
-                    
-                      
-                        <a href="https://arxiv.org/abs/2602.15592" rel="noopener">Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows</a>
-                      
-                    
-                  </h3>
 
-                  <p class="post-excerpt authors">Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang, Kewei Zhu, Shuo Wang, Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney</p>
-                  
-                    <p class="post-excerpt">
-                      <strong>Under Review...</strong>
-                      
-                      <br />Generative modelling for complex multiscale fluid dynamics.
-                    </p>
-                  
 
-                  <div class="post-links">
-                    
-                    
-                    <a class="post-link" href="https://arxiv.org/abs/2602.15592" rel="noopener">arXiv ↗</a>
-                    
-                    
-                    
-                    
-                  </div>
-                </article>
-              
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Journal Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer" aria-label="Open MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems">
+          <img src="/assets/images/publications/meno.png" alt="MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer">MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems</a>
+      </h3>
+
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">One-step generative modelling for multiscale fluid dynamics with neural operators.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Journal Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer" aria-label="Open Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows">
+          <img src="/assets/images/publications/uni-flow.png" alt="Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer">Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows</a>
+      </h3>
+
+      <p class="publication-authors">Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang, Kewei Zhu, Shuo Wang, Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">Generative modelling for complex multiscale fluid dynamics.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
             </div>
           </section>
         
@@ -282,429 +297,430 @@
         
           
             
-            <section class="series-block" id="year-2026" data-group="year-2026" aria-labelledby="heading-year-2026">
-              <div class="series-heading">
-                <div class="series-heading-main">
-                  <span class="series-sigil">◇</span>
-                  <h2 id="heading-year-2026">2026</h2>
-                </div>
-                <span class="series-count">6 entries</span>
-              </div>
-
-              <div class="post-list">
+            <section class="series-block" id="year-2026" data-group="year-2026">
+              <header class="series-heading"><span class="series-mark" aria-hidden="true">26</span><div><h2>2026</h2></div><small>6 records</small></header>
+              <div class="publication-list">
                 
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Master Dissertation</span>
-                      <time class="post-date">2026</time>
-                    </div>
 
-                    
-                    
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="/assets/papers/ms_dis.pdf">Understanding Galaxy Morphology Evolution Through Cosmic Time via Redshift Conditioned Diffusion Models</a>
-                        
-                      
-                    </h3>
 
-                    <p class="post-excerpt authors"><strong>Tianyue Yang</strong></p>
-                    
-                      <p class="post-excerpt">
-                        <strong>University of Cambridge, Department of Physics</strong>
-                        
-                        <br />Survey of generative models for astrophysical image synthesis.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      <a class="post-link" href="/assets/papers/ms_dis.pdf">PDF ↗</a>
-                      
-                      
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Conference Workshop Paper</span>
-                      <time class="post-date">2026</time>
-                    </div>
 
-                    
-                    
-                    
-                      <figure class="publication-media">
-                        
-                          
-                            <a href="https://arxiv.org/abs/2605.17546" rel="noopener" aria-label="Open Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling">
-                          
-                        
 
-                        
-                          <img src="/assets/images/publications/pmf_astro.png" alt="Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling" loading="lazy" decoding="async" />
-                        
 
-                        </a>
-                        
-                      </figure>
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2605.17546" rel="noopener">Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling</a>
-                        
-                      
-                    </h3>
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Master Dissertation</span>
+    <span>2026</span>
+  </div>
 
-                    <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Sandro Tacchella, Xiao Xue</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />One-step generative modelling for astrophysical image synthesis.
-                      </p>
-                    
+  <div class="publication-layout">
+    
+      <div class="publication-glyph" aria-hidden="true">
+        <span>P</span>
+        <i></i><i></i><i></i>
+      </div>
+    
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2605.17546" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Conference Paper</span>
-                      <time class="post-date">2026</time>
-                    </div>
+    <div class="publication-copy">
+      <h3>
+        <a href="/assets/papers/ms_dis.pdf" target="_blank" rel="noopener noreferrer">Understanding Galaxy Morphology Evolution Through Cosmic Time via Redshift Conditioned Diffusion Models</a>
+      </h3>
 
-                    
-                    
-                    
-                      <figure class="publication-media">
-                        
-                          
-                            <a href="https://arxiv.org/abs/2605.05540" rel="noopener" aria-label="Open Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting">
-                          
-                        
+      <p class="publication-authors"><strong>Tianyue Yang</strong></p>
 
-                        
-                          <img src="/assets/images/publications/melisa.png" alt="Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting" loading="lazy" decoding="async" />
-                        
+      
+        <p class="publication-venue">
+          University of Cambridge, Department of Physics
+        </p>
+      
 
-                        </a>
-                        
-                      </figure>
-                    
+      <p class="publication-abstract">Survey of generative models for astrophysical image synthesis.</p>
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2605.05540" rel="noopener">Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting</a>
-                        
-                      
-                    </h3>
+      <div class="record-links" aria-label="Publication links">
+        <a href="/assets/papers/ms_dis.pdf" target="_blank" rel="noopener noreferrer">PDF <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
 
-                    <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />First autoregressive one-step generative model for dynamical systems.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2605.05540" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Conference Paper</span>
-                      <time class="post-date">2026</time>
-                    </div>
 
-                    
-                    
-                    
-                      <figure class="publication-media">
-                        
-                          
-                            <a href="https://arxiv.org/abs/2605.05975" rel="noopener" aria-label="Open Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems">
-                          
-                        
 
-                        
-                          <img src="/assets/images/publications/sCD.png" alt="Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems" loading="lazy" decoding="async" />
-                        
 
-                        </a>
-                        
-                      </figure>
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2605.05975" rel="noopener">Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems</a>
-                        
-                      
-                    </h3>
 
-                    <p class="post-excerpt authors">Sicheng Ma*, <strong>Tianyue Yang</strong>*, Xiuzhe Wu, Xiao Xue</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />Distilled one-step generative fidelity reconstruction for physical systems.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2605.05975" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Journal Paper</span>
-                      <time class="post-date">2026</time>
-                    </div>
 
-                    
-                    
-                    
-                      <figure class="publication-media">
-                        
-                          
-                            <a href="https://arxiv.org/abs/2604.06881" rel="noopener" aria-label="Open MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems">
-                          
-                        
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Conference Workshop Paper</span>
+    <span>2026</span>
+  </div>
 
-                        
-                          <img src="/assets/images/publications/meno.png" alt="MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems" loading="lazy" decoding="async" />
-                        
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2605.17546" target="_blank" rel="noopener noreferrer" aria-label="Open Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling">
+          <img src="/assets/images/publications/pmf_astro.png" alt="Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
 
-                        </a>
-                        
-                      </figure>
-                    
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2605.17546" target="_blank" rel="noopener noreferrer">Accelerating Redshift-Conditioned Galaxy Image Synthesis with One-step Generative Modeling</a>
+      </h3>
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2604.06881" rel="noopener">MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems</a>
-                        
-                      
-                    </h3>
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Sandro Tacchella, Xiao Xue</p>
 
-                    <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />One-step generative modelling for multiscale fluid dynamics with neural operators.
-                      </p>
-                    
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2604.06881" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Journal Paper</span>
-                      <time class="post-date">2026</time>
-                    </div>
+      <p class="publication-abstract">One-step generative modelling for astrophysical image synthesis.</p>
 
-                    
-                    
-                    
-                      <figure class="publication-media">
-                        
-                          
-                            <a href="https://arxiv.org/abs/2602.15592" rel="noopener" aria-label="Open Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows">
-                          
-                        
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2605.17546" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
 
-                        
-                          <img src="/assets/images/publications/uni-flow.png" alt="Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows" loading="lazy" decoding="async" />
-                        
 
-                        </a>
-                        
-                      </figure>
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2602.15592" rel="noopener">Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows</a>
-                        
-                      
-                    </h3>
 
-                    <p class="post-excerpt authors">Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang, Kewei Zhu, Shuo Wang, Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />Generative modelling for complex multiscale fluid dynamics.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2602.15592" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Conference Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer" aria-label="Open Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting">
+          <img src="/assets/images/publications/melisa.png" alt="Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer">Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting</a>
+      </h3>
+
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">First autoregressive one-step generative model for dynamical systems.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2605.05540" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Conference Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2605.05975" target="_blank" rel="noopener noreferrer" aria-label="Open Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems">
+          <img src="/assets/images/publications/sCD.png" alt="Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2605.05975" target="_blank" rel="noopener noreferrer">Physical Fidelity Reconstruction via Improved Consistency-Distilled Flow Matching for Dynamical Systems</a>
+      </h3>
+
+      <p class="publication-authors">Sicheng Ma*, <strong>Tianyue Yang</strong>*, Xiuzhe Wu, Xiao Xue</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">Distilled one-step generative fidelity reconstruction for physical systems.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2605.05975" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Journal Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer" aria-label="Open MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems">
+          <img src="/assets/images/publications/meno.png" alt="MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer">MENO: MeanFlow-Enhanced Neural Operators for Dynamical Systems</a>
+      </h3>
+
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Xiao Xue</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">One-step generative modelling for multiscale fluid dynamics with neural operators.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2604.06881" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Journal Paper</span>
+    <span>2026</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <figure class="publication-media">
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer" aria-label="Open Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows">
+          <img src="/assets/images/publications/uni-flow.png" alt="Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows" loading="lazy" decoding="async" />
+        </a>
+        
+      </figure>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer">Uni-Flow: a unified autoregressive-diffusion model for complex multiscale flows</a>
+      </h3>
+
+      <p class="publication-authors">Xiao Xue, <strong>Tianyue Yang</strong>, Mingyang Gao, Leyu Pan, Maida Wang, Kewei Zhu, Shuo Wang, Jiuling Li, Marco F. P. ten Eikelder, and Peter V. Coveney</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">Generative modelling for complex multiscale fluid dynamics.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2602.15592" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
               </div>
             </section>
           
         
           
             
-            <section class="series-block" id="year-2025" data-group="year-2025" aria-labelledby="heading-year-2025">
-              <div class="series-heading">
-                <div class="series-heading-main">
-                  <span class="series-sigil">◇</span>
-                  <h2 id="heading-year-2025">2025</h2>
-                </div>
-                <span class="series-count">2 entries</span>
-              </div>
-
-              <div class="post-list">
+            <section class="series-block" id="year-2025" data-group="year-2025">
+              <header class="series-heading"><span class="series-mark" aria-hidden="true">25</span><div><h2>2025</h2></div><small>2 records</small></header>
+              <div class="publication-list">
                 
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Journal Paper</span>
-                      <time class="post-date">2025</time>
-                    </div>
 
-                    
-                    
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="https://arxiv.org/abs/2509.01293" rel="noopener">Equivariant U-shaped Neural Operators for the Cahn-Hilliard Phase-field Model</a>
-                        
-                      
-                    </h3>
 
-                    <p class="post-excerpt authors">Xiao Xue, Marco F.P. ten Eikelder, <strong>Tianyue Yang</strong>, Yiqing Li, Kan He, Shuo Wang, Peter V. Coveney</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Under Review...</strong>
-                        
-                        <br />Equivariant operator learning for phase-field modelling.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      
-                      
-                      <a class="post-link" href="https://arxiv.org/abs/2509.01293" rel="noopener">arXiv ↗</a>
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
-                  
-                  
-                  <article class="post-card publication-card">
-                    <div class="post-meta">
-                      <span class="post-tag">Undergraduate Dissertation</span>
-                      <time class="post-date">2025</time>
-                    </div>
 
-                    
-                    
-                    
 
-                    <h3>
-                      
-                        
-                          <a href="/assets/papers/ug_dis.pdf">Investigating Atomic and Molecular  Systems in Ultra-strong Magnetic  Fields Using Neural Network  Variational Monte Carlo</a>
-                        
-                      
-                    </h3>
 
-                    <p class="post-excerpt authors"><strong>Tianyue Yang</strong>, Sahil Khandelwal</p>
-                    
-                      <p class="post-excerpt">
-                        <strong>Imperial College London, Department of Physics</strong>
-                        
-                        <br />Neural network ansatz for VMC in strong magnetic fields.
-                      </p>
-                    
 
-                    <div class="post-links">
-                      <a class="post-link" href="/assets/papers/ug_dis.pdf">PDF ↗</a>
-                      
-                      
-                      
-                      
-                      
-                      
-                    </div>
-                  </article>
-                
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Journal Paper</span>
+    <span>2025</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <div class="publication-glyph" aria-hidden="true">
+        <span>P</span>
+        <i></i><i></i><i></i>
+      </div>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="https://arxiv.org/abs/2509.01293" target="_blank" rel="noopener noreferrer">Equivariant U-shaped Neural Operators for the Cahn-Hilliard Phase-field Model</a>
+      </h3>
+
+      <p class="publication-authors">Xiao Xue, Marco F.P. ten Eikelder, <strong>Tianyue Yang</strong>, Yiqing Li, Kan He, Shuo Wang, Peter V. Coveney</p>
+
+      
+        <p class="publication-venue">
+          Under Review...
+        </p>
+      
+
+      <p class="publication-abstract">Equivariant operator learning for phase-field modelling.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        
+        
+        <a href="https://arxiv.org/abs/2509.01293" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article class="publication-card polygon-panel">
+  <div class="publication-index">
+    <span>Undergraduate Dissertation</span>
+    <span>2025</span>
+  </div>
+
+  <div class="publication-layout">
+    
+      <div class="publication-glyph" aria-hidden="true">
+        <span>P</span>
+        <i></i><i></i><i></i>
+      </div>
+    
+
+    <div class="publication-copy">
+      <h3>
+        <a href="/assets/papers/ug_dis.pdf" target="_blank" rel="noopener noreferrer">Investigating Atomic and Molecular  Systems in Ultra-strong Magnetic  Fields Using Neural Network  Variational Monte Carlo</a>
+      </h3>
+
+      <p class="publication-authors"><strong>Tianyue Yang</strong>, Sahil Khandelwal</p>
+
+      
+        <p class="publication-venue">
+          Imperial College London, Department of Physics
+        </p>
+      
+
+      <p class="publication-abstract">Neural network ansatz for VMC in strong magnetic fields.</p>
+
+      <div class="record-links" aria-label="Publication links">
+        <a href="/assets/papers/ug_dis.pdf" target="_blank" rel="noopener noreferrer">PDF <span aria-hidden="true">↗</span></a>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</article>
+
               </div>
             </section>
           
@@ -714,29 +730,16 @@
   </div>
 </div>
 
-<script src="/assets/js/publications-filter.js" defer=""></script>
+<script src="/assets/js/collection-filter.js" defer=""></script>
 
 
+      </div>
     </main>
-    <footer class="footer">
-  <div class="container footer-inner">
-    <p>© 2026 Tianyue Yang.</p>
-    <p class="muted">Built with Jekyll on GitHub Pages.</p>
+    <footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <p class="footer-copyright">© 2026 Tianyue Yang</p>
   </div>
 </footer>
 
   </body>
 </html>
-
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>

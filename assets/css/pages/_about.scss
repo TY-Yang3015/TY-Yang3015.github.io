@@ -1,0 +1,59 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.8fr);
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.profile-statement,
+.profile-fields { padding: clamp(1.25rem, 2.2vw, 1.8rem); }
+.profile-statement h2 { max-width: 18ch; margin: 0 0 1.2rem; font-size: clamp(1.85rem, 3.2vw, 2.55rem); }
+.profile-statement p { max-width: 64ch; font-size: 1rem; line-height: 1.8; }
+.profile-statement .text-link { margin-top: 1.2rem; }
+.profile-fields { background: var(--surface-raised); box-shadow: none; }
+.profile-fields h2 { margin: 0; font-size: 1.4rem; }
+.profile-fields ul { display: grid; gap: 0; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+.profile-fields li { display: grid; grid-template-columns: 34px 1fr; gap: 0.8rem; padding: 0.75rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
+.profile-fields li span { color: var(--accent-strong); font-family: var(--font-mono); font-size: 0.78rem; }
+
+.timeline-section { margin-top: clamp(2.5rem, 4vw, 3.75rem); }
+.timeline { position: relative; }
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  min-height: 120px;
+  border-top: 1px solid var(--line);
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: -3px;
+  left: 180px;
+  width: 36px;
+  height: 5px;
+  background: var(--accent);
+  content: "";
+}
+
+.timeline-item time {
+  padding-top: 1.1rem;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.timeline-item > div { padding: 1.1rem 1.2rem 1.4rem; border-left: 1px solid var(--line); }
+.timeline-item div > span { color: var(--accent-strong); font-family: var(--font-mono); font-size: 0.86rem; letter-spacing: 0; }
+.timeline-item h3 { margin: 0.5rem 0 0.4rem; font-size: 1.4rem; }
+.timeline-item p { margin: 0; font-size: 1rem; }
+
+@media (max-width: 760px) {
+  .profile-grid { grid-template-columns: 1fr; }
+  .timeline-item { grid-template-columns: 1fr; }
+  .timeline-item::before { left: 0; }
+  .timeline-item time { padding-bottom: 0.6rem; }
+  .timeline-item > div { padding: 0.85rem 0 1.4rem; border-left: 0; }
+}

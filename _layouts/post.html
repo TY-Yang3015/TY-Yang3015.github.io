@@ -1,11 +1,15 @@
 ---
 layout: default
 ---
-<article class="post-shell prose post-prose">
+<article class="post-shell prose">
   <header class="post-header">
-    <p class="kicker">{% if page.series %}{{ page.series }}{% else %}Post{% endif %}</p>
+    <div class="eyebrow">
+      <span>{{ page.series | default: "Research note" }}</span>
+      <span class="eyebrow-rule" aria-hidden="true"></span>
+      {% if page.date %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d.%m.%Y" }}</time>{% endif %}
+    </div>
     <h1>{{ page.title }}</h1>
-    {% if page.date %}<time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %b %Y" }}</time>{% endif %}
+    <div class="post-header-rail" aria-hidden="true"><span></span><span></span><span></span></div>
   </header>
 
   <div class="post-body">

@@ -58,5 +58,8 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - _tex
+  - scripts
+  - Makefile
   - README.md
   - assets/README.md

@@ -1,11 +1,17 @@
 ---
 ---
-/* Main Sass manifest. Keep imports ordered to preserve the cascade. */
-@import "partials/core";
-@import "partials/home-publications";
-@import "partials/home-projects";
-@import "partials/about";
-@import "partials/interests";
-@import "partials/blog";
-@import "partials/archive";
-@import "partials/publication-card";
+/*
+ * Design system manifest
+ * Foundation → layout → reusable components → page composition.
+ */
+@import "foundation/tokens";
+@import "foundation/base";
+@import "layout/site";
+@import "components/ui";
+@import "components/cards";
+@import "components/archive";
+@import "components/disclosure";
+@import "pages/home";
+@import "pages/about";
+@import "pages/projects";
+@import "pages/post";

@@ -3,4 +3,17 @@
 .jekyll-metadata
 .bundle/
 vendor/
+.tex-build/
+_tex/build/
+__pycache__/
+*.pyc
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
 .DS_Store
+.codex
+.agents

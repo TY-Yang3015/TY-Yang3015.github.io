@@ -1,0 +1,44 @@
+[
+  {
+    "id": "k-flow-physical-origin",
+    "source": "_tex/posts/k-flow-physical-origin.tex",
+    "output": "_posts/2026-03-09-k_flow_the_physical_ origin.html",
+    "language": "en",
+    "front_matter": {
+      "layout": "post",
+      "title": "K-Flow - The Physical Origin",
+      "date": "2026-03-08 23:00:00 +0000",
+      "zh_url": "/zh/k_flow/",
+      "series": "Research Promotion",
+      "series_icon": "✶",
+      "categories": ["blog"]
+    }
+  },
+  {
+    "id": "neural-tangent-kernels",
+    "source": "_tex/posts/neural-tangent-kernels.tex",
+    "output": "_posts/2026-05-25-ntk.html",
+    "language": "en",
+    "front_matter": {
+      "layout": "post",
+      "title": "A Brief Introduction to Neural Tangent Kernels",
+      "date": "2026-05-27 00:00:00 +0000",
+      "series": "Learning Theory: Training Dynamics",
+      "series_icon": "★",
+      "categories": ["blog"]
+    }
+  },
+  {
+    "id": "k-flow-physical-origin-zh",
+    "source": "_tex/posts/k-flow-physical-origin-zh.tex",
+    "output": "_zh/k_flow.html",
+    "language": "zh-CN",
+    "reference_title": "参考文献",
+    "front_matter": {
+      "layout": "post",
+      "title": "K-Flow 的物理起源",
+      "permalink": "/zh/k_flow/",
+      "lang": "zh"
+    }
+  }
+]

@@ -1,0 +1,57 @@
+{% assign pub = include.publication %}
+{% assign primary_url = pub.paper_url | default: pub.url | default: pub.doi_url | default: pub.arxiv_url | default: pub.pdf_url %}
+{% assign primary_url_lower = primary_url | downcase %}
+{% assign primary_is_pdf = false %}
+{% if primary_url_lower contains '.pdf' %}{% assign primary_is_pdf = true %}{% endif %}
+{% assign pub_type = pub.type | default: pub.entry_type | default: "Publication" %}
+{% assign pub_media = pub.image | default: pub.image_url | default: pub.gif | default: pub.gif_url %}
+{% assign pub_media_alt = pub.image_alt | default: pub.gif_alt | default: pub.title %}
+
+<article class="publication-card polygon-panel{% if include.variant %} publication-card--{{ include.variant }}{% endif %}">
+  <div class="publication-index">
+    <span>{{ pub_type | replace: "_", " " | replace: "-", " " }}</span>
+    {% if pub.year %}<span>{{ pub.year }}</span>{% endif %}
+  </div>
+
+  <div class="publication-layout">
+    {% if pub_media %}
+      <figure class="publication-media">
+        {% if primary_url %}<a href="{% if primary_url contains '://' %}{{ primary_url }}{% else %}{{ primary_url | relative_url }}{% endif %}" {% if primary_url contains '://' or primary_is_pdf %}target="_blank" rel="noopener noreferrer"{% endif %} aria-label="Open {{ pub.title | strip_html | escape }}">{% endif %}
+          <img src="{% if pub_media contains '://' %}{{ pub_media }}{% else %}{{ pub_media | relative_url }}{% endif %}" alt="{{ pub_media_alt | strip_html | escape }}" loading="lazy" decoding="async">
+        {% if primary_url %}</a>{% endif %}
+        {% if pub.image_caption %}<figcaption>{{ pub.image_caption }}</figcaption>{% endif %}
+      </figure>
+    {% else %}
+      <div class="publication-glyph" aria-hidden="true">
+        <span>P</span>
+        <i></i><i></i><i></i>
+      </div>
+    {% endif %}
+
+    <div class="publication-copy">
+      <h3>
+        {% if primary_url %}<a href="{% if primary_url contains '://' %}{{ primary_url }}{% else %}{{ primary_url | relative_url }}{% endif %}" {% if primary_url contains '://' or primary_is_pdf %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}
+      </h3>
+
+      {% if pub.authors %}<p class="publication-authors">{{ pub.authors }}</p>{% endif %}
+
+      {% if pub.venue or pub.note %}
+        <p class="publication-venue">
+          {% if pub.venue %}{{ pub.venue }}{% endif %}{% if pub.note %}{% if pub.venue %} · {% endif %}{{ pub.note }}{% endif %}
+        </p>
+      {% endif %}
+
+      {% if pub.abstract %}<p class="publication-abstract">{{ pub.abstract | strip_html | truncate: 220 }}</p>{% endif %}
+
+      <div class="record-links" aria-label="Publication links">
+        {% if pub.pdf_url %}<a href="{% if pub.pdf_url contains '://' %}{{ pub.pdf_url }}{% else %}{{ pub.pdf_url | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">PDF <span aria-hidden="true">↗</span></a>{% endif %}
+        {% if pub.doi_url %}<a href="{{ pub.doi_url }}" target="_blank" rel="noopener noreferrer">DOI <span aria-hidden="true">↗</span></a>{% endif %}
+        {% if pub.arxiv_url %}<a href="{{ pub.arxiv_url }}" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">↗</span></a>{% endif %}
+        {% if pub.code_url %}<a href="{{ pub.code_url }}" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>{% endif %}
+        {% if pub.project_url %}<a href="{{ pub.project_url }}" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span></a>{% endif %}
+        {% if pub.bibtex_url %}<a href="{% if pub.bibtex_url contains '://' %}{{ pub.bibtex_url }}{% else %}{{ pub.bibtex_url | relative_url }}{% endif %}" {% if pub.bibtex_url contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>BibTeX</a>{% endif %}
+        {% if pub.zh_url %}<a href="{% if pub.zh_url contains '://' %}{{ pub.zh_url }}{% else %}{{ pub.zh_url | relative_url }}{% endif %}" {% if pub.zh_url contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>中文</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</article>

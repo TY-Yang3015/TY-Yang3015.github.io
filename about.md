@@ -2,91 +2,74 @@
 layout: default
 title: About
 permalink: /about/
+description: "Research profile, experience, and education for Tianyue Yang."
 ---
 
 <div class="about-shell">
-  <section class="about-hero" aria-labelledby="about-title">
-    <p class="kicker">About</p>
-    <h1 id="about-title" class="glitch" data-text="Tianyue Yang">Tianyue Yang</h1>
-    <p class="about-lead">
-      I’m currently a Master’s student working on generative modelling for AI4Science, especially in computational fluid dynamics, quantum chemistry, and physics-inspired generative methods.
-    </p>
+  {% include components/page-intro.html title="About" description="I build generative algorithms for scientific problems and study the principles that make those systems work." %}
 
-    <div class="about-badges" aria-label="Research areas">
-      <span class="badge">Generative Modelling</span>
-      <span class="badge">AI4Science</span>
-      <span class="badge">CFD</span>
-      <span class="badge">Quantum Chemistry</span>
-      <span class="badge">Science of AI</span>
-    </div>
-  </section>
-
-  <section class="about-grid">
-    <article class="about-panel profile-panel">
-      <h2>✦ Profile ✦</h2>
+  <section class="profile-grid" aria-label="Profile summary">
+    <article class="profile-statement polygon-panel">
+      <h2>AI methods grounded in physical structure.</h2>
       <p>
-        I’m interested in building generative algorithms for scientific problems and in understanding why these models work. My recent work focuses on AI for computational physics and chemistry, with an emphasis on elegant, physics-informed design.
+        I’m currently an MPhil student working on generative modelling for AI4Science, especially computational fluid dynamics, quantum chemistry, and physics-inspired generative methods.
       </p>
       <p>
-        I’m also interested in building theoretical understanding of how AI models behave. I’m always open to collaborations, so feel free to reach out ♪
+        My work balances practical scientific systems with a theoretical understanding of model behaviour. I’m always open to thoughtful collaborations.
       </p>
+      <a class="text-link" href="mailto:15210283759a@gmail.com">Start a conversation <span aria-hidden="true">↗</span></a>
     </article>
+
+    <aside class="profile-fields polygon-panel" aria-label="Research areas">
+      <h2>Research areas</h2>
+      <ul>
+        <li><span>01</span> Generative modelling</li>
+        <li><span>02</span> AI for science</li>
+        <li><span>03</span> Computational fluid dynamics</li>
+        <li><span>04</span> Quantum chemistry</li>
+        <li><span>05</span> Science of AI</li>
+      </ul>
+    </aside>
   </section>
 
-  <section class="about-panel timeline-panel" aria-labelledby="experience-title">
-    <h2 id="experience-title">Experience</h2>
+  <section class="timeline-section" aria-labelledby="experience-title">
+    <header class="section-heading">
+      <h2 id="experience-title">Experience</h2>
+    </header>
+
     <div class="timeline">
       <article class="timeline-item">
-        <div class="timeline-date">Jun – Aug 2024</div>
-        <div class="timeline-content">
-          <h3>Summer Research Internship</h3>
-          <p>Singapore Agency for Science, Technology and Research (A*STAR), IHPC</p>
-        </div>
+        <time>Jun–Aug 2024</time>
+        <div><span>Singapore</span><h3>Summer Research Internship</h3><p>Agency for Science, Technology and Research (A*STAR), IHPC</p></div>
       </article>
-
       <article class="timeline-item">
-        <div class="timeline-date">Aug – Oct 2024</div>
-        <div class="timeline-content">
-          <h3>Research Internship</h3>
-          <p>Imperial College London, Department of Physics</p>
-        </div>
+        <time>Aug–Oct 2024</time>
+        <div><span>London</span><h3>Research Internship</h3><p>Imperial College London, Department of Physics</p></div>
       </article>
-
       <article class="timeline-item">
-        <div class="timeline-date">Jun 2025 – Present</div>
-        <div class="timeline-content">
-          <h3>Research Internship</h3>
-          <p>University College London, Centre for Computational Science</p>
-        </div>
+        <time>Jun 2025–Present</time>
+        <div><span>London</span><h3>Research Internship</h3><p>University College London, Centre for Computational Science</p></div>
       </article>
-
       <article class="timeline-item">
-        <div class="timeline-date">Jul 2025 – Present</div>
-        <div class="timeline-content">
-          <h3>Research Internship</h3>
-          <p>The Chinese University of Hong Kong, Department of Computer Science and Engineering</p>
-        </div>
+        <time>Jul 2025–Present</time>
+        <div><span>Hong Kong</span><h3>Research Internship</h3><p>The Chinese University of Hong Kong, Department of Computer Science and Engineering</p></div>
       </article>
     </div>
   </section>
 
-  <section class="about-panel timeline-panel" aria-labelledby="education-title">
-    <h2 id="education-title">Education</h2>
-    <div class="timeline">
-      <article class="timeline-item">
-        <div class="timeline-date">2022 – 2025</div>
-        <div class="timeline-content">
-          <h3>BSc in Physics</h3>
-          <p>Imperial College London, Department of Physics</p>
-        </div>
-      </article>
+  <section class="timeline-section" aria-labelledby="education-title">
+    <header class="section-heading">
+      <h2 id="education-title">Education</h2>
+    </header>
 
+    <div class="timeline timeline--education">
       <article class="timeline-item">
-        <div class="timeline-date">2025 – Current</div>
-        <div class="timeline-content">
-          <h3>MPhil in Data Intensive Science</h3>
-          <p>University of Cambridge, Department of Physics</p>
-        </div>
+        <time>2022–2025</time>
+        <div><span>Imperial College London</span><h3>BSc in Physics</h3><p>Department of Physics</p></div>
+      </article>
+      <article class="timeline-item">
+        <time>2025–Current</time>
+        <div><span>University of Cambridge</span><h3>MPhil in Data Intensive Science</h3><p>Department of Physics</p></div>
       </article>
     </div>
   </section>

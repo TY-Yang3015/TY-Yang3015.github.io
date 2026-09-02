@@ -1,24 +1,16 @@
 <!doctype html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
-  {% include head.html %}
-  <body class="cyber">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}" data-theme="day">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     {% include header.html %}
-    <main class="container page-content" id="main-content">
-      {{ content }}
+    <main class="site-main" id="main-content">
+      <div class="site-shell">
+        {{ content }}
+      </div>
     </main>
     {% include footer.html %}
   </body>
 </html>
-
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>

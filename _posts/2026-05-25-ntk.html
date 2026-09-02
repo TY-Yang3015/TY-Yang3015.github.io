@@ -1,0 +1,340 @@
+---
+layout: "post"
+title: "A Brief Introduction to Neural Tangent Kernels"
+date: "2026-05-27 00:00:00 +0000"
+series: "Learning Theory: Training Dynamics"
+series_icon: "★"
+categories: ["blog"]
+generated_from: "_tex/posts/neural-tangent-kernels.tex"
+---
+<!-- Generated from _tex/posts/neural-tangent-kernels.tex; edit the TeX source, not this file. -->
+<p>(★ This Blog is part of a review series on <em><strong>Learning Theory: Training Dynamics</strong></em> collection. ★)</p>
+<p>This introduction gives a concise outline of the theoretical machinery behind Neural Tangent Kernels, using language that is intended to be familiar to physicists.</p>
+<h2 id="overview-cost-minimisation-in-function-space">Overview: Cost Minimisation in Function Space</h2>
+<p><strong>General Procedure.</strong> Traditional formulations of learning theory often describe optimisation in parameter space. However, the geometry of parameter space is typically highly non-convex, especially for neural networks. The <strong>Neural Tangent Kernel</strong> (NTK) perspective instead studies the induced dynamics in function space. A point in parameter space is mapped to a function by a realisation map, <span class="math display">\[\theta \mapsto f_\theta ,\]</span></p>
+<p>and training in parameter space therefore induces a trajectory in the space of functions. In this setting, the relevant geometric structure is obtained by linearising the realisation map around the current parameters. This gives rise to a tangent space of functions, equipped with an inner product inherited from parameter space. The corresponding kernel is the Neural Tangent Kernel. Schematically, the construction follows the familiar Hilbert-space pattern</p>
+<p><span class="math display">\[\text{function space}
+\longrightarrow
+\text{inner product}
+\longrightarrow
+\text{duality}
+\longrightarrow
+\text{tangent space}.\]</span></p>
+<p>The NTK then governs the training dynamics: under gradient flow, the evolution of the network output satisfies an ordinary differential equation in training time whose coefficients are determined by the NTK. We now unfold this theory section by section.</p>
+<h2 id="problem-setup">Problem Setup</h2>
+<p><strong>Network notation.</strong> Let the full set of trainable parameters be denoted by</p>
+<p><span class="math display">\[\theta \in \mathbb{R}^{P}.\]</span></p>
+<p>The realisation map sends parameters to functions,</p>
+<p><span class="math display">\[F^{(L)} : \mathbb{R}^{P} \to \mathcal{F},
+    \qquad
+    \theta \mapsto f_\theta ,\]</span></p>
+<p>where</p>
+<p><span class="math display">\[\mathcal{F}
+    =
+    \left\{
+        f : \mathbb{R}^{n_0} \to \mathbb{R}^{n_L}
+    \right\}\]</span></p>
+<p>is the relevant function space for networks with input dimension <span class="math inline">\(n_0\)</span> and output dimension <span class="math inline">\(n_L\)</span>. Following the notation of <span class="citation" data-cites="jacot2018ntk">Jacot, Gabriel, and Hongler (<a href="#ref-jacot2018ntk" role="doc-biblioref">2018</a>)</span>, a forward pass through the network may be written as</p>
+<p><span class="math display">\[\begin{gathered}
+    \alpha^{(0)}(x) = x, \\[0.5em]
+    \tilde{\alpha}^{(l+1)}(x)
+    =
+    \frac{1}{\sqrt{n_l}} W^{(l)} \alpha^{(l)}(x)
+    + \beta b^{(l)}, \\[0.5em]
+    \alpha^{(l+1)}(x)
+    =
+    \sigma\!\left(
+        \tilde{\alpha}^{(l+1)}(x)
+    \right),
+\end{gathered}\]</span></p>
+<p>for <span class="math inline">\(l = 0,\dots,L-1\)</span>, with suitable modifications at the final layer if a linear output layer is used. Here <span class="math inline">\(n_l\)</span> is the width of layer <span class="math inline">\(l\)</span>, <span class="math inline">\(W^{(l)}\)</span> and <span class="math inline">\(b^{(l)}\)</span> are the weights and biases, <span class="math inline">\(\sigma\)</span> is the activation function, and <span class="math inline">\(\beta\)</span> controls the scale of the bias term.</p>
+<p><strong>Cost functions.</strong> We define a functional cost as a map</p>
+<p><span class="math display">\[C : \mathcal{F} \to \mathbb{R}.\]</span></p>
+<p>For a regression problem with target function <span class="math inline">\(f^\ast\)</span>, a typical choice is</p>
+<p><span class="math display">\[C(f)
+    =
+    \frac{1}{2}
+    \left\| f - f^\ast \right\|_{p_{\mathrm{in}}}^{2},\]</span></p>
+<p>where the norm is taken with respect to the input distribution <span class="math inline">\(p_\text{in}\)</span>. We defer its precise definition to a later section. Once the functional cost has been specified, the corresponding parameter-space cost is the composite map</p>
+<p><span class="math display">\[C \circ F^{(L)}
+    :
+    \mathbb{R}^{P} \to \mathbb{R},
+    \qquad
+    \theta
+    \mapsto
+    C(f_\theta).\]</span></p>
+<h2 id="duality-tangent-vector">Duality &amp; Tangent Vector</h2>
+<p><strong>Inner Product.</strong> As in many areas of theoretical physics, it is useful to begin by specifying the geometric structure of the space under consideration. For vector-valued functions, we define the empirical <span class="math inline">\(L^2\)</span> inner product by</p>
+<p><span class="math display">\[\langle f, g \rangle_{p_{\mathrm{in}}}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+f(x_i)^{\top} g(x_i)
+=
+\mathbb{E}_{x \sim p_{\mathrm{in}}}
+\left[
+f(x)^{\top} g(x)
+\right],\]</span></p>
+<p>where <span class="math inline">\(p_{\mathrm{in}}\)</span> denotes the empirical input distribution supported on the training inputs <span class="math display">\[\{x_i\}_{i=1}^{N}\]</span>. The corresponding norm is</p>
+<p><span class="math display">\[\|f\|_{p_{\mathrm{in}}}^{2}
+=
+\langle f,f\rangle_{p_{\mathrm{in}}}.\]</span></p>
+<p>Thus the relevant Hilbert space may be viewed as</p>
+<p><span class="math display">\[\mathcal{H}
+=
+L^{2}\!\left(p_{\mathrm{in}};\mathbb{R}^{n_L}\right),\]</span></p>
+<p>the space of square-integrable functions from the input space to the output space. By the Riesz representation theorem, continuous linear functionals on <span class="math inline">\(\mathcal{H}\)</span> may be represented by elements of <span class="math inline">\(\mathcal{H}\)</span> itself.</p>
+<p><strong>Loss Differential.</strong> The differential of the functional cost <span class="math inline">\(C\)</span> at <span class="math inline">\(f\)</span> is a linear functional</p>
+<p><span class="math display">\[\partial_f C\big|_f : \mathcal{H} \to \mathbb{R},\]</span></p>
+<p>defined by</p>
+<p><span class="math display">\[\partial_f C\big|_f[\delta f]
+=
+\left\langle
+\nabla_{\mathcal{H}} C(f),
+\delta f
+\right\rangle_{p_{\mathrm{in}}}.\]</span></p>
+<p>We denote the functional gradient by</p>
+<p><span class="math display">\[d_f := \nabla_{\mathcal{H}} C(f),\]</span></p>
+<p>so that</p>
+<p><span class="math display">\[\partial_f C\big|_f[\delta f]
+=
+\langle d_f,\delta f\rangle_{p_{\mathrm{in}}}.\]</span></p>
+<p>Equivalently, for a small perturbation <span class="math inline">\(\epsilon \delta f\)</span>,</p>
+<p><span class="math display">\[C(f+\epsilon \delta f)
+=
+C(f)
++
+\epsilon\,
+\partial_f C\big|_f[\delta f]
++
+o(\epsilon).\]</span></p>
+<p><strong>Gradient Flow &amp; Tangent Space.</strong> Taking the continuous-time limit of gradient descent in parameter space gives the gradient-flow equation</p>
+<p><span class="math display">\[\frac{\mathrm{d}\theta_p}{\mathrm{d}t}
+=
+-
+\frac{\partial}{\partial \theta_p}
+C(f_\theta).\]</span></p>
+<p>By the chain rule,</p>
+<p><span class="math display">\[\frac{\partial}{\partial \theta_p}
+C(f_\theta)
+=
+\partial_f C\big|_{f_\theta}
+\left[
+\frac{\partial f_\theta}{\partial \theta_p}
+\right]
+=
+\left\langle
+d_{f_\theta},
+\frac{\partial f_\theta}{\partial \theta_p}
+\right\rangle_{p_{\mathrm{in}}},\]</span></p>
+<p>and therefore</p>
+<p><span class="math display">\[\frac{\mathrm{d}\theta_p}{\mathrm{d}t}
+=
+-
+\left\langle
+d_{f_\theta},
+\frac{\partial f_\theta}{\partial \theta_p}
+\right\rangle_{p_{\mathrm{in}}}.\]</span></p>
+<p>It is then natural to ask how the network function itself evolves with training time. Applying the chain rule once more,</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial f_\theta(x)}{\partial t}
+&amp;=
+\sum_{p=1}^{P}
+\frac{\partial f_\theta(x)}{\partial \theta_p}
+\frac{\mathrm{d}\theta_p}{\mathrm{d}t} =
+-
+\sum_{p=1}^{P}
+\frac{\partial f_\theta(x)}{\partial \theta_p}
+\left\langle
+d_{f_\theta},
+\frac{\partial f_\theta}{\partial \theta_p}
+\right\rangle_{p_{\mathrm{in}}} \\[0.5em]
+&amp;=
+-
+\frac{1}{N}
+\sum_{j=1}^{N}
+\sum_{p=1}^{P}
+\frac{\partial f_\theta(x)}{\partial \theta_p}
+\frac{\partial f_\theta(x_j)^{\top}}{\partial \theta_p}
+d_{f_\theta}(x_j).
+\end{aligned}\]</span></p>
+<p>The product of these tangent features defines the Neural Tangent Kernel:</p>
+<div class="equation-emphasis" id="equation-ntk-definition">
+<span class="math display">\[\Theta_{\theta;kk&#39;}(x,x&#39;)
+=
+\sum_{p=1}^{P}
+\frac{\partial f_{\theta;k}(x)}{\partial \theta_p}
+\frac{\partial f_{\theta;k&#39;}(x&#39;)}{\partial \theta_p},
+\]</span>
+</div>
+<p>where <span class="math inline">\(k\)</span> and <span class="math inline">\(k&#39;\)</span> index output coordinates. If we define the Jacobian</p>
+<p><span class="math display">\[\bigl[J_\theta(x)\bigr]_{kp}
+=
+\frac{\partial f_{\theta;k}(x)}{\partial \theta_p},
+\qquad
+J_\theta(x) \in \mathbb{R}^{n_L \times P},\]</span></p>
+<p>then the NTK can be written compactly as</p>
+<p><span class="math display">\[\Theta_\theta(x,x&#39;)
+=
+J_\theta(x)J_\theta(x&#39;)^{\top}
+\in
+\mathbb{R}^{n_L \times n_L}.\]</span></p>
+<p>Thus, the instantaneous evolution of the network output is determined by the tangent space to the realisation map at the current parameters. In this sense, training proceeds through the tangent features of the network, which explains the terminology “tangent kernel”. With this notation, the function-space dynamics become</p>
+<p><span class="math display">\[\frac{\partial f_\theta(x)}{\partial t}
+=
+-
+\frac{1}{N}
+\sum_{j=1}^{N}
+\Theta_\theta(x,x_j)
+d_{f_\theta}(x_j).\]</span></p>
+<p>From a linear-algebraic point of view, <span class="math inline">\(\Theta_\theta(x,x&#39;)\)</span> is the Gram matrix of the tangent features <span class="math inline">\(J_\theta(\cdot)\)</span>. If we denote a general kernel by <span class="math inline">\(K\)</span>, we can define the associated kernel-gradient operator</p>
+<p><span class="math display">\[\Phi_K(d)(x)
+=
+\frac{1}{N}
+\sum_{j=1}^{N}
+K(x,x_j)d(x_j).\]</span></p>
+<p>The training dynamics can then be written as</p>
+<div class="equation-emphasis" id="equation-function-space-dynamics">
+<span class="math display">\[\frac{\partial f_\theta}{\partial t}
+=
+-
+\Phi_{\Theta_\theta}(d_{f_\theta}).
+\]</span>
+</div>
+<p><strong>Gradient Descent in Functional Space.</strong> We can now evaluate the evolution of the functional cost along the training trajectory:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\mathrm{d}}{\mathrm{d}t} C[f(t)]
+&amp;=
+\partial_f C\big|_{f(t)}
+\left[
+\frac{\partial f}{\partial t}
+\right] \\[0.5em]
+&amp;=
+\left\langle
+d_f,
+\frac{\partial f}{\partial t}
+\right\rangle_{p_{\mathrm{in}}} =
+-
+\left\langle
+d_f,
+\Phi_K(d_f)
+\right\rangle_{p_{\mathrm{in}}}.
+\end{aligned}\]</span></p>
+<p>In Dirac-style notation, the final quantity may be viewed heuristically as</p>
+<p><span class="math display">\[\langle d_f | \Phi_K | d_f \rangle.\]</span></p>
+<p>Since <span class="math inline">\(K\)</span> is a Gram kernel, it is positive semi-definite. Therefore</p>
+<p><span class="math display">\[\left\langle
+d_f,
+\Phi_K(d_f)
+\right\rangle_{p_{\mathrm{in}}}
+\geq 0,\]</span></p>
+<p>and the cost is non-increasing along gradient flow:</p>
+<p><span class="math display">\[\frac{\mathrm{d}}{\mathrm{d}t} C[f(t)] \leq 0.\]</span></p>
+<p>If the empirical kernel matrix is positive definite on the training data, then the derivative vanishes only when the data-gradient <span class="math inline">\(d_f(x_i)\)</span> vanishes on the training set. More generally, the derivative may also vanish if <span class="math inline">\(d_f\)</span> lies in the null space of the kernel operator. Hence the functional cost decreases until the dynamics reach a stationary point of the induced function-space flow.</p>
+<details class="takeaway-box" open>
+<summary><span>Takeaway</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
+<div class="takeaway-content"><p>The NTK is the Gram matrix of parameter-space tangent features. It turns parameter gradient flow into kernel-driven motion in function space while preserving a non-increasing training cost.</p></div>
+</details>
+<h2 id="limiting-case-at-infinite-width">Limiting Case at Infinite Width</h2>
+<p><strong>Exponential Training Dynamics.</strong> For a finite-width network, the Neural Tangent Kernel is random at initialisation and, in general, evolves during training. In the infinite-width limit, however, the NTK converges to a deterministic kernel and remains constant throughout training, under the standard NTK parametrisation. More precisely, for a network with <span class="math inline">\(L\)</span> layers, one obtains</p>
+<div class="equation-emphasis" id="equation-infinite-width-limit">
+<span class="math display">\[\Theta^{(L)}_\theta(x,x&#39;)
+\;\longrightarrow\;
+\Theta^{(L)}_\infty(x,x&#39;) \otimes I_{n_L},
+\]</span>
+</div>
+<p>where <span class="math inline">\(I_{n_L}\)</span> is the identity matrix on the output coordinates. The scalar kernel <span class="math inline">\(\Theta^{(L)}_\infty\)</span> is obtained through a layer-wise covariance recursion, as described in Appendix A.2 of <span class="citation" data-cites="jacot2018ntk">Jacot, Gabriel, and Hongler (<a href="#ref-jacot2018ntk" role="doc-biblioref">2018</a>)</span>. Let us now specialise to the case of squared <span class="math inline">\(L^2\)</span> loss. The functional cost is</p>
+<p><span class="math display">\[C_{L^2}(f)
+=
+\frac{1}{2}
+\|f-f^\ast\|_{p_{\mathrm{in}}}^{2}.\]</span></p>
+<p>On the empirical training set, writing <span class="math inline">\(y_j=f^\ast(x_j)\)</span>, the corresponding functional gradient is</p>
+<p><span class="math display">\[d_f(x_j)
+=
+f_t(x_j)-y_j.\]</span></p>
+<p>Substituting this into the function-space gradient-flow equation gives</p>
+<p><span class="math display">\[\frac{\mathrm{d}}{\mathrm{d}t}\mathbf{f}_t
+=
+-
+\frac{1}{N}
+\boldsymbol{\Theta}_\infty
+\left(
+\mathbf{f}_t-\mathbf{y}
+\right),\]</span></p>
+<p>where <span class="math inline">\(\mathbf{f}_t\)</span> denotes the vector of network outputs on the training inputs and <span class="math inline">\(\boldsymbol{\Theta}_\infty\)</span> is the empirical NTK matrix evaluated on the training set. Equivalently, for an input <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[\frac{\mathrm{d} f_t(x)}{\mathrm{d}t}
+=
+-
+\frac{1}{N}
+\sum_{j=1}^{N}
+\Theta_\infty(x,x_j)
+\left[
+f_t(x_j)-y_j
+\right].\]</span></p>
+<p>On the training set, this linear ordinary differential equation has the closed-form solution</p>
+<div class="equation-emphasis" id="equation-ntk-closed-form">
+<span class="math display">\[\mathbf{f}_t-\mathbf{y}
+=
+\exp\!\left(
+-
+\frac{t}{N}
+\boldsymbol{\Theta}_\infty
+\right)
+\left(
+\mathbf{f}_0-\mathbf{y}
+\right).
+\]</span>
+</div>
+<p>This is one of the central consequences of the infinite-width NTK regime: training becomes linear in function space. Diagonalising the empirical kernel matrix,</p>
+<p><span class="math display">\[\boldsymbol{\Theta}_\infty
+=
+Q\Lambda Q^\top,\]</span></p>
+<p>shows that the residual decomposes into independently decaying eigenmodes,</p>
+<p><span class="math display">\[\mathbf{f}_t-\mathbf{y}
+=
+Q
+\exp\!\left(
+-
+\frac{t}{N}\Lambda
+\right)
+Q^\top
+\left(
+\mathbf{f}_0-\mathbf{y}
+\right).\]</span></p>
+<p>Modes associated with larger eigenvalues decay faster, while modes associated with smaller eigenvalues are learnt more slowly.</p>
+<details class="takeaway-box" open>
+<summary><span>Takeaway</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
+<div class="takeaway-content"><p>At infinite width, the NTK becomes fixed and training is linear in function space. Its eigenvalues set the learning rates of individual residual modes: large-eigenvalue directions are fitted first.</p></div>
+</details>
+<p><strong>Connection to generalisation.</strong> The equation</p>
+<p><span class="math display">\[\frac{\mathrm{d} f_t(x)}{\mathrm{d}t}
+=
+-
+\frac{1}{N}
+\sum_{j=1}^{N}
+\Theta_\infty(x,x_j)
+\left[
+f_t(x_j)-y_j
+\right]\]</span></p>
+<p>also describes the evolution of the network output away from the training set. The prediction at a test point <span class="math inline">\(x\)</span> is coupled to the training residuals through the cross-kernel values <span class="math inline">\(\Theta_\infty(x,x_j)\)</span>. Thus, the NTK controls how information from the labelled training points propagates to unseen inputs.</p>
+<p>It is tempting to interpret <span class="math inline">\(\Theta_\infty(x,x_j)\)</span> as a similarity measure between the test point <span class="math inline">\(x\)</span> and the training point <span class="math inline">\(x_j\)</span>. This intuition is useful: a larger kernel value means that the training residual at <span class="math inline">\(x_j\)</span> has a stronger instantaneous influence on the prediction at <span class="math inline">\(x\)</span>. However generalisation is not determined by pairwise similarity alone, which also depends on the alignment between the target function and the eigenfunctions of the kernel, the distribution of the training data, the noise level, and the spectrum of the empirical NTK.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The Neural Tangent Kernel gives us a clean way to look at neural network training without staring directly at the full non-convex parameter landscape. Instead of asking only how the parameters move, we ask how the function represented by the network moves. The answer is surprisingly geometric: training is governed by the tangent features of the network, and their Gram matrix is precisely the NTK.</p>
+<p>In finite-width networks, this kernel is random and changes during training, which keeps the dynamics genuinely nonlinear. But in the infinite-width limit, the picture becomes much simpler. The NTK freezes at its initial value, and the network evolves according to a linear differential equation in function space. For squared loss, this gives an exponential decay of the training residual,</p>
+<p><span class="math display">\[\mathbf{f}_t-\mathbf{y}
+=
+\exp\!\left(
+-
+\frac{t}{N}
+\boldsymbol{\Theta}_\infty
+\right)
+\left(
+\mathbf{f}_0-\mathbf{y}
+\right).\]</span></p>
+<p>This formula captures the basic message: different eigenmodes of the kernel are learnt at different speeds. Directions with larger eigenvalues are fitted quickly, while directions with smaller eigenvalues take longer. From this point of view, the NTK acts as a bridge between neural networks and kernel methods. It turns the training dynamics of a very wide network into a kernel gradient flow, where the kernel determines how information from the training data is propagated through function space. This does not make neural networks completely “solved”, nor does it describe every interesting feature of practical finite-width training. But it gives us a sharp limiting model, a useful language for discussing training dynamics, and a concrete example of how geometry, optimisation, and generalisation are tied together.</p>
+<h2 class="unnumbered" id="bibliography">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-jacot2018ntk" class="csl-entry" role="listitem">
+Jacot, Arthur, Franck Gabriel, and Clément Hongler. 2018. <span>“Neural Tangent Kernel: Convergence and Generalization in Neural Networks.”</span> In <em>Advances in Neural Information Processing Systems</em>. Vol. 31. <a href="https://proceedings.neurips.cc/paper/2018/hash/5a4be1fa34e60b1f32c71f6017d033b8-Abstract.html" target="_blank" rel="noopener noreferrer">https://proceedings.neurips.cc/paper/2018/hash/5a4be1fa34e60b1f32c71f6017d033b8-Abstract.html</a>.
+</div>
+</div>

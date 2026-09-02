@@ -2,39 +2,19 @@
 layout: default
 title: Projects
 permalink: /projects/
+description: "Research code and scientific machine-learning projects by Tianyue Yang."
 ---
 
-<section class="page-hero prose">
-  <p class="kicker">Projects</p>
-  <h1>Projects</h1>
-  <p>Research code, experiments, and side projects.</p>
-</section>
+<div class="projects-shell">
+  {% include components/page-intro.html title="Projects" description="Research code, model implementations, and experiments across scientific machine learning." %}
 
-{% if site.data.projects and site.data.projects.size > 0 %}
-  <section class="grid project-grid" aria-label="Projects">
-    {% for p in site.data.projects %}
-      <article class="card project-data-card">
-        <h2>{{ p.name }}</h2>
-        {% if p.description %}<p>{{ p.description }}</p>{% endif %}
-
-        {% if p.tags %}
-          <div class="badges" aria-label="Tags">
-            {% for t in p.tags %}<span class="badge">{{ t }}</span>{% endfor %}
-          </div>
-        {% endif %}
-
-        {% if p.link %}
-          {% if p.link contains '://' %}
-            <p class="card-action"><a href="{{ p.link }}" rel="noopener">Open ↗</a></p>
-          {% else %}
-            <p class="card-action"><a href="{{ p.link | relative_url }}">Open ↗</a></p>
-          {% endif %}
-        {% endif %}
-      </article>
-    {% endfor %}
-  </section>
-{% else %}
-  <section class="empty-blog">
-    <p>No projects found in <code>_data/projects.yml</code> yet.</p>
-  </section>
-{% endif %}
+  {% if site.data.projects and site.data.projects.size > 0 %}
+    <section class="project-list project-list--archive" aria-label="Projects">
+      {% for project in site.data.projects %}
+        {% include components/project-card.html project=project %}
+      {% endfor %}
+    </section>
+  {% else %}
+    <section class="empty-state"><p>No projects are indexed yet.</p></section>
+  {% endif %}
+</div>

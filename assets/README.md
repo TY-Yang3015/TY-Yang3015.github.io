@@ -1,13 +1,18 @@
 # Assets
 
-This directory keeps source assets grouped by how the site uses them.
+Source assets are grouped by responsibility:
 
-- `css/style.scss`: Jekyll Sass entrypoint and import manifest.
-- `css/partials/`: Organized Sass partials grouped by page or component.
-- `documents/`: Public profile documents, such as the CV.
-- `icons/`: Active favicon and app icon files.
-- `icons/source/`: Original icon source images.
-- `images/publications/`: Publication thumbnails used by `_publications/`.
-- `images/blog/k-flow/`: Figures used by the K-flow blog posts.
-- `js/`: Small client-side filters for index pages.
-- `papers/`: PDF papers, theses, and dissertations linked from publication entries.
+- `css/foundation/`: theme tokens, reset, typography, and global behavior.
+- `css/layout/`: site shell, header, footer, and shared section geometry.
+- `css/components/`: reusable controls, polygon panels, cards, filters, and disclosures.
+- `css/pages/`: page-level composition only.
+- `css/style.scss`: ordered Sass manifest.
+- `js/theme.js`: persistent day/night mode controller.
+- `js/collection-filter.js`: shared filtering for blog and publication archives.
+- `js/external-links.js`: ensures external web links and PDF documents open safely in a new tab.
+- `documents/`: public profile documents such as the CV.
+- `icons/`: favicons and source artwork.
+- `images/`: blog and publication media.
+- `papers/`: locally hosted papers and dissertations.
+
+Keep content data in `_data/` and `_publications/`; reusable Liquid markup belongs in `_includes/components/`.
