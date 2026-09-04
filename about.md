@@ -65,7 +65,7 @@ description: "Research profile, experience, and education for Tianyue Yang."
     <div class="timeline timeline--education">
       <article class="timeline-item">
         <time>2022–2025</time>
-        <div><span>Imperial College London</span><h3>BSc in Physics</h3><p>Department of Physics</p></div>
+        <div><span>Imperial College London</span><h3>BSc in Physics with Theoretical Physics</h3><p>Department of Physics</p></div>
       </article>
       <article class="timeline-item">
         <time>2025–Current</time>

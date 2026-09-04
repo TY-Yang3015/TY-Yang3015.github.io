@@ -1,5 +1,5 @@
 ---
-title: "Towards Scalable One-Step Generative Modeling for Autoregressive Dynamical System Forecasting"
+title: "Autoregressive One-Step Generative Modeling for Dynamical System Forecasting"
 year: 2026
 date: 2026-05-08
 authors: "<strong>Tianyue Yang</strong>, Xiao Xue"
