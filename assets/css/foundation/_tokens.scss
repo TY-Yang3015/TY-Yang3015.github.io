@@ -1,3 +1,35 @@
+// Interpolate the palette once; descendants inherit the same in-flight colors.
+$theme-day-colors: (
+  --bg: #fbfaff,
+  --surface: #ffffff,
+  --surface-raised: #f6f2ff,
+  --text: #17131f,
+  --muted: #665f72,
+  --faint: #8d849b,
+  --accent: #6b35e3,
+  --accent-strong: #4d18bd,
+  --accent-soft: #eee7ff,
+  --accent-contrast: #ffffff,
+  --line: #ddd6e8,
+  --line-strong: #b7a9cc,
+  --grid-line: rgba(83, 45, 147, 0.055),
+  --header-bg: rgba(251, 250, 255, 0.9)
+);
+
+@each $name, $value in $theme-day-colors {
+  @property #{$name} {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #{$value};
+  }
+}
+
+html.is-theme-changing {
+  transition-property: map-keys($theme-day-colors);
+  transition-duration: 460ms;
+  transition-timing-function: ease;
+}
+
 :root {
   --font-display: "Space Grotesk", "Avenir Next", sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
@@ -10,20 +42,9 @@
 
 html[data-theme="day"] {
   color-scheme: light;
-  --bg: #fbfaff;
-  --surface: #ffffff;
-  --surface-raised: #f6f2ff;
-  --text: #17131f;
-  --muted: #665f72;
-  --faint: #8d849b;
-  --accent: #6b35e3;
-  --accent-strong: #4d18bd;
-  --accent-soft: #eee7ff;
-  --accent-contrast: #ffffff;
-  --line: #ddd6e8;
-  --line-strong: #b7a9cc;
-  --grid-line: rgba(83, 45, 147, 0.055);
-  --header-bg: rgba(251, 250, 255, 0.9);
+  @each $name, $value in $theme-day-colors {
+    #{$name}: #{$value};
+  }
   --shadow: 0 16px 44px rgba(51, 29, 88, 0.08);
   --image-filter: none;
 }

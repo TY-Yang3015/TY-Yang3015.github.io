@@ -23,7 +23,6 @@ body {
   font-family: var(--font-display);
   font-size: 17px;
   line-height: 1.6;
-  transition: background-color 460ms ease, color 460ms ease;
 }
 
 body::before {
@@ -144,10 +143,15 @@ svg {
 
 .prose strong { color: var(--text); }
 
+// Palette colors already animate on html. Re-transitioning them on children
+// makes inherited colors lag and snap when the temporary class is removed.
+html.is-theme-changing body,
+html.is-theme-changing body::before,
+html.is-theme-changing body::after,
 html.is-theme-changing body *,
 html.is-theme-changing body *::before,
 html.is-theme-changing body *::after {
-  transition-property: color, background-color, border-color, box-shadow, fill, stroke;
+  transition-property: box-shadow, filter, transform, left, width;
   transition-duration: 460ms;
   transition-timing-function: ease;
 }
