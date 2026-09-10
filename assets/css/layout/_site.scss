@@ -131,7 +131,7 @@
 
 html[data-theme="night"] .theme-switch-knob { left: 36px; }
 html.is-theme-changing .theme-switch-knob {
-  transition-property: left, background-color;
+  transition-property: left;
   transition-duration: 460ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
