@@ -28,7 +28,7 @@
         <mxCell id="tagAdaLN" value="AdaLN: precomputed conditioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="590" y="258" width="250" height="30" as="geometry"/>
         </mxCell>
-        <mxCell id="tagKitchen" value="Kitchen: 8-bit weights (half the bytes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+        <mxCell id="tagKitchen" value="INT8 via ComfyUI: half the bytes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="855" y="258" width="240" height="30" as="geometry"/>
         </mxCell>
 
@@ -69,7 +69,7 @@
         <mxCell id="chipArrow1" value="&#8594;" style="text;html=1;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="725" y="482" width="30" height="28" as="geometry"/>
         </mxCell>
-        <mxCell id="chip2" value="79.5 s +AdaLN+Kitchen" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;" vertex="1" parent="1">
+        <mxCell id="chip2" value="79.5 s +AdaLN+INT8" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="760" y="480" width="185" height="34" as="geometry"/>
         </mxCell>
         <mxCell id="chipArrow2" value="&#8594;" style="text;html=1;fontSize=17;" vertex="1" parent="1">

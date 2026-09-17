@@ -44,9 +44,8 @@ We then worked through the literature, one technique at a time, keeping everythi
 Module & Category & Speedup & Quality\\
 \midrule
 AdaLN fusion & kernel/memory & 1.372$\times$ & bitwise-identical outputs\\
-Kitchen INT8 & quantization & 1.881$\times$ & passed; single-run caveat\\
+INT8 weights (ComfyUI) & quantization & 1.881$\times$ & passed; single-run caveat\\
 Compiler default & kernel & 0.970$\times$ & small changes\\
-ViDiT-Q & quantization & --- & blocked before admission\\
 Sol & sparse attention & 0.990$\times$ & near-neutral; correctness gate failed\\
 FFN token merge & token reduction & 0.993$\times$ & severe loss\\
 Query merge & token reduction & 0.995$\times$ & severe loss ($-$24.7 overall)\\
@@ -57,7 +56,7 @@ SageAttention & kernel & 0.998$\times$ & looked fine at 4 clips\\
 \end{tabular}
 \end{table}
 
-A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37\% faster. Kitchen INT8 (from the ComfyUI ecosystem \citep{comfyui}) stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods \citep{bolya2023tome} and the higher-order solver \citep{hairer1993ode} destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. ViDiT-Q never made it into the model at all. Its 8-bit building blocks worked in isolation, but the official fused quantiser \citep{zhao2025viditq} disagreed with our reference on real inputs and the full integration had too many gaps to admit honestly. Cache-DiT \citep{cachedit} simply never fit in our memory budget.
+A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37\% faster. The INT8 weight quantiser from the ComfyUI ecosystem \citep{comfyui} stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods \citep{bolya2023tome} and the higher-order solver \citep{hairer1993ode} destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. Cache-DiT \citep{cachedit} simply never fit in our memory budget.
 
 \begin{quote}
 \textbf{Box: What is Sol attention?} Sol \citep{li2026solattn} is a sparse-attention method. Attention normally compares every token with every other token, which is expensive at 37 thousand tokens \citep{dao2022flashattention}. Sol instead picks a small set of promising token pairs per head and only computes those, in our case about 13.5\% of all pairs, then adds a correction term for accuracy. Sparse attention is attractive on paper, but two things went wrong for us: the correction machinery cost more than the pairs it saved, and on real model inputs its numbers failed our correctness checks.
@@ -69,7 +68,7 @@ A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer
 
 \section{Putting the winners together}
 
-The two clear winners attacked different costs. AdaLN removed per-layer conditioning work, and Kitchen halved the weight traffic. Combining them was the natural next step, and it is also where the story gets interesting. Figure~\ref{fig:breakdown} shows what happened to the anatomy of a request.
+The two clear winners attacked different costs. AdaLN removed per-layer conditioning work, and the 8-bit weights halved the weight traffic. Combining them was the natural next step, and it is also where the story gets interesting. Figure~\ref{fig:breakdown} shows what happened to the anatomy of a request.
 
 \begin{figure}[ht]
 \centering
@@ -85,7 +84,7 @@ With the copying cost cut down, attention went from a sixth of the request to ab
 \caption{The integrated configurations against baseline. The final default includes SageAttention; the Sol variant is shown for completeness.}\label{fig:integrated}
 \end{figure}
 
-Figure~\ref{fig:integrated} shows the final speed numbers. AdaLN and Kitchen together give 2.19$\times$. Adding SageAttention on top reaches 2.51$\times$, our default configuration. Adding Sol instead gives 2.16$\times$.
+Figure~\ref{fig:integrated} shows the final speed numbers. AdaLN and the INT8 quantiser together give 2.19$\times$. Adding SageAttention on top reaches 2.51$\times$, our default configuration. Adding Sol instead gives 2.16$\times$.
 
 \begin{figure}[ht]
 \centering
@@ -121,7 +120,7 @@ Overall consistency & $-$29.82 & $+$0.20\\
 \caption{The same deltas as a chart. Sage's damage concentrates in overall consistency and imaging, and it is consistent across clips, not one outlier.}\label{fig:qualitydeltas}
 \end{figure}
 
-Sage's cost is systematic. Overall consistency, which measures whether the video matches the prompt's meaning, dropped on every eligible clip. Imaging quality, a sharpness-and-artifacts score, dropped on 14 of 16 clips. One plausible explanation is that 8-bit attention stacked on 8-bit weights nudges the distilled model off the trajectory it was trained for, but we have not proven that mechanism. Sol, by contrast, is quality-neutral and simply slower, so there is no reason to adopt it. Our default ships with Sage because the speed matters for our use, and the fidelity-first configuration (AdaLN and Kitchen without Sage) is one flag away for anyone who would rather keep baseline-level quality at 2.19$\times$.
+Sage's cost is systematic. Overall consistency, which measures whether the video matches the prompt's meaning, dropped on every eligible clip. Imaging quality, a sharpness-and-artifacts score, dropped on 14 of 16 clips. One plausible explanation is that 8-bit attention stacked on 8-bit weights nudges the distilled model off the trajectory it was trained for, but we have not proven that mechanism. Sol, by contrast, is quality-neutral and simply slower, so there is no reason to adopt it. Our default ships with Sage because the speed matters for our use, and the fidelity-first configuration (AdaLN and INT8 without Sage) is one flag away for anyone who would rather keep baseline-level quality at 2.19$\times$.
 
 Finally, here is what all of this looks like. Both clips use the same prompt, \emph{``A person is squat''} (VBench prompt 0195, human action), and the same seed.
 
@@ -143,7 +142,7 @@ Finally, here is what all of this looks like. Both clips use the same prompt, \e
 
 \section{Limitations and what we would do next}
 
-There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. We used the original VBench rather than VBench-2 for a boring but important reason: we could pin and hash-verify every file of the original benchmark's scorer, which kept the whole evaluation reproducible. VBench-2 scores would not be comparable to ours anyway.
+There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. For scoring we pinned one specific VBench revision and hash-verified all seven of its scorer files before every run, so the scoring code is bit-for-bit reproducible. We did not run or verify VBench-2, so our numbers are not comparable to it. Nothing in principle stops a future pass from pinning and verifying VBench-2 the same way; we simply have not done that work.
 
 The most interesting direction is one we could not touch here, because it needs real training compute. Right now the 8-bit pieces are approximations bolted onto a model distilled for 16-bit arithmetic. With post-training resources, one could distil the model \emph{into} the fast recipe, teaching it to expect 8-bit weights and 8-bit attention rather than tolerate them. That is the standard way to recover the quality cost, and it is also the only honest route we see to making sparse attention competitive: train the sparsity in rather than bolt it on.
 
