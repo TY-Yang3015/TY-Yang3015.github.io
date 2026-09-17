@@ -36,13 +36,33 @@ E = mc^2
 \]
 ```
 
-Add an open-by-default, collapsible takeaway with a quote block. Use `Takeaway.` for English or `要点。` for Chinese:
+Add an open-by-default, collapsible box with a quote block. The bold label at the start sets the box title: use `Takeaway.` / `要点。` for the default title, or `Box: Your Title.` / `盒子：你的标题。` for any custom title. The box body may span multiple paragraphs and can contain `tabular` tables, `\includegraphics` images, and math:
 
 ```tex
 \begin{quote}
-\textbf{Takeaway.} The concise point readers should retain.
+\textbf{Box: Evidence Table.} First paragraph.
+
+\begin{tabular}{ll}
+Method & Score \\
+K-Flow & 12.3 \\
+\end{tabular}
+
+Closing paragraph with \(x^2\) math.
 \end{quote}
 ```
+
+Embed a short video clip (mp4) with the custom `videoclip` environment; the first argument is the site-relative source path, the second a plain-text caption (may be empty):
+
+```tex
+\begin{videoclip}{assets/videos/demo.mp4}{A short demo clip.}
+\end{videoclip}
+```
+
+Animated GIFs need no special syntax — `\includegraphics{assets/images/foo.gif}` renders as a normal image on the web.
+
+Caveat for `make posts-pdf`: XeLaTeX cannot embed GIF or mp4 files, and does not know the `videoclip` environment. Posts that use them should be excluded from `--pdf` runs, or given PDF-safe fallbacks.
+
+Every post page automatically gets a floating table of contents built from its `\section`/`\subsection` headings (visible on wide viewports only); no TeX markup is required.
 
 Then run:
 

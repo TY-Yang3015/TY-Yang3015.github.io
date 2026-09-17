@@ -240,7 +240,7 @@
 </tbody>
 </table>
 </div>
-<p>A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37% faster. The INT8 weight quantiser from the ComfyUI ecosystem <span class="citation" data-cites="comfyui">(<a href="#ref-comfyui" role="doc-biblioref">comfyanonymous and ComfyOrg contributors 2025</a>)</span> stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods <span class="citation" data-cites="bolya2023tome">(<a href="#ref-bolya2023tome" role="doc-biblioref">Bolya et al. 2023</a>)</span> and the higher-order solver <span class="citation" data-cites="hairer1993ode">(<a href="#ref-hairer1993ode" role="doc-biblioref">Hairer, Nørsett, and Wanner 1993</a>)</span> destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. Cache-DiT <span class="citation" data-cites="cachedit">(<a href="#ref-cachedit" role="doc-biblioref">Vipshop Cache-DiT contributors 2025</a>)</span> simply never fit in our memory budget.</p>
+<p>A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37% faster. The INT8 weight quantiser from the ComfyUI ecosystem <span class="citation" data-cites="comfyui">(<a href="#ref-comfyui" role="doc-biblioref">comfyanonymous and ComfyOrg contributors 2025</a>)</span> stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods <span class="citation" data-cites="bolya2023tome">(<a href="#ref-bolya2023tome" role="doc-biblioref">Bolya et al. 2022</a>)</span> and the higher-order solver <span class="citation" data-cites="hairer1993ode">(<a href="#ref-hairer1993ode" role="doc-biblioref">Hairer, Norsett, and Wanner 1993</a>)</span> destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. Cache-DiT <span class="citation" data-cites="cachedit">(<a href="#ref-cachedit" role="doc-biblioref">DefTruth 2025</a>)</span> simply never fit in our memory budget.</p>
 <details class="takeaway-box" open>
 <summary><span>What is Sol attention?</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
 <div class="takeaway-content"><p>Sol <span class="citation" data-cites="li2026solattn">(<a href="#ref-li2026solattn" role="doc-biblioref">Li et al. 2026</a>)</span> is a sparse-attention method. Attention normally compares every token with every other token, which is expensive at 37 thousand tokens <span class="citation" data-cites="dao2022flashattention">(<a href="#ref-dao2022flashattention" role="doc-biblioref">Dao et al. 2022</a>)</span>. Sol instead picks a small set of promising token pairs per head and only computes those, in our case about 13.5% of all pairs, then adds a correction term for accuracy. Sparse attention is attractive on paper, but two things went wrong for us: the correction machinery cost more than the pairs it saved, and on real model inputs its numbers failed our correctness checks.</p></div>
@@ -333,28 +333,31 @@
 <figcaption>The integrated pipeline. Same prompt and seed.</figcaption>
 </figure>
 <h2 id="limitations-and-what-we-would-do-next">Limitations and what we would do next</h2>
-<p>There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. For scoring we pinned one specific VBench revision and hash-verified all seven of its scorer files before every run, so the scoring code is bit-for-bit reproducible. We did not run or verify VBench-2, so our numbers are not comparable to it. Nothing in principle stops a future pass from pinning and verifying VBench-2 the same way; we simply have not done that work.</p>
+<p>There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. For scoring we pinned one specific VBench revision and verified all seven of its scorer files before every run, so the scoring code is bit-for-bit reproducible. We did not run or verify VBench-2, so our numbers are not comparable to it. Nothing in principle stops a future pass from pinning and verifying VBench-2 the same way.</p>
 <p>The most interesting direction is one we could not touch here, because it needs real training compute. Right now the 8-bit pieces are approximations bolted onto a model distilled for 16-bit arithmetic. With post-training resources, one could distil the model <em>into</em> the fast recipe, teaching it to expect 8-bit weights and 8-bit attention rather than tolerate them. That is the standard way to recover the quality cost, and it is also the only honest route we see to making sparse attention competitive: train the sparsity in rather than bolt it on.</p>
 <p>The code for the integrated pipeline, including the measured configurations and the demo clips, is on GitHub at <a href="https://github.com/TY-Yang3015/MiniAcc" target="_blank" rel="noopener noreferrer">TY-Yang3015/MiniAcc</a>.</p>
 <h2 class="unnumbered" id="bibliography">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-bolya2023tome" class="csl-entry" role="listitem">
-Bolya, Daniel, Cheng-Yang Fu, Xiaoliang Dai, Peizhao Zhang, Christoph Feichtenhofer, and Judy Hoffman. 2023. <span>“Token Merging: Your <span>ViT</span> but Faster.”</span> In <em>International Conference on Learning Representations</em>.
+Bolya, Daniel, Cheng-Yang Fu, Xiaoliang Dai, Peizhao Zhang, Christoph Feichtenhofer, and Judy Hoffman. 2022. <span>“Token Merging: Your Vit but Faster.”</span> <em>arXiv Preprint arXiv:2210.09461</em>.
 </div>
 <div id="ref-comfyui" class="csl-entry" role="listitem">
 comfyanonymous and ComfyOrg contributors. 2025. <span>“<span>ComfyUI</span>: The Most Powerful and Modular Diffusion Model GUI, API and Backend with a Graph/Nodes Interface.”</span> <a href="https://github.com/comfyanonymous/ComfyUI" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/comfyanonymous/ComfyUI</a>.
 </div>
 <div id="ref-dao2022flashattention" class="csl-entry" role="listitem">
-Dao, Tri, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. 2022. <span>“<span>FlashAttention</span>: Fast and Memory-Efficient Exact Attention with <span>IO</span>-Awareness.”</span> <a href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2205.14135</a>.
+Dao, Tri, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. 2022. <span>“Flashattention: Fast and Memory-Efficient Exact Attention with Io-Awareness.”</span> <em>Advances in Neural Information Processing Systems</em> 35: 16344–59.
+</div>
+<div id="ref-cachedit" class="csl-entry" role="listitem">
+DefTruth, etc., vipshop.com. 2025. <span>“Cache-DiT: A PyTorch-Native Inference Engine with Cache, Parallelism, Quantization and CPU Offload for DiTs.”</span> <a href="https://github.com/vipshop/cache-dit.git" target="_blank" rel="noopener noreferrer">https://github.com/vipshop/cache-dit.git</a>.
 </div>
 <div id="ref-hairer1993ode" class="csl-entry" role="listitem">
-Hairer, Ernst, Syvert P. Nørsett, and Gerhard Wanner. 1993. <em>Solving Ordinary Differential Equations <span>I</span>: Nonstiff Problems</em>. Springer.
+Hairer, Ernst, Syvert Norsett, and Gerhard Wanner. 1993. <em>Solving Ordinary Differential Equations i: Nonstiff Problems</em>. Vol. 8. <a href="https://doi.org/10.1007/978-3-540-78862-1" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/978-3-540-78862-1</a>.
 </div>
 <div id="ref-huang2024vbench" class="csl-entry" role="listitem">
-Huang, Ziqi, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si, Yuming Jiang, Yuanhan Zhang, Tianxing Wu, Qingyang Jin, et al. 2024. <span>“<span>VBench</span>: Comprehensive Benchmark Suite for Video Generative Models.”</span> In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>.
+Huang, Ziqi, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si, Yuming Jiang, Yuanhan Zhang, et al. 2024. <span>“Vbench: Comprehensive Benchmark Suite for Video Generative Models.”</span> In <em>2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 21807–18. IEEE.
 </div>
 <div id="ref-li2026solattn" class="csl-entry" role="listitem">
-Li, Haopeng, Yitong Li, Junsong Chen, Tian Ye, Haozhe Liu, Jincheng Yu, Duomin Wang, et al. 2026. <span>“<span>Sol-Attn</span>: Accelerating Video Generation Inference via on-the-Fly Attention Sparsification.”</span> <a href="https://arxiv.org/abs/2607.24027" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2607.24027</a>.
+Li, Haopeng, Yitong Li, Junsong Chen, Tian Ye, Haozhe Liu, Jincheng Yu, Duomin Wang, et al. 2026. <span>“Sol-Attn: Accelerating Video Generation Inference via on-the-Fly Attention Sparsification.”</span> <em>arXiv Preprint arXiv:2607.24027</em>.
 </div>
 <div id="ref-minimaxh3" class="csl-entry" role="listitem">
 MiniMax. 2026. <span>“MiniMax-H3.”</span> <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3" class="uri" target="_blank" rel="noopener noreferrer">https://huggingface.co/MiniMaxAI/MiniMax-H3</a>.
@@ -362,14 +365,11 @@ MiniMax. 2026. <span>“MiniMax-H3.”</span> <a href="https://huggingface.co/Mi
 <div id="ref-lightx2v" class="csl-entry" role="listitem">
 ModelTC Team. 2025. <span>“<span>LightX2V</span>: Lightweight Video Generation Inference Framework.”</span> <a href="https://github.com/ModelTC/LightX2V" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/ModelTC/LightX2V</a>.
 </div>
-<div id="ref-cachedit" class="csl-entry" role="listitem">
-Vipshop Cache-DiT contributors. 2025. <span>“<span>Cache-DiT</span>: A Training-Free Cache Acceleration Framework for Diffusion Transformers.”</span> <a href="https://github.com/vipshop/cache-dit" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/vipshop/cache-dit</a>.
-</div>
 <div id="ref-zhang2025sageattention" class="csl-entry" role="listitem">
-Zhang, Jintao, Jia Wei, Pengle Zhang, Jun Zhu, and Jianfei Chen. 2025. <span>“<span>SageAttention</span>: Accurate 8-Bit Attention for Plug-and-Play Inference Acceleration.”</span> In <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2411.09958" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2411.09958</a>.
+Zhang, Jintao, Pengle Zhang, Jun Zhu, Jianfei Chen, et al. 2025. <span>“Sageattention: Accurate 8-Bit Attention for Plug-and-Play Inference Acceleration.”</span> In <em>International Conference on Learning Representations</em>, 2025:71566–85.
 </div>
 <div id="ref-zheng2024sglang" class="csl-entry" role="listitem">
-Zheng, Lianmin, Liangsheng Yin, Zhiqiang Xie, Chuyue Sun, Jeff Huang, Cody Hao Yu, Shiyi Cao, et al. 2024. <span>“<span>SGLang</span>: Efficient Execution of Structured Language Model Programs.”</span> In <em>Advances in Neural Information Processing Systems</em>. <a href="https://arxiv.org/abs/2312.07104" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2312.07104</a>.
+Zheng, Lianmin, Liangsheng Yin, Zhiqiang Xie, Chuyue Sun, Jeff Huang, Cody H Yu, Shiyi Cao, et al. 2024. <span>“Sglang: Efficient Execution of Structured Language Model Programs.”</span> <em>Advances in Neural Information Processing Systems</em> 37: 62557–83.
 </div>
 </div>
 

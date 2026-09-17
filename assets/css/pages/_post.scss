@@ -112,8 +112,8 @@
   border-top: 1px solid var(--line);
 }
 
+/* margin handled by the takeaway-content direct-child rhythm below */
 .post-body .takeaway-content p {
-  margin: 0;
   color: var(--text);
   font-size: 0.98rem;
   line-height: 1.75;
@@ -197,4 +197,43 @@
   .post-body .image-pair p { grid-template-columns: 1fr; }
   .post-body p,
   .post-body li { font-size: 0.98rem; line-height: 1.8; }
+}
+
+/* --- Rich takeaway content & video clips -------------------------------
+   .takeaway-content may now hold several block children (paragraphs,
+   pandoc tables, figures/images, math spans). The direct-child reset owns
+   vertical rhythm so box padding stays even; element rules below restore
+   compact table and centered-image spacing on top of it. */
+
+.post-body .takeaway-content { overflow-x: auto; }
+
+.post-body .takeaway-content > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.post-body .takeaway-content > * + * { margin-top: 0.9rem; }
+
+/* Compact variant of the .post-body table look (row borders, mono
+   uppercase th are inherited); wide pandoc tables scroll inside the box. */
+.post-body .takeaway-content table {
+  max-width: 100%;
+  font-size: 0.9rem;
+}
+
+.post-body .takeaway-content th,
+.post-body .takeaway-content td { padding: 0.5rem; }
+
+/* Bordered look inherited from .post-body img; tighter centered margins. */
+.post-body .takeaway-content img { margin: 0.9rem auto; }
+
+.post-body .takeaway-content figure img { margin: 0; }
+
+/* .video-clip inherits .post-body figure/figcaption spacing as-is. */
+.post-body .video-clip video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  background: #000;
 }

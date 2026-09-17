@@ -72,21 +72,60 @@ def render_html(entry: dict[str, Any]) -> str:
         flags=re.DOTALL,
     )
 
-    takeaway_titles = {"Takeaway.": "Takeaway", "要点。": "要点"}
+    # Bold labels that turn a blockquote into a takeaway box: the legacy
+    # fixed titles plus custom titles via "Box: Title" / "盒子：Title".
+    takeaway_label = r"(?P<label>Takeaway\.|要点。|Box:(?P<en_title>.*?)|盒子：(?P<zh_title>.*?))"
 
     def make_takeaway(match: re.Match[str]) -> str:
-        title = takeaway_titles[match.group(1)]
-        content = match.group(2)
+        label = match.group("label")
+        if label.startswith("Box:"):
+            title = match.group("en_title").strip().rstrip(".").strip()
+        elif label.startswith("盒子："):
+            title = match.group("zh_title").strip().rstrip("。.").strip()
+        else:
+            title = "Takeaway" if label == "Takeaway." else "要点"
+        first = match.group("first")
+        rest = match.group("rest").strip()
+        blocks = []
+        if first.strip():
+            blocks.append(f"<p>{first}</p>")
+        if rest:
+            blocks.append(rest)
+        content = "\n".join(blocks)
         return (
             '<details class="takeaway-box" open>\n'
             f'<summary><span>{title}</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>\n'
-            f'<div class="takeaway-content"><p>{content}</p></div>\n'
+            f'<div class="takeaway-content">{content}</div>\n'
             '</details>'
         )
 
     body = re.sub(
-        r'<blockquote>\s*<p><strong>(Takeaway\.|要点。)</strong>\s*(.*?)</p>\s*</blockquote>',
+        rf'<blockquote>\s*<p><strong>{takeaway_label}</strong>\s*(?P<first>.*?)</p>(?P<rest>.*?)</blockquote>',
         make_takeaway,
+        body,
+        flags=re.DOTALL,
+    )
+
+    def make_videoclip(match: re.Match[str]) -> str:
+        src = match.group("src").strip()
+        caption = (match.group("caption") or "").strip()
+        figcaption = f"\n  <figcaption>{caption}</figcaption>" if caption else ""
+        return (
+            '<figure class="video-clip">\n'
+            '  <video controls loop muted playsinline preload="metadata">\n'
+            f'    <source src="/{src}" type="video/mp4">\n'
+            '  </video>'
+            f'{figcaption}\n'
+            '</figure>'
+        )
+
+    # pandoc renders the unknown \begin{videoclip}{src}{caption} environment
+    # as <div class="videoclip"><p><span>src</span><span>caption</span></p></div>.
+    # Limitation: caption text must be plain (nested spans break the regex).
+    # Caption span is omitted by pandoc when the caption argument is empty.
+    body = re.sub(
+        r'<div class="videoclip">\s*<p>\s*<span>(?P<src>.*?)</span>(?:\s*<span>(?P<caption>.*?)</span>)?\s*</p>\s*</div>',
+        make_videoclip,
         body,
         flags=re.DOTALL,
     )
