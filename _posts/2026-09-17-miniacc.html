@@ -1,0 +1,262 @@
+---
+layout: "post"
+title: "MiniAcc: Investigating How to Further Accelerate Large Video Diffusion Models at Inference Time"
+date: "2026-09-17 18:00:00 +0000"
+series: "Research Promotion"
+series_icon: "✶"
+categories: ["blog"]
+generated_from: "_tex/posts/miniacc.tex"
+---
+<!-- Generated from _tex/posts/miniacc.tex; edit the TeX source, not this file. -->
+<p>MiniMax-H3 is a large diffusion model that turns a text prompt into a five-second video with synchronised audio. Serving it well from a single workstation GPU is awkward, because the model is far bigger than the card’s memory. This post describes a small research programme around that problem. We measured where the time actually goes when you serve the model, tried a shelf of published acceleration ideas one by one, and then combined the ones that worked. The combination we now run finishes a request in 130 seconds where the baseline took 327 seconds on an RTX 4090, and we try to be honest about what that costs in output quality.</p>
+<p>Everything below is measured on one frozen workload: a 1344<span class="math inline">\(\times\)</span>768 video at 124 frames and 24 FPS with 32 kHz stereo audio, generated end to end from a prompt, with the same seed everywhere. Timings are the wall time from submitting the request to having the finished file on disk, which includes the continuous shuttling of model weights between main memory and the GPU. Quality is scored with VBench <span class="citation" data-cites="huang2024vbench">(<a href="#ref-huang2024vbench" role="doc-biblioref">Huang et al. 2024</a>)</span>, a suite of video-quality metrics, and we always compare like for like: same hardware, same prompts, same seed, paired clip by clip.</p>
+<h2 id="choosing-a-baseline-worth-accelerating">Choosing a baseline worth accelerating</h2>
+<p>The first job was picking the serving stack to accelerate. We screened five ways of running the model on the same sixteen prompts: ComfyUI with the Turbo 4-step and 8-step distilled checkpoints <span class="citation" data-cites="comfyui">(<a href="#ref-comfyui" role="doc-biblioref">comfyanonymous and ComfyOrg contributors 2025</a>)</span>, SGLang <span class="citation" data-cites="zheng2024sglang">(<a href="#ref-zheng2024sglang" role="doc-biblioref">Zheng et al. 2024</a>)</span> with the LightX2V 4-step adapter <span class="citation" data-cites="lightx2v">(<a href="#ref-lightx2v" role="doc-biblioref">ModelTC Team 2025</a>)</span>, SGLang with the Larry 8-step adapter, and a FastH3 variant with a different attention backend. Two candidates were much faster than everything else, and of those, SGLang with LightX2V was the one whose output we could not distinguish from the slow dense baseline on our metrics. That became the baseline for all later work.</p>
+<details class="takeaway-box" open>
+<summary><span>What is LightX2V?</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
+<div class="takeaway-content"><p>LightX2V <span class="citation" data-cites="lightx2v">(<a href="#ref-lightx2v" role="doc-biblioref">ModelTC Team 2025</a>)</span> is a <em>distilled</em> version of MiniMax-H3 <span class="citation" data-cites="minimaxh3">(<a href="#ref-minimaxh3" role="doc-biblioref">MiniMax 2026</a>)</span>. A distilled model is trained to copy the output of a slower teacher, and LightX2V copies the teacher so well that it needs only four denoising passes instead of the usual dozens. The catch is that the model is tuned to one exact computation recipe, so any change to the numerics, however small, moves it away from what it was trained for. This comes back later.</p></div>
+</details>
+<p>Before optimising anything, we timed the pipeline stage by stage. Table <a href="#tab:stages" data-reference-type="ref" data-reference="tab:stages">1</a> is the anatomy of one request. Almost all of the time sits in the denoising stage, and inside that stage most of the time is not arithmetic. Because the model does not fit on the card, its weights live in main memory and are copied to the GPU layer by layer on every single pass. That copying is the real cost centre, and it shapes everything that follows.</p>
+<div id="tab:stages">
+<table>
+<caption>Where one baseline request spends its 326.5 seconds (RTX 4090). “Decode and save” covers turning the internal representation into a video file with its audio track.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Stage</th>
+<th style="text-align: right;">Time (s)</th>
+<th style="text-align: left;">What happens there</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Text encoding</td>
+<td style="text-align: right;">48.6</td>
+<td style="text-align: left;">The prompt becomes conditioning vectors</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Denoising (4 passes)</td>
+<td style="text-align: right;">256.9</td>
+<td style="text-align: left;">The model runs; weights stream from RAM to GPU throughout</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Decode and save</td>
+<td style="text-align: right;">19.0</td>
+<td style="text-align: left;">Latents become video and audio on disk</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-we-tried-one-module-at-a-time">What we tried, one module at a time</h2>
+<p>We then worked through the literature, one technique at a time, keeping everything else frozen. Each arm had to pass the same gates: real native kernels rather than fallbacks, strict memory headroom, and a paired quality check. Figure <a href="#fig:individual" data-reference-type="ref" data-reference="fig:individual">1</a> summarises the speed outcomes, and Table <a href="#tab:modules" data-reference-type="ref" data-reference="tab:modules">2</a> adds the quality notes.</p>
+<figure id="fig:individual">
+<img src="/assets/images/blog/miniacc/chart-individual-modules.png" />
+<figcaption>Speedup of each candidate run on its own, relative to the 1.0 baseline. Only the two techniques that reduce data movement beat the baseline.</figcaption>
+</figure>
+<div id="tab:modules">
+<table>
+<caption>Every module tested on its own. “Quality” is the paired VBench outcome against the baseline.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Module</th>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Speedup</th>
+<th style="text-align: left;">Quality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AdaLN fusion</td>
+<td style="text-align: left;">kernel/memory</td>
+<td style="text-align: left;">1.372<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">bitwise-identical outputs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kitchen INT8</td>
+<td style="text-align: left;">quantization</td>
+<td style="text-align: left;">1.881<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">passed; single-run caveat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compiler default</td>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: left;">0.970<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">small changes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ViDiT-Q</td>
+<td style="text-align: left;">quantization</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">blocked before admission</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sol</td>
+<td style="text-align: left;">sparse attention</td>
+<td style="text-align: left;">0.990<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">near-neutral; correctness gate failed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FFN token merge</td>
+<td style="text-align: left;">token reduction</td>
+<td style="text-align: left;">0.993<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">severe loss</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Query merge</td>
+<td style="text-align: left;">token reduction</td>
+<td style="text-align: left;">0.995<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">severe loss (<span class="math inline">\(-\)</span>24.7 overall)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Heun</td>
+<td style="text-align: left;">solver</td>
+<td style="text-align: left;">0.994<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">severe loss (<span class="math inline">\(-\)</span>28.0 overall)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cache-DiT</td>
+<td style="text-align: left;">memory/cache</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">never fit our memory floor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SageAttention</td>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: left;">0.998<span class="math inline">\(\times\)</span></td>
+<td style="text-align: left;">looked fine at 4 clips</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37% faster. Kitchen INT8 (from the ComfyUI ecosystem <span class="citation" data-cites="comfyui">(<a href="#ref-comfyui" role="doc-biblioref">comfyanonymous and ComfyOrg contributors 2025</a>)</span>) stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods <span class="citation" data-cites="bolya2023tome">(<a href="#ref-bolya2023tome" role="doc-biblioref">Bolya et al. 2023</a>)</span> and the higher-order solver <span class="citation" data-cites="hairer1993ode">(<a href="#ref-hairer1993ode" role="doc-biblioref">Hairer, Nørsett, and Wanner 1993</a>)</span> destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. ViDiT-Q never made it into the model at all. Its 8-bit building blocks worked in isolation, but the official fused quantiser <span class="citation" data-cites="zhao2025viditq">(<a href="#ref-zhao2025viditq" role="doc-biblioref">Zhao et al. 2025</a>)</span> disagreed with our reference on real inputs and the full integration had too many gaps to admit honestly. Cache-DiT <span class="citation" data-cites="cachedit">(<a href="#ref-cachedit" role="doc-biblioref">Vipshop Cache-DiT contributors 2025</a>)</span> simply never fit in our memory budget.</p>
+<details class="takeaway-box" open>
+<summary><span>What is Sol attention?</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
+<div class="takeaway-content"><p>Sol <span class="citation" data-cites="li2026solattn">(<a href="#ref-li2026solattn" role="doc-biblioref">Li et al. 2026</a>)</span> is a sparse-attention method. Attention normally compares every token with every other token, which is expensive at 37 thousand tokens <span class="citation" data-cites="dao2022flashattention">(<a href="#ref-dao2022flashattention" role="doc-biblioref">Dao et al. 2022</a>)</span>. Sol instead picks a small set of promising token pairs per head and only computes those, in our case about 13.5% of all pairs, then adds a correction term for accuracy. Sparse attention is attractive on paper, but two things went wrong for us: the correction machinery cost more than the pairs it saved, and on real model inputs its numbers failed our correctness checks.</p></div>
+</details>
+<details class="takeaway-box" open>
+<summary><span>What is SageAttention?</span><span class="takeaway-toggle" aria-hidden="true"></span></summary>
+<div class="takeaway-content"><p>SageAttention <span class="citation" data-cites="zhang2025sageattention">(<a href="#ref-zhang2025sageattention" role="doc-biblioref">Zhang et al. 2025</a>)</span> keeps the attention pattern dense but does the score computation in 8-bit integer arithmetic instead of 16-bit floating point. Integer math is cheaper per operation, and SageAttention is a proper compiled kernel, not a simulation. On its own in our pipeline it changed nothing measurable, because attention is only about a sixth of the request time.</p></div>
+</details>
+<h2 id="putting-the-winners-together">Putting the winners together</h2>
+<p>The two clear winners attacked different costs. AdaLN removed per-layer conditioning work, and Kitchen halved the weight traffic. Combining them was the natural next step, and it is also where the story gets interesting. Figure <a href="#fig:breakdown" data-reference-type="ref" data-reference="fig:breakdown">2</a> shows what happened to the anatomy of a request.</p>
+<figure id="fig:breakdown">
+<img src="/assets/images/blog/miniacc/chart-time-breakdown.png" />
+<figcaption>Where a request spends its time as the techniques are layered on. The denoising stage shrinks from 257 to 61 seconds; text encoding and decoding are untouched.</figcaption>
+</figure>
+<p>With the copying cost cut down, attention went from a sixth of the request to about a third of it. That is why SageAttention, which measured a flat 0.998<span class="math inline">\(\times\)</span> on its own, suddenly became useful. Its savings did not get bigger. Its share of the bill did. This is the most useful lesson of the whole exercise: on a memory-bound pipeline, compute optimisations are invisible until you remove the memory problem, and only then do they start to matter. Sol never got this rescue, because its operator is genuinely slower than the dense one it replaces. Making the pipeline cheaper does not fix a slow kernel.</p>
+<figure id="fig:integrated">
+<img src="/assets/images/blog/miniacc/chart-integrated.png" />
+<figcaption>The integrated configurations against baseline. The final default includes SageAttention; the Sol variant is shown for completeness.</figcaption>
+</figure>
+<p>Figure <a href="#fig:integrated" data-reference-type="ref" data-reference="fig:integrated">3</a> shows the final speed numbers. AdaLN and Kitchen together give 2.19<span class="math inline">\(\times\)</span>. Adding SageAttention on top reaches 2.51<span class="math inline">\(\times\)</span>, our default configuration. Adding Sol instead gives 2.16<span class="math inline">\(\times\)</span>.</p>
+<figure id="fig:diagram">
+<img src="/assets/images/blog/miniacc/pipeline-diagram.png" />
+<figcaption>The serving pipeline and where each technique acts. The warm lane is the bottleneck: weights are copied from main memory to the GPU on every denoising pass.</figcaption>
+</figure>
+<h2 id="re-checking-quality-at-scale-sage-and-sol">Re-checking quality at scale: Sage and Sol</h2>
+<p>Speed is only half the story, and this is where we had to be careful with ourselves. An early 4-clip check suggested SageAttention might even improve quality slightly. The 16-clip paired test said otherwise, and it was not close. Table <a href="#tab:quality16" data-reference-type="ref" data-reference="tab:quality16">3</a> shows the paired quality deltas against the Sage-free pipeline.</p>
+<div id="tab:quality16">
+<table>
+<caption>Paired VBench quality deltas on the integrated pipeline (16 clips; negative is worse than the pipeline without that module).</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: right;">Sage <span class="math inline">\(\Delta\)</span></th>
+<th style="text-align: right;">Sol <span class="math inline">\(\Delta\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Subject consistency</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>0.14</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>0.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Background consistency</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>0.31</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Motion smoothness</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>0.91</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dynamic degree</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>6.25</td>
+<td style="text-align: right;"><span class="math inline">\(0.00\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aesthetic quality</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>1.60</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>1.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Imaging quality</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>4.71</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>0.46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Overall consistency</td>
+<td style="text-align: right;"><span class="math inline">\(-\)</span>29.82</td>
+<td style="text-align: right;"><span class="math inline">\(+\)</span>0.20</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure id="fig:qualitydeltas">
+<img src="/assets/images/blog/miniacc/chart-quality-deltas.png" />
+<figcaption>The same deltas as a chart. Sage’s damage concentrates in overall consistency and imaging, and it is consistent across clips, not one outlier.</figcaption>
+</figure>
+<p>Sage’s cost is systematic. Overall consistency, which measures whether the video matches the prompt’s meaning, dropped on every eligible clip. Imaging quality, a sharpness-and-artifacts score, dropped on 14 of 16 clips. One plausible explanation is that 8-bit attention stacked on 8-bit weights nudges the distilled model off the trajectory it was trained for, but we have not proven that mechanism. Sol, by contrast, is quality-neutral and simply slower, so there is no reason to adopt it. Our default ships with Sage because the speed matters for our use, and the fidelity-first configuration (AdaLN and Kitchen without Sage) is one flag away for anyone who would rather keep baseline-level quality at 2.19<span class="math inline">\(\times\)</span>.</p>
+<p>Finally, here is what all of this looks like. The clips use the same prompt and seed on both pipelines.</p>
+<p><strong>Baseline serving:</strong></p>
+<figure>
+<img src="/assets/images/blog/miniacc/demo-baseline.gif" />
+</figure>
+<p><strong>Integrated pipeline:</strong></p>
+<figure>
+<img src="/assets/images/blog/miniacc/demo-pipeline.gif" />
+</figure>
+<h2 id="limitations-and-what-we-would-do-next">Limitations and what we would do next</h2>
+<p>There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. We used the original VBench rather than VBench-2 for a boring but important reason: we could pin and hash-verify every file of the original benchmark’s scorer, which kept the whole evaluation reproducible. VBench-2 scores would not be comparable to ours anyway.</p>
+<p>The most interesting direction is one we could not touch here, because it needs real training compute. Right now the 8-bit pieces are approximations bolted onto a model distilled for 16-bit arithmetic. With post-training resources, one could distil the model <em>into</em> the fast recipe, teaching it to expect 8-bit weights and 8-bit attention rather than tolerate them. That is the standard way to recover the quality cost, and it is also the only honest route we see to making sparse attention competitive: train the sparsity in rather than bolt it on.</p>
+<p>The code for the integrated pipeline, including the measured configurations and the demo clips, is on GitHub at <a href="https://github.com/TY-Yang3015/MiniAcc" target="_blank" rel="noopener noreferrer">TY-Yang3015/MiniAcc</a>.</p>
+<h2 class="unnumbered" id="bibliography">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bolya2023tome" class="csl-entry" role="listitem">
+Bolya, Daniel, Cheng-Yang Fu, Xiaoliang Dai, Peizhao Zhang, Christoph Feichtenhofer, and Judy Hoffman. 2023. <span>“Token Merging: Your <span>ViT</span> but Faster.”</span> In <em>International Conference on Learning Representations</em>.
+</div>
+<div id="ref-comfyui" class="csl-entry" role="listitem">
+comfyanonymous and ComfyOrg contributors. 2025. <span>“<span>ComfyUI</span>: The Most Powerful and Modular Diffusion Model GUI, API and Backend with a Graph/Nodes Interface.”</span> <a href="https://github.com/comfyanonymous/ComfyUI" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/comfyanonymous/ComfyUI</a>.
+</div>
+<div id="ref-dao2022flashattention" class="csl-entry" role="listitem">
+Dao, Tri, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. 2022. <span>“<span>FlashAttention</span>: Fast and Memory-Efficient Exact Attention with <span>IO</span>-Awareness.”</span> <a href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2205.14135</a>.
+</div>
+<div id="ref-hairer1993ode" class="csl-entry" role="listitem">
+Hairer, Ernst, Syvert P. Nørsett, and Gerhard Wanner. 1993. <em>Solving Ordinary Differential Equations <span>I</span>: Nonstiff Problems</em>. Springer.
+</div>
+<div id="ref-huang2024vbench" class="csl-entry" role="listitem">
+Huang, Ziqi, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si, Yuming Jiang, Yuanhan Zhang, Tianxing Wu, Qingyang Jin, et al. 2024. <span>“<span>VBench</span>: Comprehensive Benchmark Suite for Video Generative Models.”</span> In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>.
+</div>
+<div id="ref-li2026solattn" class="csl-entry" role="listitem">
+Li, Haopeng, Yitong Li, Junsong Chen, Tian Ye, Haozhe Liu, Jincheng Yu, Duomin Wang, et al. 2026. <span>“<span>Sol-Attn</span>: Accelerating Video Generation Inference via on-the-Fly Attention Sparsification.”</span> <a href="https://arxiv.org/abs/2607.24027" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2607.24027</a>.
+</div>
+<div id="ref-minimaxh3" class="csl-entry" role="listitem">
+MiniMax. 2026. <span>“MiniMax-H3.”</span> <a href="https://huggingface.co/MiniMaxAI/MiniMax-H3" class="uri" target="_blank" rel="noopener noreferrer">https://huggingface.co/MiniMaxAI/MiniMax-H3</a>.
+</div>
+<div id="ref-lightx2v" class="csl-entry" role="listitem">
+ModelTC Team. 2025. <span>“<span>LightX2V</span>: Lightweight Video Generation Inference Framework.”</span> <a href="https://github.com/ModelTC/LightX2V" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/ModelTC/LightX2V</a>.
+</div>
+<div id="ref-cachedit" class="csl-entry" role="listitem">
+Vipshop Cache-DiT contributors. 2025. <span>“<span>Cache-DiT</span>: A Training-Free Cache Acceleration Framework for Diffusion Transformers.”</span> <a href="https://github.com/vipshop/cache-dit" class="uri" target="_blank" rel="noopener noreferrer">https://github.com/vipshop/cache-dit</a>.
+</div>
+<div id="ref-zhang2025sageattention" class="csl-entry" role="listitem">
+Zhang, Jintao, Jia Wei, Pengle Zhang, Jun Zhu, and Jianfei Chen. 2025. <span>“<span>SageAttention</span>: Accurate 8-Bit Attention for Plug-and-Play Inference Acceleration.”</span> In <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2411.09958" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2411.09958</a>.
+</div>
+<div id="ref-zhao2025viditq" class="csl-entry" role="listitem">
+Zhao, Tianchen, Tongcheng Fang, Haofeng Huang, Rui Wan, Widyadewi Soedarmadji, Enshu Liu, Shiyao Li, et al. 2025. <span>“<span>ViDiT-Q</span>: Efficient and Accurate Quantization of Diffusion Transformers for Image and Video Generation.”</span> In <em>International Conference on Learning Representations</em>.
+</div>
+<div id="ref-zheng2024sglang" class="csl-entry" role="listitem">
+Zheng, Lianmin, Liangsheng Yin, Zhiqiang Xie, Chuyue Sun, Jeff Huang, Cody Hao Yu, Shiyi Cao, et al. 2024. <span>“<span>SGLang</span>: Efficient Execution of Structured Language Model Programs.”</span> In <em>Advances in Neural Information Processing Systems</em>. <a href="https://arxiv.org/abs/2312.07104" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2312.07104</a>.
+</div>
+</div>

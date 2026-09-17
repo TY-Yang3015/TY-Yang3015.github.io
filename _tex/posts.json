@@ -10,8 +10,10 @@
       "date": "2026-03-08 23:00:00 +0000",
       "zh_url": "/zh/k_flow/",
       "series": "Research Promotion",
-      "series_icon": "✶",
-      "categories": ["blog"]
+      "series_icon": "\u2736",
+      "categories": [
+        "blog"
+      ]
     }
   },
   {
@@ -24,8 +26,10 @@
       "title": "A Brief Introduction to Neural Tangent Kernels",
       "date": "2026-05-27 00:00:00 +0000",
       "series": "Learning Theory: Training Dynamics",
-      "series_icon": "★",
-      "categories": ["blog"]
+      "series_icon": "\u2605",
+      "categories": [
+        "blog"
+      ]
     }
   },
   {
@@ -33,12 +37,28 @@
     "source": "_tex/posts/k-flow-physical-origin-zh.tex",
     "output": "_zh/k_flow.html",
     "language": "zh-CN",
-    "reference_title": "参考文献",
+    "reference_title": "\u53c2\u8003\u6587\u732e",
     "front_matter": {
       "layout": "post",
-      "title": "K-Flow 的物理起源",
+      "title": "K-Flow \u7684\u7269\u7406\u8d77\u6e90",
       "permalink": "/zh/k_flow/",
       "lang": "zh"
+    }
+  },
+  {
+    "id": "miniacc",
+    "source": "_tex/posts/miniacc.tex",
+    "output": "_posts/2026-09-17-miniacc.html",
+    "language": "en",
+    "front_matter": {
+      "layout": "post",
+      "title": "MiniAcc: Investigating How to Further Accelerate Large Video Diffusion Models at Inference Time",
+      "date": "2026-09-17 18:00:00 +0000",
+      "series": "Research Promotion",
+      "series_icon": "\u2736",
+      "categories": [
+        "blog"
+      ]
     }
   }
 ]
