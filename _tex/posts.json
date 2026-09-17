@@ -52,10 +52,10 @@
     "language": "en",
     "front_matter": {
       "layout": "post",
-      "title": "MiniAcc: Investigating How to Further Accelerate Large Video Diffusion Models at Inference Time",
+      "title": "MiniAcc: Investigating How to Accelerate Large Video Diffusion Models on a Single GPU",
       "date": "2026-09-17 18:00:00 +0000",
-      "series": "Research Promotion",
-      "series_icon": "\u2736",
+      "series": "Casual Research",
+      "series_icon": "\u270e",
       "categories": [
         "blog"
       ]

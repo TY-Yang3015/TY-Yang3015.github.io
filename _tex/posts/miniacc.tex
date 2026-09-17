@@ -1,4 +1,4 @@
-MiniMax-H3 is a large diffusion model that turns a text prompt into a five-second video with synchronised audio. Serving it well from a single workstation GPU is awkward, because the model is far bigger than the card's memory. This post describes a small research programme around that problem. We measured where the time actually goes when you serve the model, tried a shelf of published acceleration ideas one by one, and then combined the ones that worked. The combination we now run finishes a request in 130 seconds where the baseline took 327 seconds on an RTX 4090, and we try to be honest about what that costs in output quality.
+MiniMax-H3 is a large diffusion model that turns a text prompt into a five-second video with synchronised audio. This post is about what you can do with very little: one consumer GPU, no training run, no cluster. We investigate how much faster such a model can be served under that constraint, and what the trade-offs look like when you get there. Everything below was measured on a single RTX 4090, with a single A100 used only to score videos. We measured where the time actually goes, tried a shelf of published acceleration ideas one by one, and then combined the ones that worked. The combination we now run finishes a request in 130 seconds where the baseline took 327 seconds, and we try to be honest about what that costs in output quality.
 
 Everything below is measured on one frozen workload: a 1344$\times$768 video at 124 frames and 24 FPS with 32 kHz stereo audio, generated end to end from a prompt, with the same seed everywhere. Timings are the wall time from submitting the request to having the finished file on disk, which includes the continuous shuttling of model weights between main memory and the GPU. Quality is scored with VBench \citep{huang2024vbench}, a suite of video-quality metrics, and we always compare like for like: same hardware, same prompts, same seed, paired clip by clip.
 
@@ -123,13 +123,14 @@ Overall consistency & $-$29.82 & $+$0.20\\
 
 Sage's cost is systematic. Overall consistency, which measures whether the video matches the prompt's meaning, dropped on every eligible clip. Imaging quality, a sharpness-and-artifacts score, dropped on 14 of 16 clips. One plausible explanation is that 8-bit attention stacked on 8-bit weights nudges the distilled model off the trajectory it was trained for, but we have not proven that mechanism. Sol, by contrast, is quality-neutral and simply slower, so there is no reason to adopt it. Our default ships with Sage because the speed matters for our use, and the fidelity-first configuration (AdaLN and Kitchen without Sage) is one flag away for anyone who would rather keep baseline-level quality at 2.19$\times$.
 
-Finally, here is what all of this looks like. The clips use the same prompt and seed on both pipelines.
+Finally, here is what all of this looks like. Both clips use the same prompt, \emph{``A person is squat''} (VBench prompt 0195, human action), and the same seed.
 
 \textbf{Baseline serving:}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.75\linewidth]{assets/images/blog/miniacc/demo-baseline.gif}
+\caption{Baseline serving. Prompt: ``A person is squat''.}
 \end{figure}
 
 \textbf{Integrated pipeline:}
@@ -137,6 +138,7 @@ Finally, here is what all of this looks like. The clips use the same prompt and 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.75\linewidth]{assets/images/blog/miniacc/demo-pipeline.gif}
+\caption{The integrated pipeline. Same prompt and seed.}
 \end{figure}
 
 \section{Limitations and what we would do next}

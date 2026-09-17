@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MiniAcc: Investigating How to Further Accelerate Large Video Diffusion Models at Inference Time · Tianyue Yang</title>
+<title>MiniAcc: Investigating How to Accelerate Large Video Diffusion Models on a Single GPU · Tianyue Yang</title>
 <meta name="description" content="Tianyue Yang — AI, physics, chemistry, and scientific machine learning.">
 <meta name="theme-color" content="#fbfaff">
 <meta name="color-scheme" content="light dark">
@@ -117,17 +117,17 @@
         <article class="post-shell prose">
   <header class="post-header">
     <div class="eyebrow">
-      <span>Research Promotion</span>
+      <span>Casual Research</span>
       <span class="eyebrow-rule" aria-hidden="true"></span>
       <time datetime="2026-09-17T19:00:00+01:00">17.09.2026</time>
     </div>
-    <h1>MiniAcc: Investigating How to Further Accelerate Large Video Diffusion Models at Inference Time</h1>
+    <h1>MiniAcc: Investigating How to Accelerate Large Video Diffusion Models on a Single GPU</h1>
     <div class="post-header-rail" aria-hidden="true"><span></span><span></span><span></span></div>
   </header>
 
   <div class="post-body">
     <!-- Generated from _tex/posts/miniacc.tex; edit the TeX source, not this file. -->
-<p>MiniMax-H3 is a large diffusion model that turns a text prompt into a five-second video with synchronised audio. Serving it well from a single workstation GPU is awkward, because the model is far bigger than the card’s memory. This post describes a small research programme around that problem. We measured where the time actually goes when you serve the model, tried a shelf of published acceleration ideas one by one, and then combined the ones that worked. The combination we now run finishes a request in 130 seconds where the baseline took 327 seconds on an RTX 4090, and we try to be honest about what that costs in output quality.</p>
+<p>MiniMax-H3 is a large diffusion model that turns a text prompt into a five-second video with synchronised audio. This post is about what you can do with very little: one consumer GPU, no training run, no cluster. We investigate how much faster such a model can be served under that constraint, and what the trade-offs look like when you get there. Everything below was measured on a single RTX 4090, with a single A100 used only to score videos. We measured where the time actually goes, tried a shelf of published acceleration ideas one by one, and then combined the ones that worked. The combination we now run finishes a request in 130 seconds where the baseline took 327 seconds, and we try to be honest about what that costs in output quality.</p>
 <p>Everything below is measured on one frozen workload: a 1344<span class="math inline">\(\times\)</span>768 video at 124 frames and 24 FPS with 32 kHz stereo audio, generated end to end from a prompt, with the same seed everywhere. Timings are the wall time from submitting the request to having the finished file on disk, which includes the continuous shuttling of model weights between main memory and the GPU. Quality is scored with VBench <span class="citation" data-cites="huang2024vbench">(<a href="#ref-huang2024vbench" role="doc-biblioref">Huang et al. 2024</a>)</span>, a suite of video-quality metrics, and we always compare like for like: same hardware, same prompts, same seed, paired clip by clip.</p>
 <h2 id="choosing-a-baseline-worth-accelerating">Choosing a baseline worth accelerating</h2>
 <p>The first job was picking the serving stack to accelerate. We screened five ways of running the model on the same sixteen prompts: ComfyUI with the Turbo 4-step and 8-step distilled checkpoints <span class="citation" data-cites="comfyui">(<a href="#ref-comfyui" role="doc-biblioref">comfyanonymous and ComfyOrg contributors 2025</a>)</span>, SGLang <span class="citation" data-cites="zheng2024sglang">(<a href="#ref-zheng2024sglang" role="doc-biblioref">Zheng et al. 2024</a>)</span> with the LightX2V 4-step adapter <span class="citation" data-cites="lightx2v">(<a href="#ref-lightx2v" role="doc-biblioref">ModelTC Team 2025</a>)</span>, SGLang with the Larry 8-step adapter, and a FastH3 variant with a different attention backend. Two candidates were much faster than everything else, and of those, SGLang with LightX2V was the one whose output we could not distinguish from the slow dense baseline on our metrics. That became the baseline for all later work.</p>
@@ -327,14 +327,16 @@
 <figcaption>The same deltas as a chart. Sage’s damage concentrates in overall consistency and imaging, and it is consistent across clips, not one outlier.</figcaption>
 </figure>
 <p>Sage’s cost is systematic. Overall consistency, which measures whether the video matches the prompt’s meaning, dropped on every eligible clip. Imaging quality, a sharpness-and-artifacts score, dropped on 14 of 16 clips. One plausible explanation is that 8-bit attention stacked on 8-bit weights nudges the distilled model off the trajectory it was trained for, but we have not proven that mechanism. Sol, by contrast, is quality-neutral and simply slower, so there is no reason to adopt it. Our default ships with Sage because the speed matters for our use, and the fidelity-first configuration (AdaLN and Kitchen without Sage) is one flag away for anyone who would rather keep baseline-level quality at 2.19<span class="math inline">\(\times\)</span>.</p>
-<p>Finally, here is what all of this looks like. The clips use the same prompt and seed on both pipelines.</p>
+<p>Finally, here is what all of this looks like. Both clips use the same prompt, <em>“A person is squat”</em> (VBench prompt 0195, human action), and the same seed.</p>
 <p><strong>Baseline serving:</strong></p>
 <figure>
 <img src="/assets/images/blog/miniacc/demo-baseline.gif" />
+<figcaption>Baseline serving. Prompt: “A person is squat”.</figcaption>
 </figure>
 <p><strong>Integrated pipeline:</strong></p>
 <figure>
 <img src="/assets/images/blog/miniacc/demo-pipeline.gif" />
+<figcaption>The integrated pipeline. Same prompt and seed.</figcaption>
 </figure>
 <h2 id="limitations-and-what-we-would-do-next">Limitations and what we would do next</h2>
 <p>There are several honest caveats. Speed numbers come from single requests on one GPU, so treat them as indicative rather than universal. The quality study is solid on its own scale, but 16 clips and 4 overall-consistency clips are still small samples, and the Sage cost would benefit from a bigger sweep before anyone ships this. We assessed video quality only. The audio track is validated for presence and format but never scored, because we know no good paired metric for generated audio. We used the original VBench rather than VBench-2 for a boring but important reason: we could pin and hash-verify every file of the original benchmark’s scorer, which kept the whole evaluation reproducible. VBench-2 scores would not be comparable to ours anyway.</p>
