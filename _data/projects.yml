@@ -12,3 +12,8 @@
   description: "Flax implementation of Deep Quantum VMC"
   link: "https://github.com/TY-Yang3015/PsiFlax"
   tags: ["Transformers", "AI4Chem"]
+
+- name: "MiniAcc"
+  description: "Serving large video diffusion models from a single GPU. A measured study of weight-traffic reduction: AdaLN sidecar plus INT8 weight quantization, with optional 8-bit attention, reaching about 2.5x faster requests on MiniMax-H3 with paired quality analysis."
+  link: "https://github.com/TY-Yang3015/MiniAcc"
+  tags: ["Video Diffusion", "Inference Acceleration", "INT8 Quantization"]
