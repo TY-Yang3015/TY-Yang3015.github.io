@@ -44,7 +44,7 @@ We then worked through the literature, one technique at a time, keeping everythi
 Module & Category & Speedup & Quality\\
 \midrule
 AdaLN fusion & kernel/memory & 1.372$\times$ & bitwise-identical outputs\\
-INT8 weights (ComfyKitchen) & quantization & 1.881$\times$ & passed; single-run caveat\\
+INT8 kernel & quantization & 1.881$\times$ & passed; single-run caveat\\
 Compiler default & kernel & 0.970$\times$ & small changes\\
 Sol & sparse attention & 0.990$\times$ & near-neutral; correctness gate failed\\
 FFN token merge & token reduction & 0.993$\times$ & severe loss\\
@@ -56,7 +56,7 @@ SageAttention & kernel & 0.998$\times$ & looked fine at 4 clips\\
 \end{tabular}
 \end{table}
 
-A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37\% faster. The INT8 weight quantiser from the ComfyUI ecosystem \citep{comfyui} stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods \citep{bolya2023tome} and the higher-order solver \citep{hairer1993ode} destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. Cache-DiT \citep{cachedit} simply never fit in our memory budget.
+A few of these deserve a sentence each. AdaLN fusion precomputes small per-layer conditioning values once instead of recomputing them on every pass, and it was the cleanest win: the outputs were bit-for-bit identical to baseline while running 37\% faster. The INT8 weight-quantisation kernel stores the weights as 8-bit integers, halving the bytes that travel to the GPU, and it nearly doubled the speed. On the other side, both token-reduction methods \citep{bolya2023tome} and the higher-order solver \citep{hairer1993ode} destroyed quality, which is what you should expect once you understand the LightX2V box above: the model was distilled for one exact recipe, and these methods change the recipe. Cache-DiT \citep{cachedit} simply never fit in our memory budget.
 
 \begin{quote}
 \textbf{Box: What is Sol attention?} Sol \citep{li2026solattn} is a sparse-attention method. Attention normally compares every token with every other token, which is expensive at 37 thousand tokens \citep{dao2022flashattention}. Sol instead picks a small set of promising token pairs per head and only computes those, in our case about 13.5\% of all pairs, then adds a correction term for accuracy. Sparse attention is attractive on paper, but two things went wrong for us: the correction machinery cost more than the pairs it saved, and on real model inputs its numbers failed our correctness checks.
