@@ -28,7 +28,7 @@
         <mxCell id="tagAdaLN" value="AdaLN: precomputed conditioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="590" y="258" width="250" height="30" as="geometry"/>
         </mxCell>
-        <mxCell id="tagKitchen" value="INT8 via ComfyUI: half the bytes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+        <mxCell id="tagKitchen" value="INT8 kernel: half the bytes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="855" y="258" width="240" height="30" as="geometry"/>
         </mxCell>
 
